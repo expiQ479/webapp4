@@ -37,4 +37,4 @@ Se dispondrá de un gráfico que muestra la media de la nota de las reviews de c
 - Creación de usuario y login con Google, Facebook o Twitter
 ## Algoritmo o consulta avanzada
 - Se calcula el rendimiento medio del equipo en base a partidas ganadas y perdidas.
-- Se calcula la media de las review
+- Se calcula la media de las reviews
