@@ -20,21 +20,19 @@ https://trello.com/b/wcg6yyZU/daw-g4
 ## Entidades
 - Juegos
 - Usuarios 
-- Grupos 
-- Reviews
-- Noticias
+- Grupos
+- Posts(Engloba noticias, reviews, guias, etc.)
 ## Permisos de los usuarios
-- Los usuarios pueden subir juegos, poner notas de los juegos y formar grupos. 
-- Los administradores pueden moderar qué se sube a la plataforma además de los permisos de usuario estándar.
+- Los usuarios pueden poner notas de los juegos, formar grupos y pueden visualizar el contenido de la página. 
+- Los administradores pueden subir nuevo contenido a la plataforma.
 - Los usuarios no registrados solo pueden visualizar contenido.
 ## Imágenes
 - Los usuarios registrados podrán establecer una imagen de perfil.
 - Los juegos tendrán una portada en la que se incluye el nombre y la imagen.
 ## Gráficos
-Se dispondrá de un gráfico que muestra la media de la nota de las reviews de cada juego en el tiempo
+Se dispondrá de un gráfico que muestra la media de la nota de las reviews de cada juego en el tiempo.
 ## Tecnología complementaria 
 - Envío de correos a los usuarios.
-- Creación de usuario y login con Google, Facebook o Twitter
 ## Algoritmo o consulta avanzada
-- Se calcula el rendimiento medio del equipo en base a partidas ganadas y perdidas.
-- Se calcula la media de las reviews
+- Se calcula la media de las reviews.
+- Se creará una lista de recomendaciones para el usuario.
