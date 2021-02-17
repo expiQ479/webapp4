@@ -6,3 +6,20 @@
 body {
   padding-top: 56px;
 }
+
+h5{
+  overflow:hidden;
+  margin:10px;
+  border:2px dashed #ccc;
+}
+img.listImage{
+  float:left; 
+  margin-right:20px;
+  border-right:2px solid #000;
+}
+div.listElement{
+  background-color: red;
+}
+div.listElement:hover{
+  background-color: rgb(158, 0, 0);
+}
