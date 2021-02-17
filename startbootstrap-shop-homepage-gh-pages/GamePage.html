@@ -15,6 +15,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/shop-homepage.css" rel="stylesheet">
+  <link href="css/csschat.css" rel="stylesheet">
 
 </head>
 
@@ -23,18 +24,17 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a href="#"><image src="images/logo_4DGames.png" width="100" height="50"></image></a>
+      <a href="index.html"><image src="images/logo_4DGames.png" width="100" height="50"></image></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Juegos</a>
+            <a class="nav-link" href="GameList.html">Juegos</a>
           </li>
-          
           <li>
-            <a href="#"><image src="images/pepe.png" width="50" height="50" style="margin-left: 20px;"></image></a>
+            <a href="perfil.html"><image src="images/icono_user.png" width="50" height="50" style="margin-left: 20px;"></image></a>
           </li>
         </ul>
       </div>
@@ -44,9 +44,8 @@
   <!-- Page Content -->
   
     <div class="container">
-        <h1 class="my-4">NombreJuego</h1>
+      <h1 class="my-4">NombreJuego</h1>
         <div class="row">
-            
             <div class="col-lg-9">
                 <div class="row">    
                     <div class="col-lg-6">
@@ -101,16 +100,50 @@
             <!-- /.col-lg-9 -->
         
             <div class="col-lg-3">
-                <div class="row">
-                    <h1 class="my-4">Chat</h1>
-                        
-                         <!-- Aqui debe ir la caja del chat-->   
-                        
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="chat" placeholder="Escribe algo" aria-label="Chat">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Enviar</button>
-                    </form>
-                </div>
+                    <h1>Chat</h1>   
+                    <!-- Aqui debe ir la caja del chat-->   
+                    <div>
+                      <div class="main">
+                          <div class="px-2 scroll">
+                              <div class="d-flex align-items-center">
+                                  <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>
+                                  <div class="pr-2 pl-1"> <span class="name">Sarah Anderson</span>
+                                      <p class="msg">Hi Dr. Hendrikson, I haven't been falling well for past few days.</p>
+                                  </div>
+                              </div>
+                              <div class="d-flex align-items-center text-right justify-content-end ">
+                                  <div class="pr-2"> <span class="name">Dr. Hendrikson</span>
+                                      <p class="msg">Let's jump on a video call</p>
+                                  </div>
+                                  <div><img src="https://i.imgur.com/HpF4BFG.jpg" width="30" class="img1" /></div>
+                              </div>
+                              <div class="text-center"><span class="between">Call started at 10:47am</span></div>
+                              <div class="text-center"><span class="between">Call ended at 11:03am</span></div>
+                              <div class="d-flex align-items-center">
+                                  <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>
+                                  <div class="pr-2 pl-1"> <span class="name">Sarah Anderson</span>
+                                      <p class="msg">How often should i take this?</p>
+                                  </div>
+                              </div>
+                              <div class="d-flex align-items-center text-right justify-content-end ">
+                                  <div class="pr-2"> <span class="name">Dr. Hendrikson</span>
+                                      <p class="msg">Twice a day, at breakfast and before bed</p>
+                                  </div>
+                                  <div><img src="https://i.imgur.com/HpF4BFG.jpg" width="30" class="img1" /></div>
+                              </div>
+                              <div class="d-flex align-items-center">
+                                  <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>
+                                  <div class="pr-2 pl-1"> <span class="name">Sarah Anderson</span>
+                                      <p class="msg">How often should i take this?</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <form class="form-inline my-2 my-lg-0" style="padding: 20px">
+                            <input class="form-control mr-sm-2" type="chat" placeholder="Escribe algo" aria-label="Chat">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Enviar</button>
+                        </form>
+                      </div>
+                  </div>
         
             </div>
             <!-- /.col-lg-3 -->
@@ -127,13 +160,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Guía</a>
+                    <a class="nav-link" href="expandedPost.html" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Guía</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Noticias</a>
+                    <a class="nav-link" href="expandedPost.html" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Noticias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Actualizaciones</a>
+                    <a class="nav-link" href="expandedPost.html" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Actualizaciones</a>
                 </li>
                 
                 <li class="nav-item">
