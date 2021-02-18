@@ -10,17 +10,62 @@ body {
 h5{
   overflow:hidden;
   margin:10px;
-  border:2px dashed #ccc;
+  color:black;
 }
 img.listImage{
-  float:left; 
+  float:left;   
   margin-right:20px;
   border-right:2px solid #000;
+  padding: 5px;
 }
 div.listElement{
-  background-color: red;
+  background-color: white;
 }
 div.listElement:hover{
-  background-color: rgb(158, 0, 0);
+  background-color: white;
+}
+div.listElement:active {     
+  background-color:yellow
+}
+div.img.listImage:active {     
+  background-color:yellow
+}
+
+.listText{
+  color:black;
+}
+.btn{
+  background-color: 343a40; 
+  border-radius: 5px; 
+  margin: 2px; color: white;
+}
+.btn2{
+  background-color: #28a745; 
+  border-radius: 5px; 
+  margin: 2px; color: white;
+}
+.btnenviar{
+  background-color: #28a745; 
+  border-radius: 5px; 
+  margin: 2px; color: white;
+}
+.navbar2{
+  margin-bottom: 0;
+  border-radius: 0;
+}
+::-webkit-scrollbar {
+  width: 10px
+}
+
+::-webkit-scrollbar-track {
+  background: #eee
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555
 }
 
