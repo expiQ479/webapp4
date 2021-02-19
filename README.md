@@ -80,5 +80,5 @@ Register page. You must introduce an ID, email, password and a confirmation.
 ![](Capturas%204DGames/Suscripciones.png)
 Subscription list, accesible from the profile page. It shows a list with an image, title, description, genre and the option to unsubscribe.
 
-##Navegation Diagram
+## Navegation Diagram
 ![](Navegaciones%204DGames.png)
