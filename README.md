@@ -20,7 +20,7 @@ https://trello.com/b/wcg6yyZU/daw-g4
 ## Entidades
 - Juegos
 - Usuarios 
-- Grupos
+- Chat
 - Posts(Engloba noticias, reviews, guias, etc.)
 ## Permisos de los usuarios
 - Los usuarios pueden poner notas de los juegos, formar grupos y pueden visualizar el contenido de la página. 
