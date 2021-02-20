@@ -37,7 +37,7 @@ https://trello.com/b/wcg6yyZU/daw-g4
 ## Algorithms and advanced enquery
 - An algorithm will determine which games should be recommended to the users. These will appear in a widget on some of the pages.
 
-## Phase 1
+# Phase 1
 ![](Capturas%204DGames/Home.png)
 Homepage of our website (Logged in version). Includes an image caroussel of games, multiple posts below (randomized every time), and a recommended games tab on the right.
 
