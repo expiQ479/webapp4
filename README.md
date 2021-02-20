@@ -20,7 +20,7 @@ https://trello.com/b/wcg6yyZU/daw-g4
 ## Entidades
 - Juegos
 - Usuarios 
-- Chat
+- Chat(que es una caja de comentarios que funciona como chat general en cada uno de los juegos)
 - Posts(Engloba noticias, reviews, guias, etc.)
 ## Permisos de los usuarios
 - Los usuarios pueden poner notas de los juegos, formar grupos y pueden visualizar el contenido de la página. 
