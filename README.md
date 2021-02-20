@@ -1,13 +1,14 @@
 # webapp4
-# Fase 0
+# Phase 0
 
-## Nombre de la web
+## Web name
 4DGames
 
-## Descripción
-Aplicación web de videojuegos donde los usuarios al registrarse pueden subscribirse a distintos juegos (los cuales son de varios géneros y tipos), y se les indicarán las actualizaciones, noticias y reviews con la media de nota. Depende del tipo de juego además se permite subir distintos tipos de posts u organizar grupos de juego. Por ejemplo, un juego multijugador competitivo permitirá que sus suscriptores creen grupos para jugar en equipo.
+## Description
+Videogames web application where users, when registered, can subscribe to different games (all are sorted by genre), and they will be notified of any news, updates and reviews.
+There's also a live chat for people to create play groups or ask questions and recieve answers from other users.
 ## Equipo de desarrollo 
-| Nombre | Email | Usuario Github |
+| Name | Email | Github User |
 | -- | -- | -- |
 | Eduardo Sierra Martin       | e.sierram.2018@alumnos.urjc.es  | eduardosoy    |
 | Enrique Carmona Blazquez    | e.carmonab.2018@alumnos.urjc.es | expiQ479      |
@@ -17,27 +18,26 @@ Aplicación web de videojuegos donde los usuarios al registrarse pueden subscrib
 
 https://trello.com/b/wcg6yyZU/daw-g4
 
-## Entidades
-- Juegos
-- Usuarios 
-- Chat(que es una caja de comentarios que funciona como chat general en cada uno de los juegos)
-- Posts(Engloba noticias, reviews, guias, etc.)
-## Permisos de los usuarios
-- Los usuarios pueden poner notas de los juegos, formar grupos y pueden visualizar el contenido de la página. 
-- Los administradores pueden subir nuevo contenido a la plataforma.
-- Los usuarios no registrados solo pueden visualizar contenido.
-## Imágenes
-- Los usuarios registrados podrán establecer una imagen de perfil.
-- Los juegos tendrán una portada en la que se incluye el nombre y la imagen.
-## Gráficos
-Se dispondrá de un gráfico que muestra la media de la nota de las reviews de cada juego en el tiempo.
-## Tecnología complementaria 
-- Envío de correos a los usuarios.
-## Algoritmo o consulta avanzada
-- Se calcula la media de las reviews.
-- Se creará una lista de recomendaciones para el usuario.
+## Entities
+- Games
+- Users 
+- Chat
+- Posts(News, reviews...)
+## User permissions
+- Any type of user can view the content, even if they are not registered.
+- Registered users can review games (give a 1-5 score), chat and subscribe to games.
+- Administrators can upload content and have regular permissions (registered user).
+## Images
+- Registered users can set a profile picture
+- Games include a front picture and a caroussel in their specific page.
+## Graphs
+- The average review score will display in a graph.
+## Third party services
+- Notify users by email.
+## Algorithms and advanced enquery
+- An algorithm will determine which games should be recommended to the users. These will appear in a widget on some of the pages.
 
-## Fase 1
+## Phase 1
 ![](Capturas%204DGames/Home.png)
 Homepage of our website (Logged in version). Includes an image caroussel of games, multiple posts below (randomized every time), and a recommended games tab on the right.
 
