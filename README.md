@@ -37,7 +37,7 @@ Se dispondrá de un gráfico que muestra la media de la nota de las reviews de c
 - Se calcula la media de las reviews.
 - Se creará una lista de recomendaciones para el usuario.
 
-## Capturas
+## Fase 1
 ![](Capturas%204DGames/Home.png)
 Homepage of our website (Logged in version). Includes an image caroussel of games, multiple posts below (randomized every time), and a recommended games tab on the right.
 
