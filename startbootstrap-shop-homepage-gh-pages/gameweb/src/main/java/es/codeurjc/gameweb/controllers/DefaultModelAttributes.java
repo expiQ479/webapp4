@@ -8,6 +8,7 @@ public class DefaultModelAttributes {
     public String namepage() {
         return "4DGames"; //nombre de la pagina web
     }
+
     @ModelAttribute("logged") 
     public boolean logged() {
         return false; 
@@ -18,4 +19,8 @@ public class DefaultModelAttributes {
         return "Kike"; 
     }
 
+    @ModelAttribute("contraseña") 
+    public String contraseña() {
+        return "12345"; 
+    }
 }
