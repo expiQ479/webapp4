@@ -4,11 +4,12 @@
     <div class="container">
       <h1 class="my-4">{{name}}</h1>
         <div class="row">
+            {{#logged}}
             <div class="col-lg-4">
                 <img src="/images/dead_by_daylight-375X525.jpg" width="375" height="525">
                 <img src="/images/3 estrellas.jpg" width="200" height="50">
             </div>
-
+            <!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 
                 <div class="container" style="margin: 10px;">
@@ -24,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <!-- /.col-lg-9 -->
+            <!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <p></p>
                     <!-- Aqui debe ir la caja del chat-->   
@@ -71,7 +72,31 @@
                       </div>
                   </div>
             </div>
-            <!-- /.col-lg-3 -->
+            <!-- /.col-lg-4 -->
+            {{/logged}}
+            {{^logged}}
+            <div class="col-lg-6">
+                <img src="/images/dead_by_daylight-375X525.jpg" width="375" height="525">
+                <img src="/images/3 estrellas.jpg" width="200" height="50">
+              </div>
+              <!-- /.col-lg-6 -->
+              <div class="col-lg-6">
+                  
+                  <div class="container" style="margin: 10px;">
+                      <div class="card h-100">
+                      
+                      <div class="card-body">
+                          <h4 class="card-title">
+                          <p>Descripción.</p>
+                          </h4>
+                          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+                      </div>
+                      
+                      </div>
+                  </div>
+              </div>
+              <!-- /.col-lg-6 -->
+              {{/logged}}
         </div>
         <!-- /.row -->  
         <div class="row">
@@ -92,13 +117,14 @@
                     <li class="nav-item">
                         <a href="listPosts.html" class="btn" role="button">Actualizaciones</a>
                     </li>
-                    
+                    {{#logged}}
                     <li class="nav-item">
                         <a href="#" class="btn btn2" role="button">Suscribirme</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="btn btn2" role="button">Valorar</a>
                     </li>
+                    {{/logged}}
                     </ul>
                     
                 </div>
