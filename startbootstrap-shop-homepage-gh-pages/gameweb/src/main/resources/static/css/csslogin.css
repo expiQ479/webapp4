@@ -1,21 +1,6 @@
-body{
-    font-family: 'Lato', sans-serif;
-	position: relative;
-	background: #b6b6b6;
-	margin: 0px;
-}
-.main{
-	
+.main-section{
 	padding-top: 120px;
 	padding-bottom: 120px;
-
-}
-.main-section{
-	width: 460px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 }
 .content-section{
 	background: #FFF;
@@ -23,22 +8,24 @@ body{
 	box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1);
 }
 .head-section{
-	background: #F3F3F3;
+	background: #eb0a0a;
 	text-align: center;
 	padding: 15px 0px;
 	border-bottom: 1px solid #CECECE;
 }
 .head-section h3{
 	margin: 0px;
-	color: #565656;
+	color: #ffffff;
 }
 .body-section{
 	padding:15px 30px 30px 30px;
 	overflow: hidden;
+	background: #413535;
 }
 .body-section .form-input{
 	width: 100%;
 	padding: 15px 0px;
+	
 }
 .body-section .form-input input[type='text']{
 	width: calc(100% - 30px);
@@ -46,6 +33,7 @@ body{
 	border-radius: 1px;
 	padding:10px 10px;
 	box-shadow: 0px 0px 0px 5px rgb(239,244,247);
+	
 }
 .body-section .form-input input[type='password']{
 	width: calc(100% - 30px);
@@ -53,6 +41,7 @@ body{
 	border-radius: 1px;
 	padding:10px 10px;
 	box-shadow: 0px 0px 0px 5px rgb(239,244,247);
+	
 }
 .body-section .form-input input[type='checkbox']{
 	float: left;
