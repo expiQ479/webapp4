@@ -5,7 +5,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 @Component
 @SessionScope
-public class User {
+public abstract class User {
     private String info;
     private String contraseña;
     private boolean logged = true;
