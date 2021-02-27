@@ -7,11 +7,11 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public abstract class User {
     private String info;
-    private String contraseña;
+    private String password;
     private boolean logged = true;
-    public User(String info, String contraseña) {
+    public User(String info, String password) {
         this.info = info;
-        this.contraseña = contraseña;
+        this.password = password;
     }
     public void setInfo(String info) {
         this.info = info;
@@ -29,12 +29,12 @@ public abstract class User {
         this.logged = logged;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String contraseña) {
+        this.password = contraseña;
     }
 
 }

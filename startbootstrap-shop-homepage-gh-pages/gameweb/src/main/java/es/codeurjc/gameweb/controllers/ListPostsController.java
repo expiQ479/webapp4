@@ -9,9 +9,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ListPostsController {
     @Autowired
     private CommonFunctions commonFunctions;
-    @GetMapping("/listPosts")
-    public String greeting(Model model) {
-        commonFunctions.getSession(model);
-        return "listPosts";
-    }
+    
 }
