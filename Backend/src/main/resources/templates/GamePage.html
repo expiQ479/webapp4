@@ -1,0 +1,134 @@
+{{>header}}
+  <!-- Page Content -->
+    <div class="container">
+      <h1 class="my-4">{{name}}</h1>
+        <div class="row">
+            {{#logged}}
+            <div class="col-lg-4">
+                <img src="/images/dead_by_daylight-375X525.jpg" width="375" height="525">
+                <img src="/images/3 estrellas.jpg" width="200" height="50">
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                
+                <div class="container" style="margin: 10px;">
+                    <div class="card h-100">
+                    
+                    <div class="card-body">
+                        <h4 class="card-title">
+                        <p>Descripción.</p>
+                        </h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <p></p>
+                    <!-- Aqui debe ir la caja del chat-->   
+                    <div>
+                      <div class="main">
+                          <div class="px-2 scroll">
+                              <div class="d-flex align-items-center">
+                                  <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>
+                                  <div class="pr-2 pl-1"> <span class="name">Sarah Anderson</span>
+                                      <p class="msg">Hi Dr. Hendrikson, I haven't been falling well for past few days.</p>
+                                  </div>
+                              </div>
+                              <div class="d-flex align-items-center text-right justify-content-end ">
+                                  <div class="pr-2"> <span class="name">Dr. Hendrikson</span>
+                                      <p class="msg">Let's jump on a video call</p>
+                                  </div>
+                                  <div><img src="https://i.imgur.com/HpF4BFG.jpg" width="30" class="img1" /></div>
+                              </div>
+                              <div class="text-center"><span class="between">Call started at 10:47am</span></div>
+                              <div class="text-center"><span class="between">Call ended at 11:03am</span></div>
+                              <div class="d-flex align-items-center">
+                                  <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>
+                                  <div class="pr-2 pl-1"> <span class="name">Sarah Anderson</span>
+                                      <p class="msg">How often should i take this?</p>
+                                  </div>
+                              </div>
+                              <div class="d-flex align-items-center text-right justify-content-end ">
+                                  <div class="pr-2"> <span class="name">Dr. Hendrikson</span>
+                                      <p class="msg">Twice a day, at breakfast and before bed</p>
+                                  </div>
+                                  <div><img src="https://i.imgur.com/HpF4BFG.jpg" width="30" class="img1" /></div>
+                              </div>
+                              <div class="d-flex align-items-center">
+                                  <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png" width="30" class="img1" /></div>
+                                  <div class="pr-2 pl-1"> <span class="name">Sarah Anderson</span>
+                                      <p class="msg">How often should i take this?</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <form class="form-inline my-2 my-lg-0" style="padding: 20px">
+                            <input class="form-control mr-sm-2" type="chat" placeholder="Escribe algo" aria-label="Chat">
+                            <button class="btn btnenviar my-2 my-sm-0" type="submit">Enviar</button>
+                        </form>
+                      </div>
+                  </div>
+            </div>
+            <!-- /.col-lg-4 -->
+            {{/logged}}
+            {{^logged}}
+            <div class="col-lg-6">
+                <img src="/images/dead_by_daylight-375X525.jpg" width="375" height="525">
+                <img src="/images/3 estrellas.jpg" width="200" height="50">
+              </div>
+              <!-- /.col-lg-6 -->
+              <div class="col-lg-6">
+                  
+                  <div class="container" style="margin: 10px;">
+                      <div class="card h-100">
+                      
+                      <div class="card-body">
+                          <h4 class="card-title">
+                          <p>Descripción.</p>
+                          </h4>
+                          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.</p>
+                      </div>
+                      
+                      </div>
+                  </div>
+              </div>
+              <!-- /.col-lg-6 -->
+              {{/logged}}
+        </div>
+        <!-- /.row -->  
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark"style="margin: 10px; width:100%; ">
+            
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="/listPosts" class="btn" role="button">Guía</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/listPosts" class="btn" role="button">Noticias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/listPosts" class="btn" role="button">Actualizaciones</a>
+                    </li>
+                    {{#logged}}
+                    <li class="nav-item">
+                        <a href="#" class="btn btn2" role="button">Suscribirme</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn2" role="button">Valorar</a>
+                    </li>
+                    {{/logged}}
+                    </ul>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+  <!-- /.container -->
+  {{>footer}}
