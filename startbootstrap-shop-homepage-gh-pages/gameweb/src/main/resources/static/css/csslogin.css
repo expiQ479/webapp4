@@ -20,7 +20,7 @@
 .body-section{
 	padding:15px 30px 30px 30px;
 	overflow: hidden;
-	background: #413535;
+	background: #495057;		
 }
 .body-section .form-input{
 	width: 100%;
@@ -48,6 +48,7 @@
 }
 .body-section label{
 	color: #565656;
+
 	padding: 1px 5px;
 	float: left;
 }
