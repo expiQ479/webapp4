@@ -10,6 +10,7 @@ public class CommonFunctions{
     private RegularUser u = new RegularUser("Kike","12345");
     public Model getSession(Model model){
         model.addAttribute("logged",u.isLogged());
+        model.addAttribute("admin",u.isAdmin());
         return model;
     }
 
