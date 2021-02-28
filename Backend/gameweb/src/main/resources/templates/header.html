@@ -31,6 +31,11 @@
             <a href="/Juegos" class="btn" role="button">Juegos</a>
           </li>
           {{#logged}}
+          {{#admin}}
+          <li class="nav-item">
+            <a href="/adminUpdates" class="btn" role="button">Editar Juegos </a>
+          </li>
+          {{/admin}}
           <li class="nav-item">
               <a href="/Profile/{{info}}"><image src="/images/icono_user.png" width="50" height="50" style="margin-left: 20px;"></image></a>
           </li>

@@ -21,9 +21,19 @@ public class NavigationController{
         commonFunctions.getSession(model);
         return "expandedPost";
     }
+    @GetMapping("/adminUpdates")
+    public String showAdminGamesPage(Model model) {
+        commonFunctions.getSession(model);
+        return "adminUpdates";
+    }
     @GetMapping("/RegisterPage") 
         public String showRegister() {
         return "RegisterPage";
+    }
+    @GetMapping("/addGame")
+    public String addGame(Model model) {
+        commonFunctions.getSession(model);
+        return "newGame";
     }
     @RequestMapping("/GamePage/{name}") 
     public String showGame(Model model, @PathVariable String name) {

@@ -9,6 +9,7 @@ public abstract class User {
     private String info;
     private String password;
     private boolean logged = true;
+    private boolean admin = true;
     public User(String info, String password) {
         this.info = info;
         this.password = password;
@@ -23,6 +24,9 @@ public abstract class User {
 
     public boolean isLogged() {
         return logged;
+    }
+    public boolean isAdmin() {
+        return admin;
     }
 
     public void setLogged(boolean logged) {
