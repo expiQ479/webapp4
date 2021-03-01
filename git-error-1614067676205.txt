@@ -1,0 +1,8 @@
+> git pull --tags upstream main
+From https://github.com/CodeURJC-DAW-2020-21/webapp4
+ * branch            main       -> FETCH_HEAD
+   bc5ea5f..f0039aa  main       -> upstream/main
+error: Your local changes to the following files would be overwritten by merge:
+	startbootstrap-shop-homepage-gh-pages/gameweb/src/main/resources/templates/index.html
+Please commit your changes or stash them before you merge.
+Aborting

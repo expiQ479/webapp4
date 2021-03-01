@@ -1,0 +1,25 @@
+{{>header}}
+  <!-- Page Content -->
+  <div class="container">
+    <h1 class="my-4">{{name}}: lista posts</h1> 
+    <div class="row">        
+      {{#lista}}
+      <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
+        <a href="/expandedPost/{{title}}"><img class="listImage" src="/images/sample1.jpg" width="384" height="216"></a>
+        <h5>{{title}}</h5>
+        <p class=listText>{{prevText}}</p>
+      </div>
+      {{/lista}}
+    </div>
+    <div class="row"> 
+      <div class="col-lg-12 col-md-12 mb-12" style="align-items: center;">
+        <div class="card-body">
+          <div class="card h-100">
+              <button class="btn btn-info">Mostrar Más</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+  {{>footer}}

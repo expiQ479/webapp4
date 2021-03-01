@@ -1,0 +1,58 @@
+{{>header}}
+  <!-- Page Content -->
+  <div class="container" style="padding-bottom: 500px">
+
+    <div class="row">
+        <div class="col-lg-4" style="text-align: center;">
+          <form action="/upload_image" method="post" enctype="multipart/form-data">
+            <img src="/download_image" width="350" height="350" style="padding-top: 20px; margin-top: 10px;">
+            <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
+            <input type='submit' value='Save'/>
+          </form>
+        </div>
+
+        <div class="col-lg-5">
+          <h1 class="my-4">Datos Usuario</h1>
+          <div>
+            <ul>
+              <li>
+                Nombre de usuario: <span class="nombre_usuario">{{name}}</span>
+              </li>
+              <li>
+                Contraseña: <span class="contraseña">{{password}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3">
+
+          <h1 class="my-4">Settings</h1>
+          <div id="myDropdown" class="dropdown-content">
+            <form action="/Profile/{{info}}" method="post">
+              <input type="text" placeholder="Cambiar Nombre.." name="name">
+              <input type="submit" value="Save">
+            </form>
+          </div>
+          <p></p>
+          <div id="myDropdown" class="dropdown-content">
+              <form action="/CambiarContraseña" method="post">
+                <input type="text" placeholder="Cambiar Contraseña.." name="password">
+                <input type="submit" value="Save">
+              </form>
+          </div>
+          <p></p>
+          <div style="margin: 20px">
+            <a href="/Profile/{{info}}/Suscripciones">Suscripciones</a>
+          </div>
+          <div style="margin: 20px">
+            <a href="/Sesion+Cerrada">Cerrar Sesion</a>
+          </div>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+</div>
+{{>footer}}
