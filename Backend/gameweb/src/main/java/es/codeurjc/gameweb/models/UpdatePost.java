@@ -3,7 +3,6 @@ package es.codeurjc.gameweb.models;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 
 public class UpdatePost extends Post {
     public String prevText;
