@@ -1,0 +1,71 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template/shop-homepage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+
+h5{
+  overflow:hidden;
+  margin:10px;
+  color:black;
+}
+img.listImage{
+  float:left;   
+  margin-right:20px;
+  border-right:2px solid #000;
+  padding: 5px;
+}
+div.listElement{
+  background-color: white;
+}
+div.listElement:hover{
+  background-color: white;
+}
+div.listElement:active {     
+  background-color:yellow
+}
+div.img.listImage:active {     
+  background-color:yellow
+}
+
+.listText{
+  color:black;
+}
+.btn{
+  background-color: 343a40; 
+  border-radius: 5px; 
+  margin: 2px; color: white;
+}
+.btn2{
+  background-color: #28a745; 
+  border-radius: 5px; 
+  margin: 2px; color: white;
+}
+.btnenviar{
+  background-color: #28a745; 
+  border-radius: 5px; 
+  margin: 2px; color: white;
+}
+.navbar2{
+  margin-bottom: 0;
+  border-radius: 0;
+}
+::-webkit-scrollbar {
+  width: 10px
+}
+
+::-webkit-scrollbar-track {
+  background: #eee
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555
+}
+
