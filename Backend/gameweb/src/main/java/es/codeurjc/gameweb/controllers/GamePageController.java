@@ -17,10 +17,11 @@ public class GamePageController {
     @RequestMapping("/GamePage/{name}/subButton")
     public String subButton(@PathVariable String name){    
         ArrayList<Game> someGames=new ArrayList<Game>();
-        someGames.add(new Game(name, null, null));
+        someGames.add(new Game(name, null, Genres.Action));
         commonFunctions.getU().setMyGames(someGames);
         for(int i=0;i<someGames.size();i++){
             System.out.println(commonFunctions.getU().getMyGames().get(i).gameTitle);
+            System.out.println(commonFunctions.getU().getMyGames().get(i).gameGenre.name());
         }  
         return "Suscripciones";  
     }   
