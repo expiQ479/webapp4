@@ -7,7 +7,7 @@ public class NewsPost extends Post {
     public NewsPost(String title, Date creationDate, Date updateDate, Game fromGame, Administrator author) {
         super(title, creationDate, updateDate, fromGame);
         this.author=author;
-        // TODO Auto-generated constructor stub
+
     }
     
 }

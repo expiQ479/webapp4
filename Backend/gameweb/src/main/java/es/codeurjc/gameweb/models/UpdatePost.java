@@ -2,8 +2,6 @@ package es.codeurjc.gameweb.models;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
-
 public class UpdatePost extends Post {
     public String prevText;
     public ArrayList<String> listOfUpdates;

@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import es.codeurjc.gameweb.models.*;
+import es.codeurjc.gameweb.services.GamePostService;
 
 @Controller
 public class NavigationController{
     @Autowired
     private CommonFunctions commonFunctions;
+    @Autowired
+	private GamePostService gamePostService;
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
@@ -21,8 +24,10 @@ public class NavigationController{
     @GetMapping("/adminUpdates")
     public String showAdminGamesPage(Model model) {
         commonFunctions.getSession(model);
-        return "adminUpdates";
-    }
+        model.addAttribute("games", gamePostService.findAll());
+
+		return "adminUpdates";
+	}
     @GetMapping("/RegisterPage") 
         public String showRegister() {
         return "RegisterPage";
