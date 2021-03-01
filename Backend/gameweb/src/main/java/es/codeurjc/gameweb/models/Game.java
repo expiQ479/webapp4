@@ -16,6 +16,11 @@ public class Game {
     public ArrayList<Integer> listScores;
     public Genres gameGenre;
     //imagenes
-    
+
+    public Game(String gameTitle,ArrayList<Integer> listScores, Genres gameGenre){
+        this.gameGenre=gameGenre;
+        this.gameTitle=gameTitle;
+        this.listScores=listScores;
+    }
     
 }
