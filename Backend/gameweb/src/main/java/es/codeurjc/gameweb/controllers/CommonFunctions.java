@@ -13,10 +13,7 @@ public class CommonFunctions{
     
     private RegularUser u = new RegularUser("Kike","12345",null);
     public Model getSession(Model model){
-        ArrayList<Game> someGames=new ArrayList<Game>();
-        someGames.add(new Game("Nuclear throne", null, null));
-        someGames.add(new Game("Pathologic", null, null));
-        u.setMyGames(someGames);
+        
         model.addAttribute("logged",u.isLogged());
         model.addAttribute("logged",u.isAdmin());
 
