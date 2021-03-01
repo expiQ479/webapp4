@@ -1,6 +1,6 @@
 package es.codeurjc.gameweb.models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Game {
     enum Genres{
@@ -13,9 +13,13 @@ public class Game {
         Narrative
     }
     public String gameTitle;
-    public List<Integer> listScores;
+    public ArrayList<Integer> listScores;
     public Genres gameGenre;
     //imagenes
-    
+    public Game(String gameTitle,ArrayList<Integer> listScores, Genres gameGenre){
+        this.gameGenre=gameGenre;
+        this.gameTitle=gameTitle;
+        this.listScores=listScores;
+    }
     
 }
