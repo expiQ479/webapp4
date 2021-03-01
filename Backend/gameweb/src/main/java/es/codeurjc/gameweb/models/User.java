@@ -1,5 +1,7 @@
 package es.codeurjc.gameweb.models;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -9,10 +11,11 @@ public abstract class User {
     private String info;
     private String password;
     private boolean logged = true;
-    private boolean admin = true;
-    public User(String info, String password) {
+    private ArrayList<Game> myGames;
+    public User(String info, String password, ArrayList<Game> myGames) {
         this.info = info;
         this.password = password;
+        this.myGames=myGames;
     }
     public void setInfo(String info) {
         this.info = info;
@@ -25,10 +28,12 @@ public abstract class User {
     public boolean isLogged() {
         return logged;
     }
-    public boolean isAdmin() {
-        return admin;
+    public ArrayList<Game> getMyGames(){
+        return this.myGames;
     }
-
+    public void setMyGames(ArrayList<Game> myGames){
+        this.myGames=myGames;
+    }
     public void setLogged(boolean logged) {
         this.logged = logged;
     }
