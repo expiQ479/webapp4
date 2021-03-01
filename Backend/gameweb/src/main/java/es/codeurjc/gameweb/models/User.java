@@ -11,6 +11,7 @@ public abstract class User {
     private String info;
     private String password;
     private boolean logged = true;
+    private boolean admin = true;
     private ArrayList<Game> myGames;
     public User(String info, String password, ArrayList<Game> myGames) {
         this.info = info;
@@ -19,6 +20,10 @@ public abstract class User {
     }
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 
     public String getInfo() {

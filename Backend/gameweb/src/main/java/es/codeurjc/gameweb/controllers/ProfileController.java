@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class ProfileController {
+    
     private static final Path IMAGES_FOLDER = null;
     @Autowired
     private CommonFunctions commonFunctions;
