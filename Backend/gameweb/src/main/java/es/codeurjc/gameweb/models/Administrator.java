@@ -1,9 +1,11 @@
 package es.codeurjc.gameweb.models;
 
-public class Administrator extends User{
+import java.util.ArrayList;
 
-    public Administrator(String info, String contraseña) {
-        super(info, contraseña);
+public class Administrator extends User {
+
+    public Administrator(String info, String contraseña,ArrayList<Game> myGames) {
+        super(info, contraseña,myGames);
     }
     
 }
