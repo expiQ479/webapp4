@@ -11,8 +11,10 @@ public abstract class User {
     private String info;
     private String password;
     private boolean logged = true;
+    private boolean admin = true;
     private ArrayList<Game> myGames;
-    public User(String info, String password, ArrayList<Game> myGames) {
+    public User(String info, String password, ArrayList<Game> myGames, boolean admin) {
+        this.admin = admin;
         this.info = info;
         this.password = password;
         this.myGames=myGames;
@@ -28,6 +30,11 @@ public abstract class User {
     public boolean isLogged() {
         return logged;
     }
+
+    public boolean isAdmin(){
+        return admin;
+    }
+
     public ArrayList<Game> getMyGames(){
         return this.myGames;
     }

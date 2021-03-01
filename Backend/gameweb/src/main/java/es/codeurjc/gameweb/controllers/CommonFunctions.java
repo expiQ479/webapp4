@@ -19,12 +19,7 @@ public class CommonFunctions{
         someGames.add(new Game("Pathologic", null, null));
         u.setMyGames(someGames);
         model.addAttribute("logged",u.isLogged());
-        if(u.getClass().equals(Administrator.class)){
-            model.addAttribute("admin",true);
-        }
-        else{
-            model.addAttribute("admin",false);
-        }
+        model.addAttribute("admin", u.isAdmin());
 
         return model;
     
