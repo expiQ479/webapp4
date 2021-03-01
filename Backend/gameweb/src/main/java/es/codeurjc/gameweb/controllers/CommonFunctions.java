@@ -8,7 +8,7 @@ import es.codeurjc.gameweb.models.*;
 
 @Component
 public class CommonFunctions{
-    private RegularUser u = new RegularUser("Kike","12345");
+    private RegularUser u = new RegularUser("Kike","12345",null);
     public Model getSession(Model model){
         model.addAttribute("logged",u.isLogged());
         if(u.getClass().equals(Administrator.class)){
