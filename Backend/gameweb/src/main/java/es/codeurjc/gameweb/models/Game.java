@@ -3,24 +3,57 @@ package es.codeurjc.gameweb.models;
 import java.util.ArrayList;
 
 public class Game {
-    enum Genres{
-        Horror,
-        Shooter,
-        Action,
-        Platformer,
-        Sports,
-        Puzzles,
-        Narrative
-    }
-    public String gameTitle;
-    public ArrayList<Integer> listScores;
-    public Genres gameGenre;
-    //imagenes
+    private String gameTitle;
 
-    public Game(String gameTitle,ArrayList<Integer> listScores, Genres gameGenre){
-        this.gameGenre=gameGenre;
-        this.gameTitle=gameTitle;
-        this.listScores=listScores;
+    private String genre;
+    private ArrayList<Integer> listScores;
+    private String description;
+    private Long id;
+    public Game(String gameTitle, String genre, String description) {
+        this.gameTitle = gameTitle;
+        this.genre = genre;
+        this.description = description;
+    }
+    // images
+
+    public String getGameTitle() {
+        return gameTitle;
+    }
+
+    public void setGameTitle(String gameTitle) {
+        this.gameTitle = gameTitle;
+    }
+
+    public ArrayList<Integer> getListScores() {
+        return listScores;
+    }
+
+    public void setListScores(ArrayList<Integer> listScores) {
+        this.listScores = listScores;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+
 }
