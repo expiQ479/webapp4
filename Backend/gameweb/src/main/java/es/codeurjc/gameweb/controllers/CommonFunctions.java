@@ -2,7 +2,6 @@ package es.codeurjc.gameweb.controllers;
 
 import java.util.ArrayList;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
