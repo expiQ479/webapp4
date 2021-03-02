@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
 
@@ -27,7 +29,7 @@ public class GamePostsController {
 	private static final String IMAGES = "images";
 
 	@PostMapping("adminUpdates/GameAdded")
-	public String newPost(Model model, Game game, MultipartFile image) throws IOException {
+	public String newPost(Model model, Game game, MultipartFile image, @RequestParam Genres genre) throws IOException {
         commonFunctions.getSession(model);
 		gamePostService.save(game);
 		imagePostService.saveImage(IMAGES, game.getId(), image);	
