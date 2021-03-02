@@ -10,6 +10,7 @@ public class Game {
     private float averageScore;
     private String description;
     private Long id;
+
     public Game(String gameTitle, Genres genre, String description) {
         this.gameTitle = gameTitle;
         this.genre = genre;

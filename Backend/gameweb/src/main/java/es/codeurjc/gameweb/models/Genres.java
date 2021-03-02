@@ -7,5 +7,6 @@ public enum Genres{
     Platformer,
     Sports,
     Puzzles,
-    Narrative
+    Narrative,
+    RPG
 }

@@ -1,6 +1,12 @@
 package es.codeurjc.gameweb.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class LoginController {
@@ -12,13 +18,12 @@ public class LoginController {
     private CommonFunctions commonFunctions;
 
     @PostMapping("/Iniciar sesion")
-	public String newPost(Model model, User user) {
+	public String newPost(Model model, User user,Long id) {
         if(userService.equals(user)){
             commonFunctions.setU(userService.findById(id));
-            commonFunction.getU().setLogged(true);
+            commonFunctions.getU().setLogged(true);
         }
         commonFunctions.getSession(model);
-		gamePostService.save(game);
 		return "index";
 	}
 

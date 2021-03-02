@@ -1,5 +1,6 @@
 package es.codeurjc.gameweb.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -8,21 +9,19 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.models.Genres;
+import es.codeurjc.gameweb.models.User;
 
 @Service
 public class UserService{
 
-    private ConcurrentMap<Long, User> user = new ConcurrentMap();
+    private ConcurrentMap<Long, User> user = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
     public UserService(){
-        ArrayList<Integer> valoraciones = new ArrayList<>();
-        valoraciones.add(10);
-        valoraciones.add(9);
-        valoraciones.add(8);
         ArrayList<Game> suscripciones = new ArrayList<>();
-        suscripciones.add(new Game("Stardew valley", valoraciones, "RPG"));
-        suscripciones.add("Skyrim", valoraciones, "RPG");
+        suscripciones.add(new Game("Stardew valley", Genres.RPG, "Juego entretenido de una granja"));
+        suscripciones.add(new Game("Skyrim", Genres.RPG, "Juego RPG clasico"));
         save(new User("Kike", "12345", suscripciones, true));
         save(new User("Pepe", "54321", suscripciones, false));
     }
@@ -37,7 +36,9 @@ public class UserService{
 
 	public void save(User u) {
 		long id = nextId.getAndIncrement();
+
 		u.setId(id);
+
 		this.user.put(id, u);
 	}
 
