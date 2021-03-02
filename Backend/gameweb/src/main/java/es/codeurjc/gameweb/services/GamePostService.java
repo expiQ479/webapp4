@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.models.Genres;
 @Service
 public class GamePostService {
     
@@ -15,8 +16,8 @@ public class GamePostService {
 	private AtomicLong nextId = new AtomicLong();
 
 	public GamePostService() {        
-		save(new Game("Pepe","Horror","Barata"));
-		save(new Game("Juan", "Action","Compro coche"));
+		save(new Game("Pepe",Genres.Horror,"Barata"));
+		save(new Game("Juan", Genres.Horror,"Compro coche"));
 	}
 
 	public Collection<Game> findAll() {
