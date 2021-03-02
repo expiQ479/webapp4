@@ -30,10 +30,8 @@ public class GamePageController {
         float aux = 0;
         for(int i=0;i<MyScores.size();i++){
             aux= aux + MyScores.get(i);
-        }  
-
+        }
         aux = aux/(MyScores.size());
-
         return aux;
     }
     
