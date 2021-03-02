@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,14 +19,11 @@ public class GamePageController {
     private CommonFunctions commonFunctions;
 
     @RequestMapping("/GamePage/{name}/subButton")
-    public String subButton(@PathVariable String name){    
-        ArrayList<Game> someGames=new ArrayList<Game>();
-        someGames.add(new Game(name, null, null));
-        commonFunctions.getU().setMyGames(someGames);
-        for(int i=0;i<someGames.size();i++){
-            System.out.println(commonFunctions.getU().getMyGames().get(i).getGameTitle());
-        }  
-        return "Suscripciones";  
+    public String subButton(Model model,@PathVariable String name){    
+        commonFunctions.getU().addElementToGameList(new Game(name, null, null));
+        commonFunctions.getSession(model);
+          
+        return "GamePage";  
     }  
 
     public float doAverageScore(ArrayList<Integer> MyScores){
@@ -40,12 +38,13 @@ public class GamePageController {
     }
     
     @PostMapping("/GamePage/{name}/score")
-    public String score(@PathVariable String name,@RequestParam(name="stars") Integer score){    
+    public String score(Model model,@PathVariable String name,@RequestParam(name="stars") Integer score){    
         ArrayList<Game> someGames=new ArrayList<Game>();
         Game MyGame = new Game(name, null, null);
         someGames.add(MyGame);
-        someGames.get(0).getListScores().add(score);
+        someGames.get(0).getListScores().add(score);      
         someGames.get(0).setAverageScore(doAverageScore(someGames.get(0).getListScores()));
+        commonFunctions.getSession(model);
         return "GamePage";
     }   
     
