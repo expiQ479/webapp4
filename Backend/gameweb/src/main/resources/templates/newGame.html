@@ -3,15 +3,13 @@
   <div class="container" style="padding-bottom: 500px">
     <div class="row">
         <div class="col-lg-12" style="text-align: center; padding-top: 20px;">
-            <form action="/postNewGame" method="post">
-                <p>Portada: </p>
-                <input type='text' name='user' value='{{#user}}{{.}}{{/user}}'/>
+            <form action="/adminUpdates/GameAdded" method="post">
                 <p>Titulo:</p>
-                <input type='text' name='title'/>
+                <input type='text' name='gameTitle'/>
                 <p>Descripción:</p>
-                <input type='text' name='title'/>
-                <p>Categorías</p>
-                <input type='text' name='title'/>
+                <input type='text' name='description'/>
+                <p>Género</p>
+                <input type='text' name='genre'/>
                 <p></p>
                 <input type='submit' value='Guardar'/>
             </form>

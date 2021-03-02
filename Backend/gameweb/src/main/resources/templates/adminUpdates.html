@@ -20,6 +20,28 @@
             </tr>
           </thead>
           <tbody>
+            {{#games}}
+            <tr>
+              <td><image src="/images/skyrimlogo.jpg" width="200" height="120" style="margin-left: 20px;"></image></td>
+              <td>{{gameTitle}}</td>
+              <td>{{description}}</td>
+              <td> {{genre}}</td>
+              <td>
+                <div class="btn-group-vertical">
+                  <button type="button" class="btn btn-info">Editar</button>
+                  <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            {{/games}}
+            {{^games}}
+            <tr>
+              <td>No se ha encontrado el juego</td>
+              <td>No se ha encontrado el juego</td>
+              <td>No se ha encontrado el juego</td>
+              <td>No se ha encontrado el juego</td>
+            </tr>
+	          {{/games}}
             <tr>
               <td><image src="/images/skyrimlogo.jpg" width="200" height="120" style="margin-left: 20px;"></image></td>
               <td>Skyrim</td>

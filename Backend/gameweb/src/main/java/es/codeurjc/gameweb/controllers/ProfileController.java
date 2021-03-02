@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class ProfileController {
+    
     private static final Path IMAGES_FOLDER = null;
     @Autowired
     private CommonFunctions commonFunctions;
@@ -38,7 +39,7 @@ public class ProfileController {
     @PostMapping("/upload_image")
     public String uploadImage( @RequestParam MultipartFile image) throws IOException {
         Files.createDirectories(IMAGES_FOLDER);
-        Path imagePath = IMAGES_FOLDER.resolve("image.jpg");
+        Path imagePath = IMAGES_FOLDER.resolve("images");
         image.transferTo(imagePath);
         return "uploaded_image";
     }

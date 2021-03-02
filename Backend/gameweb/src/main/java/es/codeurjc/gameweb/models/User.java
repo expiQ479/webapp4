@@ -24,6 +24,10 @@ public abstract class User {
         this.info = info;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
     public String getInfo() {
         return info;
     }
