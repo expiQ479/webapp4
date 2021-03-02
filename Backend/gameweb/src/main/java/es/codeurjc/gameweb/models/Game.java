@@ -6,7 +6,8 @@ public class Game {
     private String gameTitle;
 
     private String genre;
-    private ArrayList<Integer> listScores;
+    private ArrayList<Integer> listScores = new ArrayList<Integer>();
+    private float averageScore;
     private String description;
     private Long id;
     public Game(String gameTitle, String genre, String description) {
@@ -55,5 +56,14 @@ public class Game {
         this.genre = genre;
     }
 
+    public float getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(float averageScore) {
+        this.averageScore = averageScore;
+    }
+
+    
 
 }
