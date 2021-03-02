@@ -1,14 +1,17 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import es.codeurjc.gameweb.models.*;
 import es.codeurjc.gameweb.services.GamePostService;
+import es.codeurjc.gameweb.services.ImageService;
 
 @Controller
 public class NavigationController{
@@ -16,6 +19,9 @@ public class NavigationController{
     private CommonFunctions commonFunctions;
     @Autowired
 	private GamePostService gamePostService;
+    @Autowired
+	private ImageService imagePostService;
+    private static final String IMAGES = "images";
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
@@ -27,6 +33,10 @@ public class NavigationController{
         model.addAttribute("games", gamePostService.findAll());
 
 		return "adminUpdates";
+	}
+    @GetMapping("/game/{id}/image")	
+	public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
+		return imagePostService.createResponseFromImage(IMAGES, id);		
 	}
     @GetMapping("/RegisterPage") 
         public String showRegister() {
