@@ -3,6 +3,7 @@ package es.codeurjc.gameweb.controllers;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import es.codeurjc.gameweb.models.*;
 
 @Controller
-public class NavigationController{
+public class NavigationController implements ErrorController{
     @Autowired
     private CommonFunctions commonFunctions;
     @GetMapping("/")
@@ -84,6 +85,15 @@ public class NavigationController{
     public String showListGames(Model model) {
         commonFunctions.getSession(model);
         return "gameList";
+    }
+    @RequestMapping("/error")
+    public String handleError() {
+        return "error";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return null;
     }
     
 }
