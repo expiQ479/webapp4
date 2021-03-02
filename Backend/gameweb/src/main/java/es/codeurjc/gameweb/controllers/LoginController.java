@@ -11,5 +11,15 @@ public class LoginController {
     @Autowired
     private CommonFunctions commonFunctions;
 
-    
+    @PostMapping("/Iniciar sesion")
+	public String newPost(Model model, User user) {
+        if(userService.equals(user)){
+            commonFunctions.setU(userService.findById(id));
+            commonFunction.getU().setLogged(true);
+        }
+        commonFunctions.getSession(model);
+		gamePostService.save(game);
+		return "index";
+	}
+
 }
