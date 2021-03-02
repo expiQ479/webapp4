@@ -10,7 +10,7 @@ import es.codeurjc.gameweb.models.*;
 @Component
 public class CommonFunctions{
 
-    private RegularUser u = new RegularUser("Kike","12345",null);
+    private RegularUser u = new RegularUser("Kike","12345",null,true);
     public Model getSession(Model model){
         
         model.addAttribute("logged",u.isLogged());

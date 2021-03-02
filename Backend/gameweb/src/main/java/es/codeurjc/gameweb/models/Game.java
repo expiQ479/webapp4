@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Game {
     private String gameTitle;
 
-    private String genre;
+    private Genres genre;
     private ArrayList<Integer> listScores = new ArrayList<Integer>();
     private float averageScore;
     private String description;
     private Long id;
-    public Game(String gameTitle, String genre, String description) {
+    public Game(String gameTitle, Genres genre, String description) {
         this.gameTitle = gameTitle;
         this.genre = genre;
         this.description = description;
@@ -48,11 +48,11 @@ public class Game {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getGenre() {
+    public Genres getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genres genre) {
         this.genre = genre;
     }
 

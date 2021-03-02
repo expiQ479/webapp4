@@ -35,11 +35,6 @@ public abstract class User {
     public boolean isLogged() {
         return logged;
     }
-
-    public boolean isAdmin(){
-        return admin;
-    }
-
     public ArrayList<Game> getMyGames(){
         return this.myGames;
     }
