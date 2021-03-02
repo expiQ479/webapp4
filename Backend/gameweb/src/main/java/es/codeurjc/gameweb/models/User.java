@@ -13,6 +13,7 @@ public abstract class User {
     private boolean logged = true;
     private boolean admin = true;
     private ArrayList<Game> myGames;
+    
     public User(String info, String password, ArrayList<Game> myGames, boolean admin) {
         this.admin = admin;
         this.info = info;
