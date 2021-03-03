@@ -48,7 +48,13 @@ public class User {
         this.logged = logged;
     }
     public void addElementToGameList(Game game){
-        this.myGames.add(game);
+        if(this.myGames==null){
+            this.myGames=new ArrayList<Game>();
+            this.myGames.add(game);
+        }
+        else{
+            this.myGames.add(game);
+        }
     }
     public String getPassword() {
         return password;
