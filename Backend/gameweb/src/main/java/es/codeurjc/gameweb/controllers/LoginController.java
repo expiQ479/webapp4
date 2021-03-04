@@ -21,10 +21,14 @@ public class LoginController {
 
     @PostMapping("/Iniciar Sesion")
     public String newUser(Model model, User user) throws IOException {
-        if(userService.equals(user)){
-            user.setLogged(true);
-            commonFunctions.setU(user);
-            return "index";
+        User[] userList = userService.findAll().toArray(new User[0]);
+        for(int i=0; i<userList.length; i++){
+            if(userList[i].equals(user)){
+                user.setLogged(true);
+                commonFunctions.setU(user);
+                commonFunctions.getSession(model);
+                return "index";
+            }
         }
         commonFunctions.getSession(model);
         return "LogInPage";

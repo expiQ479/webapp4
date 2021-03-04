@@ -21,9 +21,9 @@ public class RegisterController {
 
     @PostMapping("/Registrar")
     public String newUser(Model model, User user) throws IOException {
-        user.setLogged(true);
         user.setAdmin(false);
         userService.save(user);
+        user.setLogged(true);
         commonFunctions.setU(user);
         commonFunctions.getSession(model);
         return "index";
