@@ -11,8 +11,8 @@ public class User {
 
     private String info;
     private String password;
-    private boolean logged = true;
-    private boolean admin = true;
+    private boolean logged = false;
+    private boolean admin = false;
     private ArrayList<Game> myGames;
     private Long id;
 

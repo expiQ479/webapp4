@@ -58,10 +58,10 @@ public class NavigationController implements ErrorController{
         commonFunctions.getSession(model);
         return "GamePage";
     }
-    @RequestMapping("/Profile/{name}") 
-    public String showProfile(Model model, @PathVariable String name) {
-        model.addAttribute("name", name);
-        model.addAttribute("password", "12345");
+    @RequestMapping("/Profile/{{info}}") 
+    public String showProfile(Model model) {
+        model.addAttribute("name", commonFunctions.getU().getInfo());
+        model.addAttribute("password", commonFunctions.getU().getPassword());
         commonFunctions.getSession(model);
         return "Profile";
     }
@@ -106,7 +106,7 @@ public class NavigationController implements ErrorController{
         return "gameList";
     }
     @RequestMapping("/error")
-public String handleError(HttpServletRequest request) {
+    public String handleError(HttpServletRequest request) {
     Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
     
     if (status != null) {
