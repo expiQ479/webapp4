@@ -16,8 +16,7 @@ public class User {
     private ArrayList<Game> myGames;
     private Long id;
 
-    public User(String info, String password, ArrayList<Game> myGames, boolean admin) {
-        this.admin = admin;
+    public User(String info, String password, ArrayList<Game> myGames) {
         this.info = info;
         this.password = password;
         this.myGames= myGames;

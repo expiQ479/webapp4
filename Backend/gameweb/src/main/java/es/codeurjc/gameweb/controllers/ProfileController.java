@@ -18,6 +18,7 @@ public class ProfileController {
     private static final Path IMAGES_FOLDER = null;
     @Autowired
     private CommonFunctions commonFunctions;
+    
     @PostMapping("/Profile/{name}")
     public String changeName(Model model, @RequestParam String name) {
         model.addAttribute("name", name);

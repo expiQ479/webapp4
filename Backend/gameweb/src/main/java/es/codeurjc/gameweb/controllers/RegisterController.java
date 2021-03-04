@@ -23,8 +23,9 @@ public class RegisterController {
     public String newUser(Model model, User user) throws IOException {
         user.setLogged(true);
         user.setAdmin(false);
-        commonFunctions.getSession(model);
         userService.save(user);
+        commonFunctions.setU(user);
+        commonFunctions.getSession(model);
         return "index";
     }
 
