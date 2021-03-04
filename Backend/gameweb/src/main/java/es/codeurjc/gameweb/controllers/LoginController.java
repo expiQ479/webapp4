@@ -1,5 +1,7 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +19,15 @@ public class LoginController {
     @Autowired
     private CommonFunctions commonFunctions;
 
-    @PostMapping("/Iniciar sesion")
-	public String newPost(Model model, User user,Long id) {
+    @PostMapping("/Iniciar Sesion")
+    public String newUser(Model model, User user) throws IOException {
         if(userService.equals(user)){
-            commonFunctions.setU(userService.findById(id));
-            commonFunctions.getU().setLogged(true);
+            user.setLogged(true);
+            commonFunctions.setU(user);
+            return "index";
         }
         commonFunctions.getSession(model);
-		return "index";
-	}
+        return "LogInPage";
+    }
 
 }
