@@ -22,10 +22,6 @@ public class User {
         this.myGames= myGames;
     }
 
-    public boolean equals(User user){
-        return this.info.equals(user.getInfo()) && this.password.equals(user.getInfo());
-    }
-
     public void setInfo(String info) {
         this.info = info;
     }
