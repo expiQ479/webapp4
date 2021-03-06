@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.gameweb.services.UserService;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,11 +20,16 @@ public class ProfileController {
     private static final Path IMAGES_FOLDER = null;
     @Autowired
     private CommonFunctions commonFunctions;
+    @Autowired
+    private UserService userService;
+    
     @PostMapping("/Profile/{name}")
     public String changeName(Model model, @RequestParam String name) {
         model.addAttribute("name", name);
         model.addAttribute("password", commonFunctions.getU().getPassword());
         commonFunctions.getU().setInfo(name);
+        userService.deleteById(commonFunctions.getU().getId());
+        userService.save(commonFunctions.getU());
         commonFunctions.getSession(model);
         return "Profile";
     }

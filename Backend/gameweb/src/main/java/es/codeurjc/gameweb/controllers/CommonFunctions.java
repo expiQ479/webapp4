@@ -8,15 +8,12 @@ import es.codeurjc.gameweb.models.*;
 @Component
 public class CommonFunctions{
 
-    private User u = new User("Kike","12345",null,true);
+    private User u = new User("Kike","12345",null);
     public Model getSession(Model model){
-        
         model.addAttribute("logged",u.isLogged());
         model.addAttribute("admin", u.isAdmin());
-
-
         return model;
-    
+
 }
 
     public User getU() {
