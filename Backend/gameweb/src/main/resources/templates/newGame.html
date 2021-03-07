@@ -10,8 +10,20 @@
                 <input type='text' name='gameTitle'/>
                 <p>Descripción:</p>
                 <input type='text' name='description'/>
-                <p>Género</p>
-                <input type='text' name='genre'/>
+                <p></p>
+                <div class="wrap">
+                  <input list="colores" name="colores" type="text" placeholder="Categoría">
+                  <datalist id="colores">
+                      <option value="Horror"></option>
+                      <option value="Shooter"></option>
+                      <option value="Action"></option>
+                      <option value="Platformer"></option>
+                      <option value="Sports"></option>
+                      <option value="Puzzles"></option>
+                      <option value="Narrative"></option>
+                      <option value="RPG"></option>    
+                  </datalist>
+                  </div>
                 <p></p>
                 <input type='submit' value='Guardar'/>
             </form>

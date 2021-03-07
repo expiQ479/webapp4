@@ -6,6 +6,16 @@
 body {
   padding-top: 56px;
 }
+.responsive2 {
+  width: 100%;
+  max-width: 100;
+  height: auto;
+}
+.responsiveC {
+  width: 15%;
+  max-width: 180;
+  height: auto;
+}
 
 h5{
   overflow:hidden;
