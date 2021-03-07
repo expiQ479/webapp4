@@ -30,6 +30,7 @@ public class NavigationController implements ErrorController{
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
+        model.addAttribute("games", gamePostService.findAll());
         return "index";
     }
     @GetMapping("/adminUpdates")
@@ -103,6 +104,7 @@ public class NavigationController implements ErrorController{
     @GetMapping("/Juegos")
     public String showListGames(Model model) {
         commonFunctions.getSession(model);
+        model.addAttribute("games", gamePostService.findAll());
         return "gameList";
     }
     @RequestMapping("/error")
