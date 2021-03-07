@@ -33,11 +33,13 @@ public class GamePostsController {
 		imagePostService.saveImage(IMAGES, game.getId(), image);	
 		return "savedGame";
 	}
+	
 	@GetMapping("/games/{id}/image")	
 	public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
 
 		return imagePostService.createResponseFromImage(IMAGES, id);		
 	}
+	
     /*@GetMapping("/Juego/{id}")
 	public String showPost(Model model, @PathVariable long id) {
 
