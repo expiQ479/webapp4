@@ -20,7 +20,6 @@ public class UserService{
 
     public UserService(){
         ArrayList<Game> suscripciones = new ArrayList<>();
-        suscripciones.add(new Game("Stardew valley", Genres.RPG, "Juego entretenido de una granja"));
         suscripciones.add(new Game("Skyrim", Genres.RPG, "Juego RPG clasico"));
 		User user1 = new User("Kike", "12345", suscripciones);
 		user1.setAdmin(true);
