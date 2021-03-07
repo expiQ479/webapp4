@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import es.codeurjc.gameweb.models.*;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
+import es.codeurjc.gameweb.services.ChatService;
+
 
 @Controller
 public class NavigationController{
@@ -22,6 +24,8 @@ public class NavigationController{
     @Autowired
 	private ImageService imagePostService;
     private static final String IMAGES = "images";
+    @Autowired
+	private ChatService ChatService;
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
@@ -50,7 +54,16 @@ public class NavigationController{
     @RequestMapping("/GamePage/{name}") 
     public String showGame(Model model, @PathVariable String name) {
         model.addAttribute("name", name);
+        model.addAttribute("Messages",ChatService.findAll());
+        
+        for (Integer i=0;i<=ChatService.findAll().size()-1;i++){
+            if(commonFunctions.getU().getInfo().equals(ChatService.findById(i).getNameUser())) 
+            ChatService.findById(i).setMessageWriter(true);
+            else
+            ChatService.findById(i).setMessageWriter(false);
+        }
         commonFunctions.getSession(model);
+        
         return "GamePage";
     }
     @RequestMapping("/Profile/{name}") 

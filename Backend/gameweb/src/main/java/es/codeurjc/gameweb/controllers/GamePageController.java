@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.codeurjc.gameweb.models.*;
+import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.models.Message;
+import es.codeurjc.gameweb.services.ChatService;
 
 @Controller
 public class GamePageController {
     @Autowired
     private CommonFunctions commonFunctions;
+  
+    @Autowired
+	private ChatService ChatService;
 
     @RequestMapping("/GamePage/{name}/subButton")
     public String subButton(Model model,@PathVariable String name){    
@@ -44,5 +49,23 @@ public class GamePageController {
         commonFunctions.getSession(model);
         return "GamePage";
     }   
+    @PostMapping("/AgregarChat")
+    public String newChat(Model model,@RequestParam String sentChat) {
+        commonFunctions.getSession(model);
+        model.addAttribute("name", "DBD"); //añadir cuando toque, la obtencion del nombre del juego por base de datos
+        for (Integer i=0;i<=ChatService.findAll().size()-1;i++){
+            if(commonFunctions.getU().getInfo().equals(ChatService.findById(i).getNameUser())) 
+            ChatService.findById(i).setMessageWriter(true);
+            else
+            ChatService.findById(i).setMessageWriter(false);
+        }
     
+        Message MyMessage = new Message(commonFunctions.getU().getInfo(), sentChat,true);
+        ChatService.save(MyMessage);
+        model.addAttribute("Messages",ChatService.findAll());
+       
+        	
+        return "GamePage";
+    }
+     
 }
