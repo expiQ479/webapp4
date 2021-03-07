@@ -11,13 +11,12 @@ public class User {
 
     private String info;
     private String password;
-    private boolean logged = true;
-    private boolean admin = true;
+    private boolean logged = false;
+    private boolean admin = false;
     private ArrayList<Game> myGames;
     private Long id;
 
-    public User(String info, String password, ArrayList<Game> myGames, boolean admin) {
-        this.admin = admin;
+    public User(String info, String password, ArrayList<Game> myGames) {
         this.info = info;
         this.password = password;
         this.myGames= myGames;
@@ -48,7 +47,13 @@ public class User {
         this.logged = logged;
     }
     public void addElementToGameList(Game game){
-        this.myGames.add(game);
+        if(this.myGames==null){
+            this.myGames=new ArrayList<Game>();
+            this.myGames.add(game);
+        }
+        else{
+            this.myGames.add(game);
+        }
     }
     public String getPassword() {
         return password;

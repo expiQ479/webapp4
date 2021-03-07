@@ -20,10 +20,13 @@ public class UserService{
 
     public UserService(){
         ArrayList<Game> suscripciones = new ArrayList<>();
-        suscripciones.add(new Game("Stardew valley", Genres.RPG, "Juego entretenido de una granja"));
         suscripciones.add(new Game("Skyrim", Genres.RPG, "Juego RPG clasico"));
-        save(new User("Kike", "12345", suscripciones, true));
-        save(new User("Pepe", "54321", suscripciones, false));
+		User user1 = new User("Kike", "12345", suscripciones);
+		user1.setAdmin(true);
+		User user2 = new User("Pepe", "54321", suscripciones);
+		user2.setAdmin(false);
+        save(user1);
+        save(user2);
     }
 
     public Collection<User> findAll() {
