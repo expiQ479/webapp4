@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.UserService;
 
 @Controller
@@ -20,6 +21,9 @@ public class LoginController {
     @Autowired
     private CommonFunctions commonFunctions;
 
+    @Autowired
+	private GamePostService gamePostService;
+
     @PostMapping("/Index")
     public String IniciarSesion(Model model, @RequestParam String name, @RequestParam String password) throws IOException {
         User[] userList = userService.findAll().toArray(new User[0]);
@@ -29,6 +33,7 @@ public class LoginController {
                 user.setLogged(true);
                 commonFunctions.setU(user);
                 commonFunctions.getSession(model);
+                model.addAttribute("games", gamePostService.findAll());
                 return "index";
             }
         }

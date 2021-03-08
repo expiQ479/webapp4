@@ -29,7 +29,7 @@ public class ProfileController {
 	private ImageService imageUserService;
 	private static final String User = "User_Images";
 
-    @PostMapping("/Profile/{name}")
+    @PostMapping("/Profile")
     public String changeName(Model model, @RequestParam String name) {
         model.addAttribute("name", name);
         model.addAttribute("password", commonFunctions.getU().getPassword());
