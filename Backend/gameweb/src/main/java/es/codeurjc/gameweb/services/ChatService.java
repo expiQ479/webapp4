@@ -1,11 +1,12 @@
 package es.codeurjc.gameweb.services;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
-
+import es.codeurjc.gameweb.models.Chat;
 import org.springframework.stereotype.Service;
 
 
@@ -14,32 +15,38 @@ import es.codeurjc.gameweb.models.Message;
 
 @Service
 public class ChatService{
-
-    private ConcurrentMap<Long, Message> Chat = new ConcurrentHashMap<>();
+	
+    private ConcurrentMap<Long, Chat> Chat = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
     public ChatService(){
         
-		save(new Message("Paco", "hola soy un desgraciao x1",true));
-        save(new Message("Paco", "hola soy un desgraciao x2",false));
-
+		ArrayList<Message> listDefaultMessages = new ArrayList<>();
+		Message defaultMessage1 = new Message("Paco", "hola soy un desgraciao x1",false);
+		Message defaultMessage2 = new Message("Paco", "hola soy un desgraciao x2",true);
+		listDefaultMessages.add(defaultMessage1);
+		listDefaultMessages.add(defaultMessage2);
+		save(new Chat(listDefaultMessages));
+		save(new Chat(listDefaultMessages));
+		save(new Chat(listDefaultMessages));
+		save(new Chat(listDefaultMessages));
         
     }
 
-    public Collection<Message> findAll() {
+    public Collection<Chat> findAll() {
 		return Chat.values();
 	}
 
-	public Message findById(long id) {
+	public Chat findById(long id) {
 		return Chat.get(id);
 	}
 
-	public void save(Message MessageToSave) {
+	public void save(Chat ChatToSave) {
 		long id = nextId.getAndIncrement();
 
-		MessageToSave.setID(id);
+		ChatToSave.setID(id);
 
-		this.Chat.put(id, MessageToSave);
+		this.Chat.put(id, ChatToSave);
 	}
 
 	public void deleteById(long id) {
