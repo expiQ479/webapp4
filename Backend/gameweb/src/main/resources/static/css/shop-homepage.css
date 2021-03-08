@@ -22,6 +22,16 @@ h5{
   margin:10px;
   color:black;
 }
+p.errorText{
+  font-size: 300%;
+  color:rgb(207, 0, 0);
+  margin:15px;
+}
+p.errorTextSecondary{
+  font-size: 150%;
+  color:rgb(207, 0, 0);
+  margin:15px;
+}
 img.listImage{
   float:left;   
   margin-right:20px;
@@ -40,7 +50,11 @@ div.listElement:active {
 div.img.listImage:active {     
   background-color:yellow
 }
-
+div.errorBox{
+  border: 1px solid black;
+  margin: 25px 50px 75px 100px;
+  background-color: rgb(218, 218, 218);
+}
 .listText{
   color:black;
 }
