@@ -20,7 +20,7 @@ public class LoginController {
     @Autowired
     private CommonFunctions commonFunctions;
 
-    @PostMapping("/IniciarSesion")
+    @PostMapping("/Index")
     public String IniciarSesion(Model model, @RequestParam String name, @RequestParam String password) throws IOException {
         User[] userList = userService.findAll().toArray(new User[0]);
         for(int i=0; i<userList.length; i++){

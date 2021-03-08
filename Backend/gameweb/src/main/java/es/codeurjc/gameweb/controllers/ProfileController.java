@@ -65,7 +65,7 @@ public class ProfileController {
 		return "Profile";
 	}
 
-    @GetMapping("/User/{id}/User_Image")	
+    @GetMapping("/Profile/{id}/image")	
 	public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
         return imageUserService.createResponseFromImage(User, id);		
 	}
