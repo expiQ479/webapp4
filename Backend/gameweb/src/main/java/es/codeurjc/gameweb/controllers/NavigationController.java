@@ -15,9 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import es.codeurjc.gameweb.models.*;
+import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
-import es.codeurjc.gameweb.services.ChatService;
+
 
 
 @Controller
@@ -28,9 +30,10 @@ public class NavigationController implements ErrorController{
 	private GamePostService gamePostService;
     @Autowired
 	private ImageService imagePostService;
-    private static final String IMAGES = "images";
     @Autowired
-	private ChatService ChatService;
+	private ChatService chatService;
+    private static final String IMAGES = "images";
+    private Game myGame;
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
@@ -59,16 +62,27 @@ public class NavigationController implements ErrorController{
     }
     @RequestMapping("/GamePage/{name}") 
     public String showGame(Model model, @PathVariable String name) {
-        model.addAttribute("name", name);
-        model.addAttribute("Messages",ChatService.findAll());
-        
-        for (Integer i=0;i<=ChatService.findAll().size()-1;i++){
-            if(commonFunctions.getU().getInfo().equals(ChatService.findById(i).getNameUser())) 
-            ChatService.findById(i).setMessageWriter(true);
-            else
-            ChatService.findById(i).setMessageWriter(false);
+         
+        //Find the game we need to show
+        for (Integer i=0;i<=gamePostService.findAll().size()-1;i++){
+            if (gamePostService.findById(i).getGameTitle().equals(name))
+                myGame = gamePostService.findById(i);
         }
+        model.addAttribute("name", name);
+        model.addAttribute("description", myGame.getDescription());
+        //save the ID of the game to connect it to a chat
+        long IDgame = myGame.getId();
+        
+        //iterate the chat messages to allign them to the right or to the left
+        for (Integer i=0;i<=chatService.findById(IDgame).getListMessages().size()-1;i++){
+            if(commonFunctions.getU().getInfo().equals(chatService.findById(IDgame).getListMessages().get(i).getNameUser())) 
+            chatService.findById(IDgame).getListMessages().get(i).setMessageWriter(true);
+            else
+            chatService.findById(IDgame).getListMessages().get(i).setMessageWriter(false);
+        }
+        model.addAttribute("Messages", chatService.findById(IDgame).getListMessages());
         commonFunctions.getSession(model);
+        //model.addAttribute("/games/{{id}}/image", imagePostService.);
         
         return "GamePage";
     }
