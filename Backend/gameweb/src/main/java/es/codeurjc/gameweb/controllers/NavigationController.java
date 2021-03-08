@@ -72,7 +72,7 @@ public class NavigationController implements ErrorController{
         
         return "GamePage";
     }
-    @RequestMapping("/Profile/{{info}}") 
+    @RequestMapping("/Profile") 
     public String showProfile(Model model) {
         model.addAttribute("name", commonFunctions.getU().getInfo());
         model.addAttribute("password", commonFunctions.getU().getPassword());

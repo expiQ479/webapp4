@@ -13,8 +13,7 @@ public class CommonFunctions{
         model.addAttribute("logged",u.isLogged());
         model.addAttribute("admin", u.isAdmin());
         return model;
-
-}
+    }
 
     public User getU() {
         return u;
