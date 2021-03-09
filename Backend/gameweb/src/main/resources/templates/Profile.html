@@ -1,13 +1,15 @@
 {{>header}}
   <!-- Page Content -->
-  <div class="container" style="padding-bottom: 500px">
+  <div class="container" style="padding-bottom: 20px;">
 
     <div class="row">
         <div class="col-lg-4" style="text-align: center;">
           <form action="/CambiarFoto" method="post" enctype="multipart/form-data">
             <img src="/Profile/{id}/image" width="350" height="350" style="padding-top: 20px; margin-top: 10px; border-radius: 150px;">
-            <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
-            <input type='submit' value='Save'/>
+            <div style="margin-top: 50px;">
+              <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
+              <input type='submit' value='Save'/>
+            </div>
           </form>
         </div>
 
