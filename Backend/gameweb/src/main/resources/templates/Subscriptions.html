@@ -18,17 +18,19 @@
           </thead>
           <tbody>
             {{#listaSubs}}
+            <form action="/Subscriptions/{{gameTitle}}">
             <tr>
               <td><image src="/images/skyrimlogo.jpg" width="200" height="120" style="margin-left: 20px;"></image></td>
               <td>{{gameTitle}}</td>
               <td>{{description}}</td>
               <td>{{genre}}</td>
               <td>
-                <div class="btn-group-vertical">
-                  <button type="button" class="btn btn-danger">Eliminar</button>
-                </div>
+                  <div class="btn-group-vertical">
+                    <input type="submit" class="btn btn-danger" value="Eliminar">
+                  </div>
               </td>
             </tr>
+            </form>
             {{/listaSubs}}
           </tbody>
         </table>

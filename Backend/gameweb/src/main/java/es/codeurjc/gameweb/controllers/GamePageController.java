@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.Game;
-import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.Message;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ChatService;
@@ -29,9 +28,9 @@ public class GamePageController {
 
     private Game myGame;
     
-    @RequestMapping("/GamePage/{name}/subButton")
-    public String subButton(Model model,@PathVariable String name){    
-        commonFunctions.getU().addElementToGameList(new Game(name, Genres.Horror, "Un juego muy guapo"));
+    @RequestMapping("/GamePage/{id}/subButton")
+    public String subButton(Model model,@PathVariable Long id){  
+        commonFunctions.getU().addElementToGameList(gamePostService.findById(id));
         commonFunctions.getSession(model);     
         return "GamePage";  
     }  
