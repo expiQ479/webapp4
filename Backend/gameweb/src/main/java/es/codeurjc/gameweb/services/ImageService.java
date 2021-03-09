@@ -44,7 +44,8 @@ public class ImageService {
 			return ResponseEntity.notFound().build();
 		} else {
 			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(file);
-		}		
+		}	
+			
 	}
 
 	public void deleteImage(String folderName, long imageId) throws IOException {
