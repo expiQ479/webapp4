@@ -38,6 +38,12 @@ public class GamePostService {
 
 		this.gamesPosted.put(id, game);
 	}
+	public void update(Game game,long id) {
+		Game g = gamesPosted.get(id);
+		g.setGameTitle(game.getGameTitle());
+		g.setDescription(game.getDescription());
+		g.setGenre(game.getGenre());
+	}
 
 	public void deleteById(long id) {
 		this.gamesPosted.remove(id);

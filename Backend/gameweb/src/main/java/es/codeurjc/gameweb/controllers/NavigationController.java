@@ -134,6 +134,12 @@ public class NavigationController implements ErrorController{
         model.addAttribute("games", gamePostService.findAll());
         return "gameList";
     }
+    @GetMapping("/EditarJuego/{id}")
+    public String showListGames(Model model,@PathVariable long id) {
+        commonFunctions.getSession(model);
+        model.addAttribute("game", gamePostService.findById(id));
+        return "editGame";
+    }
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
     Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
