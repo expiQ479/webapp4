@@ -11,6 +11,9 @@ public class Chat {
     public Chat(ArrayList<Message> listMessages) {
         this.listMessages = listMessages;
     }
+    public Chat() {
+        listMessages = new ArrayList<Message>();
+    }
 
     public Long getID() {
         return ID;

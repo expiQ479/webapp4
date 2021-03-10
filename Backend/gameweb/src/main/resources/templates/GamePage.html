@@ -66,9 +66,8 @@
                                 {{/Messages}}
                             
                         </div>
-                        <form action="/AgregarChat" class="form-inline my-2 my-lg-0" style="padding: 20px" method="post">
+                        <form action="/AgregarChat/{{game.id}}" class="form-inline my-2 my-lg-0" style="padding: 20px" method="post">
                             <input class="form-control mr-sm-2" type="text"  placeholder="Escribe algo" name="sentChat" >
-                            <input type="hidden" id="nadme" name="gamename" value="{game.gameTitle}}">
                             <input class="btn btnenviar my-2 my-sm-0" type="submit" value="Enviar">
                         </form>
                     </div>
@@ -78,7 +77,7 @@
             {{/logged}}
             {{^logged}}
             <div class="col-lg-6">
-                <img src="/images/dead_by_daylight-375X525.jpg" width="375" height="525">
+                <img src="/games/{{id}}/image" width="375" height="525">
 
                 <div class="row">
                     <div class="col-sm-3" id="nombre_usuario">
@@ -100,7 +99,7 @@
                         <h4 class="card-title">
                         <p>Descripción.</p>
                         </h4>
-                        <p class="card-text">{{description}}</p>
+                        <p class="card-text">{{game.description}}</p>
                     </div>
                     
                     </div>

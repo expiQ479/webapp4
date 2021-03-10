@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
 import es.codeurjc.gameweb.services.GamePostService;
-import es.codeurjc.gameweb.services.ChatService;
+
 
 @Controller
 public class GamePageController {
     @Autowired
     private CommonFunctions commonFunctions;
   
-    @Autowired
-	private ChatService chatService;
+
 
     @Autowired
 	private GamePostService gamePostService;
@@ -54,32 +53,29 @@ public class GamePageController {
         commonFunctions.getSession(model);
         return "GamePage";
     }   
-    @PostMapping("/AgregarChat")
-    public String newChat(Model model, @RequestParam String gamename, @RequestParam String sentChat) {
-        
-        //Find the game we need to show
-        for (Integer i=0;i<=gamePostService.findAll().size()-1;i++){
-            if (gamePostService.findById(i).getGameTitle().equals(gamename))
-                myGame = gamePostService.findById(i);
-        }
-        //save the ID of the game to connect it to a chat
-        model.addAttribute("name", gamename);
-        long IDgame = myGame.getId();
-        
-        model.addAttribute("description", myGame.getDescription());
+    @PostMapping("/AgregarChat/{id}")
+    public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
+        myGame = gamePostService.findById(id);
+        model.addAttribute("game", myGame);
         //iterate the chat messages to allign them to the right or to the left
-        for (Integer i=0;i<=chatService.findById(IDgame).getListMessages().size()-1;i++){
-            if(commonFunctions.getU().getInfo().equals(chatService.findById(IDgame).getListMessages().get(i).getNameUser())) 
-            chatService.findById(IDgame).getListMessages().get(i).setMessageWriter(true);
+        for (Integer i=0;i<=myGame.getChat().getListMessages().size()-1;i++){
+            if(commonFunctions.getU().getInfo().equals(myGame.getChat().getListMessages().get(i).getNameUser())) 
+            myGame.getChat().getListMessages().get(i).setMessageWriter(true);
             else
-            chatService.findById(IDgame).getListMessages().get(i).setMessageWriter(false);
+            myGame.getChat().getListMessages().get(i).setMessageWriter(false);
         }
+        model.addAttribute("Messages", myGame.getChat().getListMessages());
+        commonFunctions.getSession(model);
+        
         //Create the message and add it to the chat of the game
         Message MyMessage = new Message(commonFunctions.getU().getInfo(), sentChat,true);
-        chatService.findById(IDgame).getListMessages().add(MyMessage);
-        model.addAttribute("Messages", chatService.findById(IDgame).getListMessages());
+        myGame.getChat().getListMessages().add(MyMessage);
+        model.addAttribute("Messages", myGame.getChat().getListMessages());
         commonFunctions.getSession(model);
         return "GamePage";
     }
+         
+      
+    
      
 }

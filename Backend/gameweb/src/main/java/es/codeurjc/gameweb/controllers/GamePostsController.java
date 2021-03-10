@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
+
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
 
@@ -26,6 +27,7 @@ public class GamePostsController {
 	private CommonFunctions commonFunctions;
 	@Autowired
 	private ImageService imagePostService;
+
 	private static final String IMAGES = "images";
 
 	@PostMapping("adminUpdates/GameAdded")
