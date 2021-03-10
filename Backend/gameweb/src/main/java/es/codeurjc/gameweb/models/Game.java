@@ -2,30 +2,55 @@ package es.codeurjc.gameweb.models;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
+import java.sql.Blob;
 
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import es.codeurjc.gameweb.repositories.ChatRepository;
 
-//import es.codeurjc.gameweb.services.ImageService;
-
+@Entity
+@DynamicUpdate
 public class Game {
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Lob
+	private Blob imageFile;
+
+	private boolean image;
+
     private String gameTitle;
     private Genres genre;
     private ArrayList<Integer> listScores = new ArrayList<Integer>();
     private float averageScore;
-    private String description;
-    private Chat chat;
     
-    //private String image;
-    private Long id;
+    @Column(columnDefinition = "TEXT")
+    private String description;
+    @OneToOne
+    private Chat chat;
+   
+    
+    
 
     public Game(String gameTitle, Genres genre, String description) {
         this.gameTitle = gameTitle;
         this.genre = genre;
         this.description = description; 
-        chat = new Chat();
+        
+        
         //this.image = ImageService.findById(id);
     }
+    public Game(){}
     // images
 
     public String getGameTitle() {
@@ -83,6 +108,22 @@ public class Game {
 
     public void setChat(Chat chat) {
         this.chat = chat;
+    }
+
+    public Blob getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(Blob blob) {
+        this.imageFile = blob;
+    }
+
+    public boolean isImage() {
+        return image;
+    }
+
+    public void setImage(boolean image) {
+        this.image = image;
     }
 
    

@@ -1,5 +1,6 @@
 package es.codeurjc.gameweb.models;
 
+
 public enum Genres{
     Horror,
     Shooter,

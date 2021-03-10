@@ -27,12 +27,13 @@ public class GamePageController {
 
     private Game myGame;
     
-    @RequestMapping("/GamePage/{id}/subButton")
+    /*@RequestMapping("/GamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id){  
         commonFunctions.getU().addElementToGameList(gamePostService.findById(id));
         commonFunctions.getSession(model);     
         return "GamePage";  
     }  
+    */
 
     public float doAverageScore(ArrayList<Integer> MyScores){
         float aux = 0;
@@ -53,7 +54,7 @@ public class GamePageController {
         commonFunctions.getSession(model);
         return "GamePage";
     }   
-    @PostMapping("/AgregarChat/{id}")
+    /*@PostMapping("/AgregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
         myGame = gamePostService.findById(id);
         model.addAttribute("game", myGame);
@@ -74,6 +75,7 @@ public class GamePageController {
         commonFunctions.getSession(model);
         return "GamePage";
     }
+    */
          
       
     
