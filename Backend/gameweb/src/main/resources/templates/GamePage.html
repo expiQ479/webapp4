@@ -2,11 +2,11 @@
   <!-- Page Content -->
  
     <div class="container">
-      <h1 class="my-4">{{name}}</h1>
+      <h1 class="my-4">{{game.gameTitle}}</h1>
         <div class="row">
             {{#logged}}
             <div class="col-lg-4">
-                <img src="/images/dead_by_daylight-375X525.jpg" width="375" height="525">
+                <img src="/games/{{id}}/image" width="375" height="525">
                 <div class="container-fluid" id="usuario_comentario"><!--comentario 1-->
                     <div class="row ">
                         <div class="col-sm-3" id="nombre_usuario">
@@ -29,7 +29,7 @@
                         <h4 class="card-title">
                         <p>Descripción.</p>
                         </h4>
-                        <p class="card-text">{{description}}</p>
+                        <p class="card-text">{{game.description}}</p>
                     </div>
                     
                     </div>
@@ -68,7 +68,7 @@
                         </div>
                         <form action="/AgregarChat" class="form-inline my-2 my-lg-0" style="padding: 20px" method="post">
                             <input class="form-control mr-sm-2" type="text"  placeholder="Escribe algo" name="sentChat" >
-                            <input type="hidden" id="nadme" name="gamename" value="{{name}}">
+                            <input type="hidden" id="nadme" name="gamename" value="{game.gameTitle}}">
                             <input class="btn btnenviar my-2 my-sm-0" type="submit" value="Enviar">
                         </form>
                     </div>
@@ -120,13 +120,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a href="/listPosts/{{name}}" class="btn" role="button">Guía</a>
+                        <a href="/listPosts/{{game.gameTitle}}" class="btn" role="button">Guía</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/listPosts/{{name}}" class="btn" role="button">Noticias</a>
+                        <a href="/listPosts/{{game.gameTitle}}" class="btn" role="button">Noticias</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/listPosts/{{name}}" class="btn" role="button">Actualizaciones</a>
+                        <a href="/listPosts/{{game.gameTitle}}" class="btn" role="button">Actualizaciones</a>
                     </li>
                     {{#logged}}
                     <li class="nav-item">
@@ -140,7 +140,7 @@
                               Valorar
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <form action="/GamePage/{{name}}/score" style = "direction: rtl; unicode-bidi: bidi-override;" method="post">
+                              <form action="/GamePage/{{game.gameTitle}}/score" style = "direction: rtl; unicode-bidi: bidi-override;" method="post">
                                   <input id="radio1" type="submit" style="display: none;" name="stars" value=1><!--
                                   --><label for="radio1">★</label><!--
                                   --><input id="radio2" type="submit" style="display: none;" name="stars" value=2><!--

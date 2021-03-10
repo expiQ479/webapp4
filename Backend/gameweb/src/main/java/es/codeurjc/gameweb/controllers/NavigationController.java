@@ -60,19 +60,13 @@ public class NavigationController implements ErrorController{
         commonFunctions.getSession(model);
         return "newGame";
     }
-    @RequestMapping("/GamePage/{name}") 
-    public String showGame(Model model, @PathVariable String name) {
+    @RequestMapping("/GamePage/{id}") 
+    public String showGame(Model model, @PathVariable Long id) {
          
-        //Find the game we need to show
-        for (Integer i=0;i<=gamePostService.findAll().size()-1;i++){
-            if (gamePostService.findById(i).getGameTitle().equals(name))
-                myGame = gamePostService.findById(i);
-        }
-        model.addAttribute("name", name);
-        model.addAttribute("description", myGame.getDescription());
+        myGame = gamePostService.findById(id);
+        model.addAttribute("game", myGame);
         //save the ID of the game to connect it to a chat
         long IDgame = myGame.getId();
-        
         //iterate the chat messages to allign them to the right or to the left
         for (Integer i=0;i<=chatService.findById(IDgame).getListMessages().size()-1;i++){
             if(commonFunctions.getU().getInfo().equals(chatService.findById(IDgame).getListMessages().get(i).getNameUser())) 
