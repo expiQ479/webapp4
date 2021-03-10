@@ -90,12 +90,11 @@ public class NavigationController implements ErrorController {
     public String showGame(Model model, @PathVariable Long id) {
 
         Optional<Game> myGame = gamePostService.findById(id);
-        Optional<Chat> myChat = chatService.findById(id);
-        Game game;
+        Optional<Chat> myChat = chatService.findById(id+1);
+        Game game = myGame.get();
         Chat chat;
-        game = myGame.get();
         chat = myChat.get();
-        model.addAttribute("game", myGame);
+        model.addAttribute("game", game);
         // save the ID of the game to connect it to a chat
         // iterate the chat messages to allign them to the right or to the left
         for (Integer i = 0; i <= chat.getListMessages().size() - 1; i++) {

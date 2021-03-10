@@ -2,6 +2,7 @@ package es.codeurjc.gameweb.models;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,22 +37,17 @@ public class Game {
     
     @Column(columnDefinition = "TEXT")
     private String description;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Chat chat;
-   
-    
-    
+
 
     public Game(String gameTitle, Genres genre, String description) {
         this.gameTitle = gameTitle;
         this.genre = genre;
         this.description = description; 
-        
-        
-        //this.image = ImageService.findById(id);
+
     }
     public Game(){}
-    // images
 
     public String getGameTitle() {
         return gameTitle;

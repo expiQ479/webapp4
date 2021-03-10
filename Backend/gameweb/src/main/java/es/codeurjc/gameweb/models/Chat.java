@@ -1,19 +1,22 @@
 package es.codeurjc.gameweb.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @DynamicUpdate
 public class Chat {
-
-    private ArrayList<Message> listMessages; // Esto estará en base de datos
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Message> listMessages; // Esto estará en base de datos
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
@@ -21,9 +24,7 @@ public class Chat {
     public Chat(ArrayList<Message> listMessages) {
         this.listMessages = listMessages;
     }
-    public Chat() {
-        listMessages = new ArrayList<Message>();
-    }
+    public Chat() {}
 
     public Long getID() {
         return ID;
@@ -33,7 +34,7 @@ public class Chat {
         this.ID = iD;
     }
 
-    public ArrayList<Message> getListMessages() {
+    public List<Message> getListMessages() {
         return listMessages;
     }
 

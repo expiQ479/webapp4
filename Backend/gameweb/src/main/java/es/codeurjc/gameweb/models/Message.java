@@ -1,8 +1,20 @@
 package es.codeurjc.gameweb.models;
 
-//import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
+
+//import java.util.ArrayList;
+@Entity
+@DynamicUpdate
 public class Message {
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String userId;
     private String nameUser;
     private String msgString;
     private boolean isMessageWriter;
@@ -14,6 +26,7 @@ public class Message {
         this.msgString = msgString;
         this.isMessageWriter = isMessageWriter;
     }
+    public Message() {}
 
     public String getNameUser() {
         return nameUser;

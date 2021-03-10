@@ -1,6 +1,7 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,9 +55,10 @@ public class GamePageController {
         commonFunctions.getSession(model);
         return "GamePage";
     }   
-    /*@PostMapping("/AgregarChat/{id}")
+    @PostMapping("/AgregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
-        myGame = gamePostService.findById(id);
+        Optional<Game> game = gamePostService.findById(id);
+        Game myGame = game.get();
         model.addAttribute("game", myGame);
         //iterate the chat messages to allign them to the right or to the left
         for (Integer i=0;i<=myGame.getChat().getListMessages().size()-1;i++){
@@ -73,9 +75,11 @@ public class GamePageController {
         myGame.getChat().getListMessages().add(MyMessage);
         model.addAttribute("Messages", myGame.getChat().getListMessages());
         commonFunctions.getSession(model);
+        gamePostService.save(myGame);
         return "GamePage";
     }
-    */
+    
+    
          
       
     

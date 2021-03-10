@@ -36,14 +36,12 @@ public class DBInitializer {
         Game g1 =new Game("Stardew Valley", Genres.RPG,"¡Stardew Valley es un RPG de vida en el campo! Hereda la vieja granja de tu abuelo en Stardew Valley. Armado con herramientas de segunda mano y algo de dinero, te dispones a empezar tu nueva vida. ¿Podrás aprender a vivir de la tierra y a convertir esos campos de malezas en un hogar próspero? No va a ser fácil. Desde que Joja Corporation llegó a la ciudad, las antiguas formas de vivir han desaparecido. El centro comunitario, en su momento el centro de actividad más activo de la ciudad, se encuentra ahora en ruinas. Pero el valle se encuentra lleno de oportunidades. ¡Con un poco de dedicación, podrás ser uno de los que devuelva Stardew Valley a la gloria!");
 		setGameImage(g1, "/sample_images/image-0.jpg");
         Chat chat1 = new Chat();
-        chatRepository.save(chat1);
         g1.setChat(chat1);
         gameRepository.save(g1);
 
         Game g2 =new Game("Skyrim",Genres.RPG,"La agitación se extiende por el Imperio de Tamriel. El soberano de Skyrim ha sido asesinado. A medida que surgen aspirantes al trono, se van formando alianzas. En mitad de este conflicto, resurge un antiguo mal mucho más peligroso: los dragones, olvidados hace tiempo entre oscuros pasajes de los antiguos pergaminos, han regresado a Tamriel. El futuro de Skyrim, incluso el del propio Imperio, pende de un hilo, mientras aguardan la llegada vaticinada del Sangre de dragón, un héroe dotado del poder de La Voz, el único que puede hacer frente a los dragones.");
 		setGameImage(g2, "/sample_images/image-1.jpg");
         Chat chat2 = new Chat();
-        chatRepository.save(chat2);
         g2.setChat(chat2);
         gameRepository.save(g2);
 
