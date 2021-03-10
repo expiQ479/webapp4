@@ -36,9 +36,10 @@ public class GamePostsController {
 		return "savedGame";
 	}
 	@PostMapping("/adminUpdates/{id}/Gameedited")
-	public String editPost(Model model, Game game,@RequestParam Genres genre,@PathVariable long id) throws IOException {
+	public String editPost(Model model, Game game,MultipartFile image,@RequestParam Genres genre,@PathVariable long id) throws IOException {
         commonFunctions.getSession(model);
 		gamePostService.update(game,id);
+		imagePostService.saveImage(IMAGES, id, image);
 		return "savedGame";
 	}
 	
