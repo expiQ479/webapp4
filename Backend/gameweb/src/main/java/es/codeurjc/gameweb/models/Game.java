@@ -3,18 +3,18 @@ package es.codeurjc.gameweb.models;
 import java.util.ArrayList;
 
 
+
+
+
 //import es.codeurjc.gameweb.services.ImageService;
 
 public class Game {
-    
-    //@Autowired
-	//private ChatService ImageService;
-
     private String gameTitle;
     private Genres genre;
     private ArrayList<Integer> listScores = new ArrayList<Integer>();
     private float averageScore;
     private String description;
+    private Chat chat;
     
     //private String image;
     private Long id;
@@ -22,8 +22,8 @@ public class Game {
     public Game(String gameTitle, Genres genre, String description) {
         this.gameTitle = gameTitle;
         this.genre = genre;
-        this.description = description;
-        
+        this.description = description; 
+        chat = new Chat();
         //this.image = ImageService.findById(id);
     }
     // images
@@ -51,6 +51,7 @@ public class Game {
         this.description = description;
     }
     
+    
 
     public Long getId() {
         return id;
@@ -74,6 +75,14 @@ public class Game {
     public void setAverageScore(float averageScore) {
         this.averageScore = averageScore;
     
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
    

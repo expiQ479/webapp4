@@ -16,10 +16,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <form action="/adminUpdates/{{game.getId}}/Gameedited" method="post">
+                    <form action="/adminUpdates/{{game.getId}}/Gameedited" method="post" enctype="multipart/form-data">
                     <tr>
                         <td>
                             <img src="/games/{{id}}/image" class="responsive2" width="170" height="230"></img>
+                            <input type='file' name='image' accept=".jpg, .jpeg"/>	
                         </td>
                         <td>
                             <input type='text' value='{{game.gameTitle}}' name='gameTitle' />

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
+
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
 
@@ -26,6 +27,7 @@ public class GamePostsController {
 	private CommonFunctions commonFunctions;
 	@Autowired
 	private ImageService imagePostService;
+
 	private static final String IMAGES = "images";
 
 	@PostMapping("adminUpdates/GameAdded")
@@ -36,9 +38,10 @@ public class GamePostsController {
 		return "savedGame";
 	}
 	@PostMapping("/adminUpdates/{id}/Gameedited")
-	public String editPost(Model model, Game game,@RequestParam Genres genre,@PathVariable long id) throws IOException {
+	public String editPost(Model model, Game game,MultipartFile image,@RequestParam Genres genre,@PathVariable long id) throws IOException {
         commonFunctions.getSession(model);
 		gamePostService.update(game,id);
+		imagePostService.saveImage(IMAGES, id, image);
 		return "savedGame";
 	}
 	
