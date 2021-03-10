@@ -77,6 +77,27 @@ public class NavigationController implements ErrorController{
         
         return "GamePage";
     }
+    @RequestMapping("/morePosts") 
+    public String showMorePosts(Model model) {
+        
+        return "morePosts";
+    }
+
+
+
+@RequestMapping("/listPosts/{id}/{tipoPost}")
+    public String showListPost(Model model,@PathVariable("id") Long id,@PathVariable("tipoPost") String tipoPost) {
+        myGame = gamePostService.findById(id);
+        ArrayList<UpdatePost> myPosts= new ArrayList<UpdatePost>();
+        myPosts.add(new UpdatePost("Primero", null, null, null, null,"este es el primer texto"));
+        myPosts.add(new UpdatePost("Segundo", null, null, null, null,"este es el sec texto"));
+        myPosts.add(new UpdatePost("Tercero", null, null, null, null,"este es el third texto"));
+        model.addAttribute("name",myGame.getGameTitle());
+        model.addAttribute("tipoPost", tipoPost);
+        model.addAttribute("lista", myPosts);
+        commonFunctions.getSession(model);
+        return "listPosts";
+    }
     @RequestMapping("/Profile") 
     public String showProfile(Model model) {
         model.addAttribute("name", commonFunctions.getU().getInfo());
