@@ -37,19 +37,19 @@ public class GamePostsController {
 		imagePostService.saveImage(IMAGES, game.getId(), image);	
 		return "savedGame";
 	}
-	@PostMapping("/adminUpdates/{id}/Gameedited")
+	/*@PostMapping("/adminUpdates/{id}/Gameedited")
 	public String editPost(Model model, Game game,MultipartFile image,@RequestParam Genres genre,@PathVariable long id) throws IOException {
         commonFunctions.getSession(model);
 		gamePostService.update(game,id);
 		imagePostService.saveImage(IMAGES, id, image);
 		return "savedGame";
-	}
+	}*/
 	
-	@GetMapping("/games/{id}/image")	
+	/*@GetMapping("/games/{id}/image")	
 	public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
 
 		return imagePostService.createResponseFromImage(IMAGES, id);		
-	}
+	}*/
 	
     /*@GetMapping("/Juego/{id}")
 	public String showPost(Model model, @PathVariable long id) {
@@ -59,11 +59,11 @@ public class GamePostsController {
 
 		return "show_post";
 	}*/
-	
+	/*
 	@GetMapping("/game/{id}/delete")
 	public String deletePost(Model model, @PathVariable long id) {
 		commonFunctions.getSession(model);
 		gamePostService.deleteById(id);
 		return "gameDeleted";
-	}
+	}*/
 }

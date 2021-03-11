@@ -1,6 +1,7 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class GamePageController {
 
     private Game myGame;
     
-    @RequestMapping("/GamePage/{id}/subButton")
+    /*@RequestMapping("/GamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id){  
         commonFunctions.getU().addElementToGameList(gamePostService.findById(id));
         commonFunctions.getSession(model);    
@@ -35,6 +36,7 @@ public class GamePageController {
         model.addAttribute("game", myGame); 
         return "GamePage";  
     }  
+    */
 
     public float doAverageScore(ArrayList<Integer> MyScores){
         float aux = 0;
@@ -57,7 +59,8 @@ public class GamePageController {
     }   
     @PostMapping("/AgregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
-        myGame = gamePostService.findById(id);
+        Optional<Game> game = gamePostService.findById(id);
+        Game myGame = game.get();
         model.addAttribute("game", myGame);
         //iterate the chat messages to allign them to the right or to the left
         for (Integer i=0;i<=myGame.getChat().getListMessages().size()-1;i++){
@@ -74,8 +77,11 @@ public class GamePageController {
         myGame.getChat().getListMessages().add(MyMessage);
         model.addAttribute("Messages", myGame.getChat().getListMessages());
         commonFunctions.getSession(model);
+        gamePostService.save(myGame);
         return "GamePage";
     }
+    
+    
          
       
     
