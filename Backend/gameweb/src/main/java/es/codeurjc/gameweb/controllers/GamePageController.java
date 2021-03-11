@@ -31,7 +31,9 @@ public class GamePageController {
     /*@RequestMapping("/GamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id){  
         commonFunctions.getU().addElementToGameList(gamePostService.findById(id));
-        commonFunctions.getSession(model);     
+        commonFunctions.getSession(model);    
+        myGame = gamePostService.findById(id);
+        model.addAttribute("game", myGame); 
         return "GamePage";  
     }  
     */
