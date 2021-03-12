@@ -2,11 +2,6 @@ package es.codeurjc.gameweb.services;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Blob;
 
 import javax.annotation.PostConstruct;
 
@@ -19,16 +14,12 @@ import org.springframework.stereotype.Service;
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
-import es.codeurjc.gameweb.repositories.ChatRepository;
 import es.codeurjc.gameweb.repositories.GameRepository;
 
 @Service
 public class DBInitializer {
     @Autowired
     private GameRepository gameRepository;
-    @Autowired
-    private ChatRepository chatRepository;
-
     @PostConstruct
 	public void init() throws IOException, URISyntaxException {
         //sample games of 4dgames
