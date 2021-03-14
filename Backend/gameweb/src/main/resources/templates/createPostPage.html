@@ -1,0 +1,35 @@
+{{>header}}
+<div class="container" style="padding-bottom: 150px">
+    <div class="row">
+      <div class="col-lg-3">
+  
+      </div>
+      <div class="col-lg-6">
+        <div class="main-section">
+          <div class="content-section">
+            <div class="head-section">
+              <h3>Nuevo post</h3>
+              <h1>{{tipoPost}}</h1>
+            </div>
+            <div class="body-section">
+              <form action="/listPosts/{{id}}/{{tipoPost}}/createPostPage/NewPost" method="post">
+                <div class="form-input">
+                  <input type="text" name="newTitle" placeholder="Titulo Post">
+                </div>
+                <div class="form-input">
+                  <input type="text" name="postText" placeholder="Contenido (Texto)">
+                </div>                
+                <div class="form-input">
+                  <input type="submit" value="Create Post">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+{{>footer}}

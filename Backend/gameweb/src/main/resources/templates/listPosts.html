@@ -70,15 +70,13 @@
 
   <div class="container">
     <h1 class="my-4">{{name}}: lista {{tipoPost}}</h1> 
-    <form action="/listPosts/{{id}}/{{tipoPost}}/createPost">
-      <input type="submit" value="Nuevo {{tipoPost}}" style="background-color: #28a745; border-radius: 5px; margin: 10px; color:white;"/>
-    </form>
+    <a href="/listPosts/{{id}}/{{tipoPost}}/createPostPage" class="btn" role="button">Nuevo {{tipoPost}}</a>
     <div class="row">        
       {{#lista}}
       <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
         <a href="/expandedPost/{{title}}"><img class="listImage" src="/images/sample1.jpg" width="384" height="216"></a>
         <h5>{{title}}</h5>
-        <p class=listText>{{prevText}}</p>
+        <p class=listText>{{postText}}</p>
       </div>
       {{/lista}}
     </div>

@@ -1,6 +1,11 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
+
+import com.mysql.cj.log.Log;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
+import es.codeurjc.gameweb.models.Post;
+import es.codeurjc.gameweb.models.PostType;
 import es.codeurjc.gameweb.services.GamePostService;
 
+@Controller
 public class PostsController {
     @Autowired
     private CommonFunctions commonFunctions;
@@ -23,12 +31,28 @@ public class PostsController {
     @Autowired
 	private GamePostService gamePostService;
 
-    private Game myGame;
-    
-    @RequestMapping("/listPosts/{id}/{tipoPost}")
-    public String newPost(Model model,@PathVariable Long id){  
-        /*commonFunctions.getU().addElementToGameList(gamePostService.findById(id));
-        commonFunctions.getSession(model); */    
-        return "listPosts";  
+    private Optional<Game> myGame;
+     
+    @PostMapping("/listPosts/{id}/{tipoPost}/createPostPage/NewPost")
+    public String CreatePost(Model model,@PathVariable Long id,@PathVariable String tipoPost,@RequestParam String newTitle, @RequestParam String postText){ 
+        myGame = gamePostService.findById(id);
+        Game game =myGame.get();
+        Post thePost;
+        switch(tipoPost){
+            case "Guía":
+                thePost=new Post(newTitle, null, null, game, null, postText, PostType.Guides);
+                System.out.println(thePost.postText);
+                break;
+            case "Noticias":
+                thePost=new Post(newTitle, null, null, game, null, postText, PostType.Guides);
+                System.out.println(thePost.postText);
+                break;
+            case "Actualizaciones":
+                thePost=new Post(newTitle, null, null, game, null, postText, PostType.Guides);
+                System.out.println(thePost.postText);
+                break;
+        }
+        commonFunctions.getSession(model);
+        return "expandedPost";  
     }  
 }

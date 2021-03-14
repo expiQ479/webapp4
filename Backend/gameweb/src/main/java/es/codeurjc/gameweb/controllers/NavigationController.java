@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,15 @@ public class NavigationController implements ErrorController {
     private ImageService imagePostService;
     @Autowired
     private static final String IMAGES = "images";
-    private Game myGame;
 
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
-        model.addAttribute("games", gamePostService.findAll());
+        ArrayList<Game> firstGames=new ArrayList<Game>();
+        for(int i=1;i<9;i+=2){
+            firstGames.add(gamePostService.findById(i).get());
+        }
+        model.addAttribute("games", firstGames);
         return "index";
     }
 
@@ -113,17 +117,27 @@ public class NavigationController implements ErrorController {
         
         return "morePosts";
     }
+    @RequestMapping("/showMoreGames") 
+    public String showMoreGames(Model model) {
+        
+        return "showMoreGames";
+    }
 
-
-
-@RequestMapping("/listPosts/{id}/{tipoPost}")
-    public String showListPost(Model model,@PathVariable("id") Long id,@PathVariable("tipoPost") String tipoPost) {
-        myGame = gamePostService.findById(id);
-        ArrayList<UpdatePost> myPosts= new ArrayList<UpdatePost>();
-        myPosts.add(new UpdatePost("Primero", null, null, null, null,"este es el primer texto"));
-        myPosts.add(new UpdatePost("Segundo", null, null, null, null,"este es el sec texto"));
-        myPosts.add(new UpdatePost("Tercero", null, null, null, null,"este es el third texto"));
-        model.addAttribute("name",myGame.getGameTitle());
+    @RequestMapping("/listPosts/{id}/{tipoPost}/createPostPage")
+    public String showCreatePostPage(Model model,@PathVariable Long id,@PathVariable String tipoPost) {        
+        model.addAttribute("tipoPost", tipoPost);
+        commonFunctions.getSession(model);
+        return "createPostPage";
+    }
+    @RequestMapping("/listPosts/{id}/{tipoPost}")
+    public String showListPost(Model model,@PathVariable Long id,@PathVariable String tipoPost) {        
+        Optional<Game> myGame = gamePostService.findById(id);
+        Game game =myGame.get();
+        ArrayList<Post> myPosts= new ArrayList<Post>();
+        myPosts.add(new Post("Primero", null, null, null, null,"este es el primer texto",PostType.News));
+        myPosts.add(new Post("Segundo", null, null, null, null,"este es el sec texto",PostType.News));
+        myPosts.add(new Post("Tercero", null, null, null, null,"este es el third texto",PostType.News));
+        model.addAttribute("name",game.getGameTitle());
         model.addAttribute("tipoPost", tipoPost);
         model.addAttribute("lista", myPosts);
         commonFunctions.getSession(model);
@@ -156,17 +170,7 @@ public class NavigationController implements ErrorController {
         return "LogInPage";
     }
 
-    @RequestMapping("/listPosts/{name}")
-    public String showListPost(Model model, @PathVariable String name) {
-        ArrayList<UpdatePost> myPosts = new ArrayList<UpdatePost>();
-        myPosts.add(new UpdatePost("Primero", null, null, null, null, "este es el primer texto"));
-        myPosts.add(new UpdatePost("Segundo", null, null, null, null, "este es el sec texto"));
-        myPosts.add(new UpdatePost("Tercero", null, null, null, null, "este es el third texto"));
-        model.addAttribute("name", name);
-        model.addAttribute("lista", myPosts);
-        commonFunctions.getSession(model);
-        return "listPosts";
-    }
+    
 
     @RequestMapping("/expandedPost/{titlePost}")
     public String showExpandedPost(Model model, @PathVariable String titlePost) {
