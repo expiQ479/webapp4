@@ -1,6 +1,7 @@
 package es.codeurjc.gameweb.models;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,10 +45,28 @@ public class Game {
         this.gameTitle = gameTitle;
         this.genre = genre;
         this.description = description; 
-
+        this.listScores.add(2);
+        this.listScores.add(2);
+        this.listScores.add(3);
+        this.listScores.add(4);
+        this.listScores.add(5);
+        this.listScores.add(5);
+        this.listScores.add(5);
+        this.averageScore=doAverageScore(listScores);
     }
     
 
+    public float doAverageScore(ArrayList<Integer> MyScores){
+        float aux = 0;
+        for(int i=0;i<=MyScores.size()-1;i++){
+            aux= aux + MyScores.get(i);
+        }
+        aux = aux/(MyScores.size());
+        aux = aux*10;
+        aux = Math.round(aux);
+        aux = aux/10;
+        return aux;
+    }
     public String getGameTitle() {
         return gameTitle;
     }

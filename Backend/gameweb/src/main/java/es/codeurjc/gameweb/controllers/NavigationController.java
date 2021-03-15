@@ -215,4 +215,51 @@ public class NavigationController implements ErrorController {
         return null;
     }
 
+    public Integer doAverageRatio(ArrayList<Integer> MyScores, Integer index){
+        Integer aux = 0;
+        Integer numberofindexinthearray = 0;
+        for(int i=0;i<=MyScores.size()-1;i++){
+            if (MyScores.get(i).equals(index))
+                numberofindexinthearray++;
+        }
+        aux = (numberofindexinthearray*100)/(MyScores.size());
+        return aux;
+    }
+
+    public float doAverageScore(ArrayList<Integer> MyScores){
+        float aux = 0;
+        for(int i=0;i<=MyScores.size()-1;i++){
+            aux= aux + MyScores.get(i);
+        }
+        aux = aux/(MyScores.size());
+        aux = aux*10;
+        aux = Math.round(aux);
+        aux = aux/10;
+        return aux;
+    }
+
+    @RequestMapping("/Estadisticas/{id}")
+    public String showGameStats(Model model, @PathVariable Long id) {
+
+        Optional<Game> myGame = gamePostService.findById(id);
+        
+        Game game = myGame.get();
+        model.addAttribute("game", game);
+        Integer int1=doAverageRatio(game.getListScores(),1);
+        Integer int2=doAverageRatio(game.getListScores(),2);
+        Integer int3=doAverageRatio(game.getListScores(),3);
+        Integer int4=doAverageRatio(game.getListScores(),4);
+        Integer int5=doAverageRatio(game.getListScores(),5);
+        model.addAttribute("gamestars1", int1);
+        model.addAttribute("gamestars2", int2);
+        model.addAttribute("gamestars3", int3);
+        model.addAttribute("gamestars4", int4);
+        model.addAttribute("gamestars5", int5);
+        float myAverage= doAverageScore(game.getListScores());
+        game.setAverageScore(myAverage);
+        commonFunctions.getSession(model);
+
+        return "gamestadistics";
+    }
+
 }
