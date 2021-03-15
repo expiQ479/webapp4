@@ -1,22 +1,15 @@
 package es.codeurjc.gameweb.controllers;
 
-import java.io.Console;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
-
-import com.mysql.cj.log.Log;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.Game;
-import es.codeurjc.gameweb.models.Message;
 import es.codeurjc.gameweb.models.Post;
 import es.codeurjc.gameweb.models.PostType;
 import es.codeurjc.gameweb.services.GamePostService;
