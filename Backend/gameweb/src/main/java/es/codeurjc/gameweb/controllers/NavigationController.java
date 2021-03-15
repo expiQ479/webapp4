@@ -56,7 +56,7 @@ public class NavigationController implements ErrorController {
                 amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
             }
         }
-        model.addAttribute("amountOfGames", amountOfGamesWithGenre);
+        //model.addAttribute("amountOfGames", amountOfGamesWithGenre);
         model.addAttribute("games", firstGames);
         return "index";
     }
