@@ -25,8 +25,6 @@ public class GamePageController {
 
     @Autowired
 	private GamePostService gamePostService;
-
-    private Game myGame;
     
     @RequestMapping("/GamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id){  

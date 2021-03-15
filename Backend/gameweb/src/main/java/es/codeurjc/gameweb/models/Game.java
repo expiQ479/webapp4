@@ -14,9 +14,6 @@ import javax.persistence.OneToOne;
 import java.sql.Blob;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import es.codeurjc.gameweb.repositories.ChatRepository;
 
 @Entity
 @DynamicUpdate
