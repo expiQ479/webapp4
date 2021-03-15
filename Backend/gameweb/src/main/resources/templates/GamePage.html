@@ -8,15 +8,7 @@
             <div class="col-lg-4">
                 <img src="/games/{{id}}/image" width="375" height="525">
                 <div class="container-fluid" id="usuario_comentario"><!--comentario 1-->
-                    <div class="row ">
-                        <div class="col-sm-3" id="nombre_usuario">
-                            Funalito Fulano
-                        </div>
-                        <div class="col-sm-9" id="valoracion">
-                            <div id="Funalito_Fulano"></div>
-                        </div>
-                    </div>
-                    
+                    <h1> {{game.averageScore}} ★</h1>
                 </div> 
             </div>
             <!-- /.col-lg-4 -->
@@ -79,14 +71,9 @@
             <div class="col-lg-6">
                 <img src="/games/{{id}}/image" width="375" height="525">
 
-                <div class="row">
-                    <div class="col-sm-3" id="nombre_usuario">
-                        Juanito Palotes
-                    </div>
-                    <div class="col-sm-9" id="valoracion">
-                        <div id="Juanito_Palotes"></div>
-                    </div>
-                </div>
+                <div class="container-fluid" id="usuario_comentario"><!--comentario 1-->
+                    <h1> {{game.averageScore}} ★</h1>
+                </div> 
 
             </div>
               <!-- /.col-lg-6 -->
@@ -126,6 +113,9 @@
                     <li class="nav-item">
                         <a href="/listPosts/{{id}}/Actualizaciones" class="btn" role="button">Actualizaciones</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/Estadisticas/{{id}}" class="btn" role="button">Estadísticas</a>
+                    </li>
                     {{#logged}}
                     <li class="nav-item">
                         <form action="/GamePage/{{id}}/subButton">
@@ -138,16 +128,16 @@
                               Valorar
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <form action="/GamePage/{{game.gameTitle}}/score" style = "direction: rtl; unicode-bidi: bidi-override;" method="post">
-                                  <input id="radio1" type="submit" style="display: none;" name="stars" value=1><!--
+                              <form action="/valorar/{{id}}" style = "direction: rtl; unicode-bidi: bidi-override;" method="post">
+                                  <input id="radio1" type="submit" style="display: none;" name="stars" value=5><!--
                                   --><label for="radio1">★</label><!--
-                                  --><input id="radio2" type="submit" style="display: none;" name="stars" value=2><!--
+                                  --><input id="radio2" type="submit" style="display: none;" name="stars" value=4><!--
                                   --><label for="radio2">★</label><!--
                                   --><input id="radio3" type="submit" style="display: none;" name="stars" value=3><!--
                                   --><label for="radio3">★</label><!--
-                                  --><input id="radio4" type="submit" style="display: none;" name="stars" value=4><!--
+                                  --><input id="radio4" type="submit" style="display: none;" name="stars" value=2><!--
                                   --><label for="radio4">★</label><!--
-                                  --><input id="radio5" type="submit" style="display: none;" name="stars" value=5><!--
+                                  --><input id="radio5" type="submit" style="display: none;" name="stars" value=1><!--
                                   --><label for="radio5">★</label>
                               </form>
                             </div>

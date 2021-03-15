@@ -21,8 +21,6 @@ public class GamePageController {
     @Autowired
     private CommonFunctions commonFunctions;
   
-
-
     @Autowired
 	private GamePostService gamePostService;
     
@@ -38,25 +36,57 @@ public class GamePageController {
     }  
     
 
+    
+    public Integer doAverageRatio(ArrayList<Integer> MyScores, Integer index){
+        Integer aux = 0;
+        Integer numberofindexinthearray = 0;
+        for(int i=0;i<=MyScores.size()-1;i++){
+            if (MyScores.get(i).equals(index))
+                numberofindexinthearray++;
+        }
+        aux = (numberofindexinthearray*100)/(MyScores.size());
+        return aux;
+    }
+
     public float doAverageScore(ArrayList<Integer> MyScores){
         float aux = 0;
-        for(int i=0;i<MyScores.size();i++){
+        for(int i=0;i<=MyScores.size()-1;i++){
             aux= aux + MyScores.get(i);
         }
         aux = aux/(MyScores.size());
+        aux = aux*10;
+        aux = Math.round(aux);
+        aux = aux/10;
         return aux;
     }
+
     
-    @PostMapping("/GamePage/{name}/score")
-    public String score(Model model,@PathVariable String name,@RequestParam(name="stars") Integer score){    
-        ArrayList<Game> someGames=new ArrayList<Game>();
-        Game MyGame = new Game(name, null, null);
-        someGames.add(MyGame);
-        someGames.get(0).getListScores().add(score);      
-        someGames.get(0).setAverageScore(doAverageScore(someGames.get(0).getListScores()));
+
+    @RequestMapping("/valorar/{id}")
+    public String ValorarGame(Model model, @PathVariable Long id, @RequestParam Integer stars) {
+
+        Optional<Game> myGame = gamePostService.findById(id);
+        
+        Game game = myGame.get();
+        model.addAttribute("game", game);
+        game.getListScores().add(stars);
+        gamePostService.save(game);
+        Integer int1=doAverageRatio(game.getListScores(),1);
+        Integer int2=doAverageRatio(game.getListScores(),2);
+        Integer int3=doAverageRatio(game.getListScores(),3);
+        Integer int4=doAverageRatio(game.getListScores(),4);
+        Integer int5=doAverageRatio(game.getListScores(),5);
+        model.addAttribute("gamestars1", int1);
+        model.addAttribute("gamestars2", int2);
+        model.addAttribute("gamestars3", int3);
+        model.addAttribute("gamestars4", int4);
+        model.addAttribute("gamestars5", int5);
+        float myAverage= doAverageScore(game.getListScores());
+        game.setAverageScore(myAverage);
         commonFunctions.getSession(model);
-        return "GamePage";
-    }   
+
+        return "gamestadistics";
+    }
     @PostMapping("/AgregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
         Optional<Game> game = gamePostService.findById(id);
@@ -81,9 +111,4 @@ public class GamePageController {
         return "GamePage";
     }
     
-    
-         
-      
-    
-     
 }
