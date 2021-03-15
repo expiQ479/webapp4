@@ -37,14 +37,16 @@ public class Game {
     @OneToOne(cascade=CascadeType.ALL)
     private Chat chat;
 
+    public Game(){}
 
     public Game(String gameTitle, Genres genre, String description) {
+        super();
         this.gameTitle = gameTitle;
         this.genre = genre;
         this.description = description; 
 
     }
-    public Game(){}
+    
 
     public String getGameTitle() {
         return gameTitle;
@@ -112,7 +114,7 @@ public class Game {
     }
 
     public boolean isImage() {
-        return image;
+        return this.image;
     }
 
     public void setImage(boolean image) {

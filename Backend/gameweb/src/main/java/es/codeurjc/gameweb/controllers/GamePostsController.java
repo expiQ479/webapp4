@@ -2,6 +2,7 @@ package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 
 import es.codeurjc.gameweb.services.GamePostService;
-import es.codeurjc.gameweb.services.ImageService;
+
 
 @Controller
 public class GamePostsController {
@@ -21,18 +23,23 @@ public class GamePostsController {
 	private GamePostService gamePostService;
 	@Autowired
 	private CommonFunctions commonFunctions;
-	@Autowired
-	private ImageService imagePostService;
 
 	private static final String IMAGES = "images";
 
-	@PostMapping("adminUpdates/GameAdded")
-	public String newPost(Model model, Game game, MultipartFile image, @RequestParam Genres genre) throws IOException {
+	@PostMapping("/GameAdded")
+	public String newPost(Model model,MultipartFile imageField, Game game) throws IOException {
         commonFunctions.getSession(model);
+		if (!imageField.isEmpty()) {
+			game.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+			game.setImage(true);
+		}
+		else
+			game.setImage(false);
+		game.setChat(new Chat());
 		gamePostService.save(game);
-		imagePostService.saveImage(IMAGES, game.getId(), image);	
 		return "savedGame";
 	}
+	
 	/*@PostMapping("/adminUpdates/{id}/Gameedited")
 	public String editPost(Model model, Game game,MultipartFile image,@RequestParam Genres genre,@PathVariable long id) throws IOException {
         commonFunctions.getSession(model);
