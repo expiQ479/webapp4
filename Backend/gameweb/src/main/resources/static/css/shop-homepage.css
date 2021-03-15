@@ -96,6 +96,28 @@ div.errorBox{
 body {
   background-image: url("/css/back.jpg");
 }
+.links{
+  color:black
+}
+/* unvisited link */
+.links:link {
+  color: black;
+}
+
+/* visited link */
+.links:visited {
+  color: black;
+}
+
+/* mouse over link */
+.links:hover {
+  color:#464646;
+}
+
+/* selected link */
+.links:active {
+  color: #144d4c;
+}
 
 .container-white{
   background-color: white; 

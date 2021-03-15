@@ -1,19 +1,25 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 
 import es.codeurjc.gameweb.services.GamePostService;
-import es.codeurjc.gameweb.services.ImageService;
+
 
 @Controller
 public class GamePostsController {
@@ -21,45 +27,67 @@ public class GamePostsController {
 	private GamePostService gamePostService;
 	@Autowired
 	private CommonFunctions commonFunctions;
-	@Autowired
-	private ImageService imagePostService;
 
 	private static final String IMAGES = "images";
 
-	@PostMapping("adminUpdates/GameAdded")
-	public String newPost(Model model, Game game, MultipartFile image, @RequestParam Genres genre) throws IOException {
+	@PostMapping("/GameAdded")
+	public String newPost(Model model,MultipartFile imageField, Game game) throws IOException {
         commonFunctions.getSession(model);
+		if (!imageField.isEmpty()) {
+			game.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+			game.setImage(true);
+		}
+		else
+			game.setImage(false);
+		game.setChat(new Chat());
 		gamePostService.save(game);
-		imagePostService.saveImage(IMAGES, game.getId(), image);	
 		return "savedGame";
 	}
-	/*@PostMapping("/adminUpdates/{id}/Gameedited")
-	public String editPost(Model model, Game game,MultipartFile image,@RequestParam Genres genre,@PathVariable long id) throws IOException {
-        commonFunctions.getSession(model);
-		gamePostService.update(game,id);
-		imagePostService.saveImage(IMAGES, id, image);
+	
+	@PostMapping("/editGame")
+	public String editBookProcess(Model model,MultipartFile imageField, Game game, boolean removeImage)
+			throws IOException, SQLException {
+		
+		updateImage(game, removeImage, imageField);
+		gamePostService.save(game);
+
+		commonFunctions.getSession(model);
+
 		return "savedGame";
-	}*/
-	
-	/*@GetMapping("/games/{id}/image")	
-	public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
-
-		return imagePostService.createResponseFromImage(IMAGES, id);		
-	}*/
-	
-    /*@GetMapping("/Juego/{id}")
-	public String showPost(Model model, @PathVariable long id) {
-
-		Game game = gamePostService.findById(id);
-		model.addAttribute("game", game);
-
-		return "show_post";
-	}*/
-	/*
+	}
 	@GetMapping("/game/{id}/delete")
 	public String deletePost(Model model, @PathVariable long id) {
+		Optional<Game> game = gamePostService.findById(id);
+		if (game.isPresent()) {
+			gamePostService.delete(id);
+		}
 		commonFunctions.getSession(model);
-		gamePostService.deleteById(id);
 		return "gameDeleted";
-	}*/
+	}
+
+	private void updateImage(Game game, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
+		if (!imageField.isEmpty()) {
+			game.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+			game.setImage(true);
+		} else {
+			if (removeImage) {
+				game.setImageFile(null);
+				game.setImage(false);
+			} else {
+				// Maintain the same image loading it before updating the book
+				Game dbGame = gamePostService.findById(game.getId()).orElseThrow();
+				if (dbGame.isImage()) {
+					game.setImageFile(BlobProxy.generateProxy(dbGame.getImageFile().getBinaryStream(),
+							dbGame.getImageFile().length()));
+					game.setImage(true);
+				}
+			}
+		}
+	}
+	
+	
+
+	
+	
+	
 }
