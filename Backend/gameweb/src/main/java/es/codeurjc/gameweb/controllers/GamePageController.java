@@ -28,15 +28,17 @@ public class GamePageController {
 
     private Game myGame;
     
-    /*@RequestMapping("/GamePage/{id}/subButton")
+    @RequestMapping("/GamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id){  
-        commonFunctions.getU().addElementToGameList(gamePostService.findById(id));
+        Optional<Game> myGame=gamePostService.findById(id);
+        Game game=myGame.get();
+        commonFunctions.getU().addElementToGameList(game);
         commonFunctions.getSession(model);    
         myGame = gamePostService.findById(id);
         model.addAttribute("game", myGame); 
         return "GamePage";  
     }  
-    */
+    
 
     public float doAverageScore(ArrayList<Integer> MyScores){
         float aux = 0;
