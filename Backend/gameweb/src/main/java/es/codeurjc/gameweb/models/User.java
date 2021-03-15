@@ -2,19 +2,27 @@ package es.codeurjc.gameweb.models;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Component
 @SessionScope
+@Entity
 public class User {
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String info;
     private String password;
     private boolean logged = false;
     private boolean admin = false;
     private ArrayList<Game> myGames;
-    private Long id;
 
     public User(String info, String password, ArrayList<Game> myGames) {
         this.info = info;
