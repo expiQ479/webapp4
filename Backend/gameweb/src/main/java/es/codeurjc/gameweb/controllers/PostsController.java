@@ -28,7 +28,7 @@ public class PostsController {
      
     @PostMapping("/listPosts/{id}/{tipoPost}/createPostPage/NewPost")
     public String CreatePost(Model model,@PathVariable Long id,@PathVariable String tipoPost,@RequestParam String newTitle, @RequestParam String postText){ 
-        myGame = gamePostService.findById(id);
+        /*myGame = gamePostService.findById(id);
         Game game =myGame.get();
         Post thePost;
         switch(tipoPost){
@@ -44,7 +44,7 @@ public class PostsController {
                 thePost=new Post(newTitle, null, null, game, null, postText, PostType.Guides);
                 System.out.println(thePost.postText);
                 break;
-        }
+        }*/
         commonFunctions.getSession(model);
         return "expandedPost";  
     }  

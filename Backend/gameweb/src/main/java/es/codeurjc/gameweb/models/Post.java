@@ -2,20 +2,102 @@ package es.codeurjc.gameweb.models;
 
 import java.sql.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+@Entity
+
 public class Post {
-    public String title;
-    public Date creationDate,updateDate;
-    public Game fromGame;
-    public String postText;
-    public Administrator author;
-    public PostType theType;
-    public Post(String title, Date creationDate, Date updateDate, Game fromGame,Administrator author,String postText,PostType theType){
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+    
+    private String title;
+    private String creationDate;
+    private String updateDate;
+    //private Game fromGame;
+    private String postText;
+    //private User author;
+    private PostType theType;
+
+    
+    public Post(){}
+    public Post(String title, String creationDate, String updateDate,String postText,PostType theType){
+        super();
         this.title=title;
         this.creationDate=creationDate;
         this.updateDate=updateDate;
-        this.fromGame=fromGame;
+        //this.fromGame=fromGame;
         this.postText=postText;
-        this.author=author;
+        //this.author=author;
         this.theType=theType;
     }
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getUpdateDate() {
+        return this.updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    /*public Game getFromGame() {
+        return this.fromGame;
+    }
+
+    public void setFromGame(Game fromGame) {
+        this.fromGame = fromGame;
+    }*/
+
+    public String getPostText() {
+        return this.postText;
+    }
+
+    public void setPostText(String postText) {
+        this.postText = postText;
+    }
+
+    /*public User getAuthor() {
+        return this.author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }*/
+
+    public PostType getTheType() {
+        return this.theType;
+    }
+
+    public void setTheType(PostType theType) {
+        this.theType = theType;
+    }
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }
