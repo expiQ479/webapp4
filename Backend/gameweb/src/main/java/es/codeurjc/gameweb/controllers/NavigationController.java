@@ -74,10 +74,6 @@ public class NavigationController implements ErrorController {
         return "adminUpdates";
     }
 
-    @GetMapping("/game/{id}/image")
-    public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
-        return imagePostService.createResponseFromImage(IMAGES, id);
-    }
 
     @GetMapping("/RegisterPage")
     public String showRegister() {
@@ -187,10 +183,15 @@ public class NavigationController implements ErrorController {
     }
 
     @GetMapping("/EditarJuego/{id}")
-    public String showListGames(Model model, @PathVariable long id) {
+    public String editGame(Model model, @PathVariable long id) {
         commonFunctions.getSession(model);
-        model.addAttribute("game", gamePostService.findById(id));
-        return "editGame";
+        Optional<Game> game = gamePostService.findById(id);
+		if (game.isPresent()) {
+			model.addAttribute("game", game.get());
+			return "editGame";
+		} else {
+			return "index";
+		}
     }
 
     @RequestMapping("/error")

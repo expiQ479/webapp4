@@ -16,14 +16,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <form action="/adminUpdates/{{game.getId}}/Gameedited" method="post" enctype="multipart/form-data">
+                    <form action="/editGame" method="post" enctype="multipart/form-data">
                     <tr>
                         <td>
-                            <img src="/games/{{id}}/image" class="responsive2" width="170" height="230"></img>
-                            <input type='file' name='image' accept=".jpg, .jpeg"/>	
+                            <img src="/games/{{game.id}}/image" class="responsive2" width="170" height="230"></img>
+                            <input type='file' name='imageField' accept=".jpg, .jpeg"/>	
+                            <input type='checkbox' name='removeImage'> <label>Eliminar portada</label><br>
                         </td>
                         <td>
                             <input type='text' value='{{game.gameTitle}}' name='gameTitle' />
+                            <input type="hidden" name="id" value="{{game.id}}" />
                         </td>
                         <td>
                             <textarea name='description' rows=20 cols=40>{{game.description}}</textarea>
