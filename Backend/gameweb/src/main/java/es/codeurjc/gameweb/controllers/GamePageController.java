@@ -1,6 +1,7 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,24 +37,12 @@ public class GamePageController {
         return "savedGame";   
     }  
     
-
-    
-    public Integer doAverageRatio(ArrayList<Integer> MyScores, Integer index){
-        Integer aux = 0;
-        Integer numberofindexinthearray = 0;
-        for(int i=0;i<=MyScores.size()-1;i++){
-            if (MyScores.get(i).equals(index))
-                numberofindexinthearray++;
-        }
-        aux = (numberofindexinthearray*100)/(MyScores.size());
-        return aux;
-    }
-
-    public float doAverageScore(ArrayList<Integer> MyScores){
+    public float doAverageScore(HashMap<Long, Integer> MyScores){
         float aux = 0;
-        for(int i=0;i<=MyScores.size()-1;i++){
-            aux= aux + MyScores.get(i);
+        for (Integer value : MyScores.values()) {
+            aux= aux + value;
         }
+        
         aux = aux/(MyScores.size());
         aux = aux*10;
         aux = Math.round(aux);
@@ -61,33 +50,28 @@ public class GamePageController {
         return aux;
     }
 
-    
-
     @RequestMapping("/valorar/{id}")
     public String ValorarGame(Model model, @PathVariable Long id, @RequestParam Integer stars) {
 
         Optional<Game> myGame = gamePostService.findById(id);
-        
         Game game = myGame.get();
-        model.addAttribute("game", game);
-        game.getListScores().add(stars);
         
-        Integer int1=doAverageRatio(game.getListScores(),1);
-        Integer int2=doAverageRatio(game.getListScores(),2);
-        Integer int3=doAverageRatio(game.getListScores(),3);
-        Integer int4=doAverageRatio(game.getListScores(),4);
-        Integer int5=doAverageRatio(game.getListScores(),5);
-        model.addAttribute("gamestars1", int1);
-        model.addAttribute("gamestars2", int2);
-        model.addAttribute("gamestars3", int3);
-        model.addAttribute("gamestars4", int4);
-        model.addAttribute("gamestars5", int5);
-        float myAverage= doAverageScore(game.getListScores());
+        //we check if the array have the initialized value to change it in case it have it or just add the new one in other case
+        if (game.getMapScores().containsValue(0)){
+            game.getMapScores().clear();
+            game.getMapScores().put(commonFunctions.getU().getId(), stars);
+        }
+        else 
+            game.getMapScores().put(commonFunctions.getU().getId(), stars);
+
+        //call to the method to do the average and set it on the game parameters
+        float myAverage= doAverageScore(game.getMapScores());
         game.setAverageScore(myAverage);
         gamePostService.save(game);
         commonFunctions.getSession(model);
+        model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
 
-        return "gamestadistics";
+        return "savedGame";
     }
     @PostMapping("/AgregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
