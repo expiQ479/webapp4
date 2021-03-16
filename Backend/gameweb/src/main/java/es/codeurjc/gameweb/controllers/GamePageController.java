@@ -70,7 +70,7 @@ public class GamePageController {
         Game game = myGame.get();
         model.addAttribute("game", game);
         game.getListScores().add(stars);
-        gamePostService.save(game);
+        
         Integer int1=doAverageRatio(game.getListScores(),1);
         Integer int2=doAverageRatio(game.getListScores(),2);
         Integer int3=doAverageRatio(game.getListScores(),3);
@@ -83,6 +83,7 @@ public class GamePageController {
         model.addAttribute("gamestars5", int5);
         float myAverage= doAverageScore(game.getListScores());
         game.setAverageScore(myAverage);
+        gamePostService.save(game);
         commonFunctions.getSession(model);
 
         return "gamestadistics";
