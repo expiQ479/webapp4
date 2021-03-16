@@ -35,9 +35,10 @@ public class NavigationController implements ErrorController {
     @Autowired
     private GamePostService gamePostService;
     @Autowired
-    private ImageService imagePostService;
-    @Autowired
     private static final String IMAGES = "images";
+    private Genres genres;
+    
+
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -53,13 +54,13 @@ public class NavigationController implements ErrorController {
     @GetMapping("/games/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
 
-        Optional<Game> book = gamePostService.findById(id);
-        if (book.isPresent() && book.get().getImageFile() != null) {
+        Optional<Game> game = gamePostService.findById(id);
+        if (game.isPresent() && game.get().getImageFile() != null) {
 
-            Resource file = new InputStreamResource(book.get().getImageFile().getBinaryStream());
+            Resource file = new InputStreamResource(game.get().getImageFile().getBinaryStream());
 
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .contentLength(book.get().getImageFile().length()).body(file);
+                    .contentLength(game.get().getImageFile().length()).body(file);
 
         } else {
             return ResponseEntity.notFound().build();
@@ -179,6 +180,7 @@ public class NavigationController implements ErrorController {
     public String showListGames(Model model) {
         commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
+        model.addAttribute("genres", genres);
         return "gameList";
     }
 
