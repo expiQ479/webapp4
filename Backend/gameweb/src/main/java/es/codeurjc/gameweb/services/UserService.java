@@ -6,8 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.codeurjc.gameweb.controllers.CommonFunctions;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.User;
@@ -17,7 +19,6 @@ public class UserService{
 
     private ConcurrentMap<Long, User> user = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
-
     public UserService(){
         ArrayList<Game> suscripciones = new ArrayList<>();
         suscripciones.add(new Game("Skyrim", Genres.RPG, "Juego RPG clasico"));
