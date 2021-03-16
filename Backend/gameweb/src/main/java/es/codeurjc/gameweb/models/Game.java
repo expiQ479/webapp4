@@ -1,8 +1,6 @@
 package es.codeurjc.gameweb.models;
 
-import java.util.ArrayList;
-import java.lang.Math;
-
+import java.util.HashMap;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +28,7 @@ public class Game {
 
     private String gameTitle;
     private Genres genre;
-    private ArrayList<Integer> listScores = new ArrayList<Integer>();
+    HashMap<Long, Integer> mapScores = new HashMap<Long, Integer>();
     private float averageScore;
     
     @Column(columnDefinition = "TEXT")
@@ -44,29 +42,10 @@ public class Game {
         super();
         this.gameTitle = gameTitle;
         this.genre = genre;
-        this.description = description; 
-        this.listScores.add(2);
-        this.listScores.add(2);
-        this.listScores.add(3);
-        this.listScores.add(4);
-        this.listScores.add(5);
-        this.listScores.add(5);
-        this.listScores.add(5);
-        this.averageScore=doAverageScore(listScores);
+        this.description = description;
+        this.mapScores.put((long) 0, 0);
     }
     
-
-    public float doAverageScore(ArrayList<Integer> MyScores){
-        float aux = 0;
-        for(int i=0;i<=MyScores.size()-1;i++){
-            aux= aux + MyScores.get(i);
-        }
-        aux = aux/(MyScores.size());
-        aux = aux*10;
-        aux = Math.round(aux);
-        aux = aux/10;
-        return aux;
-    }
     public String getGameTitle() {
         return gameTitle;
     }
@@ -75,13 +54,7 @@ public class Game {
         this.gameTitle = gameTitle;
     }
 
-    public ArrayList<Integer> getListScores() {
-        return listScores;
-    }
-
-    public void setListScores(ArrayList<Integer> listScores) {
-        this.listScores = listScores;
-    }
+    
     public String getDescription() {
         return description;
     }
@@ -90,8 +63,6 @@ public class Game {
         this.description = description;
     }
     
-    
-
     public Long getId() {
         return id;
     }
@@ -140,6 +111,12 @@ public class Game {
         this.image = image;
     }
 
-   
+    public HashMap<Long, Integer> getMapScores() {
+        return mapScores;
+    }
+
+    public void setMapScores(HashMap<Long, Integer> mapScores) {
+        this.mapScores = mapScores;
+    }
 
 }
