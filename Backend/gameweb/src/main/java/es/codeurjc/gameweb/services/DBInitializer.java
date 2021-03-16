@@ -127,13 +127,13 @@ public class DBInitializer {
         Chat chat16 = new Chat();
         g16.setChat(chat16);
         gameRepository.save(g16);;
-        Post p1=new Post("Noticia 1", "11/11/11", "11/11/11", "Esta es la noticia 1", PostType.News);
+        Post p1=new Post("Noticia 1", "11/11/11", "11/11/11",null,null, "Esta es la noticia 1", PostType.News);
         postRepository.save(p1);
-        Post p2=new Post("Noticia 2", "11/11/11", "11/11/11", "Esta es la noticia 2", PostType.News);
+        Post p2=new Post("Noticia 2", "11/11/11", "11/11/11",null,null, "Esta es la noticia 2", PostType.News);
         postRepository.save(p2);
-        Post p3=new Post("Noticia 3", "11/11/11", "11/11/11", "Esta es la noticia 3", PostType.News);
+        Post p3=new Post("Noticia 3", "11/11/11", "11/11/11",null,null, "Esta es la noticia 3", PostType.News);
         postRepository.save(p3);
-        Post p4=new Post("Noticia 4", "11/11/11", "11/11/11", "Esta es la noticia 4", PostType.News);
+        Post p4=new Post("Noticia 4", "11/11/11", "11/11/11",null,null, "Esta es la noticia 4", PostType.News);
         postRepository.save(p4);
 
     }

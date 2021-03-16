@@ -73,6 +73,13 @@ public class GamePostService {
 		else return null;
 		
 	}
+	public ArrayList<Game> getNumberOfGames(int n,ArrayList<Game> theArray){
+		ArrayList<Game> aux=new ArrayList<Game>();
+		for(int i=0;i<n;i++){
+			aux.add(theArray.get(i));
+		}
+		return aux;
+	}
 	//needs function to get BestRatedGames
 	public void save(Game game) {
 		repository.save(game);
