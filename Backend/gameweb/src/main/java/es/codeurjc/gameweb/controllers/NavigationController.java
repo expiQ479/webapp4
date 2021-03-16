@@ -175,10 +175,11 @@ public class NavigationController implements ErrorController {
         return "Suscripciones";
     }
 
-    @GetMapping("/Sesion+Cerrada")
+    @GetMapping("/Index")
     public String SignOff(Model model) {
         commonFunctions.getU().setLogged(false);
         commonFunctions.getSession(model);
+        model.addAttribute("games", gamePostService.findAll());
         return "index";
     }
 
