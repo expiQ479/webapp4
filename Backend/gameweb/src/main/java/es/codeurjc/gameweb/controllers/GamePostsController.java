@@ -41,6 +41,7 @@ public class GamePostsController {
 			game.setImage(false);
 		game.setChat(new Chat());
 		gamePostService.save(game);
+		model.addAttribute("customMessage", "Juego creado con exito");
 		return "savedGame";
 	}
 	
