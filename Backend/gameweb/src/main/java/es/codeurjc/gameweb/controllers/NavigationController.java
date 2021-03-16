@@ -1,5 +1,6 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.io.Console;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,12 +22,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import es.codeurjc.gameweb.models.*;
-import es.codeurjc.gameweb.models.Game;
+
 import org.springframework.http.HttpHeaders;
 
 import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
+import es.codeurjc.gameweb.services.PostService;
 
 @Controller
 public class NavigationController implements ErrorController {
@@ -36,6 +38,8 @@ public class NavigationController implements ErrorController {
     private ChatService chatService;
     @Autowired
     private GamePostService gamePostService;
+    @Autowired
+    private PostService pService;
     @Autowired
     private static final String IMAGES = "images";
     private Genres genres;
@@ -140,23 +144,31 @@ public class NavigationController implements ErrorController {
         return "showMoreGames";
     }
 
-    @RequestMapping("/listPosts/{id}/{tipoPost}/createPostPage")
-    public String showCreatePostPage(Model model,@PathVariable Long id,@PathVariable String tipoPost) {        
-        model.addAttribute("tipoPost", tipoPost);
-        commonFunctions.getSession(model);
-        return "createPostPage";
-    }
-    @RequestMapping("/listPosts/{id}/{tipoPost}")
-    public String showListPost(Model model,@PathVariable Long id,@PathVariable String tipoPost) {        
+    
+    @RequestMapping("/listPosts/{id}/{theType}")
+    public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType){       
         Optional<Game> myGame = gamePostService.findById(id);
-        Game game =myGame.get();
-        ArrayList<Post> myPosts= new ArrayList<Post>();
-        /*myPosts.add(new Post("Primero", null, null, null, null,"este es el primer texto",PostType.News));
-        myPosts.add(new Post("Segundo", null, null, null, null,"este es el sec texto",PostType.News));
-        myPosts.add(new Post("Tercero", null, null, null, null,"este es el third texto",PostType.News));*/
+        Game game =myGame.get();       
         model.addAttribute("name",game.getGameTitle());
-        model.addAttribute("tipoPost", tipoPost);
-        model.addAttribute("lista", myPosts);
+        model.addAttribute("postType", theType);
+        PostType ty=null;
+        switch(theType){
+            case "Guias":
+                ty=PostType.Guides;
+                break;
+            case "Noticias":
+                ty=PostType.News;
+                break;
+            case "Actualizaciones":
+                ty=PostType.Updates;
+                break;
+            default:
+            System.out.println("PROBLEMOSN");
+                break;
+        }
+        System.out.println(ty.name());
+        ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
+        model.addAttribute("lista", toShow);
         commonFunctions.getSession(model);
         return "listPosts";
     }
@@ -190,9 +202,10 @@ public class NavigationController implements ErrorController {
 
     
 
-    @RequestMapping("/expandedPost/{titlePost}")
-    public String showExpandedPost(Model model, @PathVariable String titlePost) {
-        model.addAttribute("titlePost", titlePost);
+    @RequestMapping("/expandedPost/{id}")
+    public String showExpandedPost(Model model, @PathVariable long id) {
+        Optional<Post> p=pService.findById(id);
+        model.addAttribute("post", p.get());
         commonFunctions.getSession(model);
         return "expandedPost";
     }
@@ -204,7 +217,17 @@ public class NavigationController implements ErrorController {
         model.addAttribute("genres", genres);
         return "gameList";
     }
-
+    @RequestMapping("/createPostPage/{id}")
+    public String showCreatePostPage(Model model, @PathVariable long id) {    
+        commonFunctions.getSession(model);
+        Optional<Game> game = gamePostService.findById(id);
+		if (game.isPresent()) {
+			model.addAttribute("game", game.get());
+			return "createPostPage";
+		} else {
+			return "index";
+		}
+    }
     @GetMapping("/EditarJuego/{id}")
     public String editGame(Model model, @PathVariable long id) {
         commonFunctions.getSession(model);

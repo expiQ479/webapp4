@@ -2,9 +2,6 @@ package es.codeurjc.gameweb.models;
 
 import java.sql.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,13 +22,13 @@ public class Post {
     @OneToOne
     private Game fromGame;
     private String postText;
-    @OneToOne
-    private User author;
+    //debería ser tipo User pero debido a problemas lo dejare para después y que por ahora solo muestre el nombre en el post expandido.
+    private String author;
     private PostType theType;
 
     
     public Post(){}
-    public Post(String title, String creationDate, String updateDate,Game fromGame,User author,String postText,PostType theType){
+    public Post(String title, String creationDate, String updateDate,Game fromGame,String author,String postText,PostType theType){
         super();
         this.title=title;
         this.creationDate=creationDate;
@@ -81,18 +78,17 @@ public class Post {
         this.postText = postText;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return this.author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
     public PostType getTheType() {
         return this.theType;
     }
-
     public void setTheType(PostType theType) {
         this.theType = theType;
     }

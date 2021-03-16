@@ -9,16 +9,26 @@
           <div class="content-section">
             <div class="head-section">
               <h3>Nuevo post</h3>
-              <h1>{{tipoPost}}</h1>
             </div>
             <div class="body-section">
-              <form action="/listPosts/{{id}}/{{tipoPost}}/createPostPage/NewPost" method="post">
+              <form action="/newPost/{{game.id}}" method="post">
                 <div class="form-input">
                   <input type="text" name="newTitle" placeholder="Titulo Post">
                 </div>
                 <div class="form-input">
-                  <input type="text" name="postText" placeholder="Contenido (Texto)">
-                </div>                
+                  <textarea name='postText' rows=20 cols=40></textarea>
+                </div>          
+                <div class="form-input">
+                  <div class="wrap">
+                    <input list="postTypes" name="theType" type="text"
+                        placeholder="Escoge la categoría">
+                    <datalist id="postTypes">
+                        <option value="Guías"></option>
+                        <option value="Noticias"></option>
+                        <option value="Actualizaciones"></option>
+                    </datalist>
+                </div>
+                  </div>      
                 <div class="form-input">
                   <input type="submit" value="Create Post">
                 </div>

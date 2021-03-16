@@ -69,12 +69,11 @@
   <!-- Page Content -->
 
   <div class="container">
-    <h1 class="my-4">{{name}}: lista {{tipoPost}}</h1> 
-    <a href="/listPosts/{{id}}/{{tipoPost}}/createPostPage" class="btn" role="button">Nuevo {{tipoPost}}</a>
+    <h1 class="my-4">{{name}}: lista {{postType}}</h1> 
     <div class="row">        
       {{#lista}}
       <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
-        <a href="/expandedPost/{{title}}"><img class="listImage" src="/images/sample1.jpg" width="384" height="216"></a>
+        <a href="/expandedPost/{{id}}"><img class="listImage" src="/images/sample1.jpg" width="384" height="216"></a>
         <h5>{{title}}</h5>
         <p class=listText>{{postText}}</p>
       </div>
