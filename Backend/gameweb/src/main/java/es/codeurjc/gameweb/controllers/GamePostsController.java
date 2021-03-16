@@ -47,8 +47,11 @@ public class GamePostsController {
 	@PostMapping("/editGame")
 	public String editBookProcess(Model model,MultipartFile imageField, Game game, boolean removeImage)
 			throws IOException, SQLException {
-		
+		Optional<Game> myGame=gamePostService.findById(game.getId());
+		Game g=myGame.get();
+		Chat aux = g.getChat();
 		updateImage(game, removeImage, imageField);
+		game.setChat(aux);
 		gamePostService.save(game);
 
 		commonFunctions.getSession(model);

@@ -37,10 +37,17 @@
       <div class="col-lg-3 col-md-4 col-sm-4">
         <h1 class="my-4">Categorias</h1>
         <div class="container" style="margin: 10px;">
-          <label><input type="checkbox" id="cbox1" value="first_checkbox"> acción</label><br>
-          <label><input type="checkbox" id="cbox1" value="first_checkbox"> rpg</label><br>
-          <label><input type="checkbox" id="cbox1" value="first_checkbox"> shooter</label><br>
-          <button type="button" class="btn-info">Buscar</button>
+          <form action="/searchGames" method="post" enctype="multipart/form-data">
+          <input type="checkbox" name="Horror" > <label>Horror</label><br>
+          <input type="checkbox" name="Shooter" > <label>Shooter</label><br>
+          <input type="checkbox" name="Action"> <label>Action</label><br>
+          <input type="checkbox" name="Plataformer"> <label>Plataformer</label><br>
+          <input type="checkbox" name="Sports"> <label>Sports</label><br>
+          <input type="checkbox" name="Puzzles"> <label>Puzzles</label><br>
+          <input type="checkbox" name="Narrative"> <label>Narrative</label><br>
+          <input type="checkbox" name="RPG"> <label>RPG</label><br>
+          <input type='submit' value='Buscar'/>
+        </form>
         </div>
       </div>
       <!-- /.col-lg-3 -->

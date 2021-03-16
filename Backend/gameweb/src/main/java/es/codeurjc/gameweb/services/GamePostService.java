@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.repositories.GameRepository;
 
 @Service
@@ -65,6 +66,9 @@ public class GamePostService {
 
 	public void delete(long id) {
 		repository.deleteById(id);
+	}
+	public List<Game> findByCategory(Genres genre){
+		return repository.findByGenre(genre);
 	}
 
 }
