@@ -34,7 +34,8 @@ public class GamePageController {
         commonFunctions.getSession(model);    
         myGame = gamePostService.findById(id);
         model.addAttribute("game", myGame); 
-        return "GamePage";  
+        model.addAttribute("customMessage", "Suscripción realizada con éxito");
+        return "savedGame";  
     }  
     
 

@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
@@ -47,17 +48,25 @@ public class NavigationController implements ErrorController {
         for(Genres g : Genres.values()){
             amountOfGamesWithGenre.put(g, 0);
         }
-        ArrayList<Game> firstGames=new ArrayList<Game>();
-        for(int i=1;i<9;i+=2){
-            firstGames.add(gamePostService.findById(i).get());
-        }
         if(commonFunctions.getU().isLogged()){
             for (Game game : commonFunctions.getU().getMyGames()) {
                 amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
             }
+            Map.Entry<Genres,Integer> maxEntry=null;
+            for(Map.Entry<Genres,Integer> entry : amountOfGamesWithGenre.entrySet()){
+                if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0){
+                    maxEntry=entry;
+                }           
+            }
+
+            model.addAttribute("recommendedGames",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(maxEntry.getKey())) );
+
         }
-        //model.addAttribute("amountOfGames", amountOfGamesWithGenre);
-        model.addAttribute("games", firstGames);
+        else{
+            model.addAttribute("recommendedGames", null);
+        }
+        
+        model.addAttribute("games", gamePostService.findAll());
         return "index";
     }
 

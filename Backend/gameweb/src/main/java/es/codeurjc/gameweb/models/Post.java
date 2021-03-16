@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -21,21 +22,23 @@ public class Post {
     private String title;
     private String creationDate;
     private String updateDate;
-    //private Game fromGame;
+    @OneToOne
+    private Game fromGame;
     private String postText;
-    //private User author;
+    @OneToOne
+    private User author;
     private PostType theType;
 
     
     public Post(){}
-    public Post(String title, String creationDate, String updateDate,String postText,PostType theType){
+    public Post(String title, String creationDate, String updateDate,Game fromGame,User author,String postText,PostType theType){
         super();
         this.title=title;
         this.creationDate=creationDate;
         this.updateDate=updateDate;
-        //this.fromGame=fromGame;
+        this.fromGame=fromGame;
         this.postText=postText;
-        //this.author=author;
+        this.author=author;
         this.theType=theType;
     }
     public String getTitle() {
@@ -62,13 +65,13 @@ public class Post {
         this.updateDate = updateDate;
     }
 
-    /*public Game getFromGame() {
+    public Game getFromGame() {
         return this.fromGame;
     }
 
     public void setFromGame(Game fromGame) {
         this.fromGame = fromGame;
-    }*/
+    }
 
     public String getPostText() {
         return this.postText;
@@ -78,13 +81,13 @@ public class Post {
         this.postText = postText;
     }
 
-    /*public User getAuthor() {
+    public User getAuthor() {
         return this.author;
     }
 
     public void setAuthor(User author) {
         this.author = author;
-    }*/
+    }
 
     public PostType getTheType() {
         return this.theType;

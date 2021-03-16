@@ -31,6 +31,7 @@ public class GamePostsController {
         commonFunctions.getSession(model);
 		gamePostService.save(game);
 		imagePostService.saveImage(IMAGES, game.getId(), image);	
+		model.addAttribute("customMessage", "Juego creado con exito");
 		return "savedGame";
 	}
 	/*@PostMapping("/adminUpdates/{id}/Gameedited")
