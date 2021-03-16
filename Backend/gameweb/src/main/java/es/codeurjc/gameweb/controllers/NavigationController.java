@@ -3,6 +3,7 @@ package es.codeurjc.gameweb.controllers;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 import javax.servlet.RequestDispatcher;
@@ -43,10 +44,20 @@ public class NavigationController implements ErrorController {
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);
+        HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
+        for(Genres g : Genres.values()){
+            amountOfGamesWithGenre.put(g, 0);
+        }
         ArrayList<Game> firstGames=new ArrayList<Game>();
         for(int i=1;i<9;i+=2){
             firstGames.add(gamePostService.findById(i).get());
         }
+        if(commonFunctions.getU().isLogged()){
+            for (Game game : commonFunctions.getU().getMyGames()) {
+                amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
+            }
+        }
+        //model.addAttribute("amountOfGames", amountOfGamesWithGenre);
         model.addAttribute("games", firstGames);
         return "index";
     }
@@ -131,9 +142,9 @@ public class NavigationController implements ErrorController {
         Optional<Game> myGame = gamePostService.findById(id);
         Game game =myGame.get();
         ArrayList<Post> myPosts= new ArrayList<Post>();
-        myPosts.add(new Post("Primero", null, null, null, null,"este es el primer texto",PostType.News));
+        /*myPosts.add(new Post("Primero", null, null, null, null,"este es el primer texto",PostType.News));
         myPosts.add(new Post("Segundo", null, null, null, null,"este es el sec texto",PostType.News));
-        myPosts.add(new Post("Tercero", null, null, null, null,"este es el third texto",PostType.News));
+        myPosts.add(new Post("Tercero", null, null, null, null,"este es el third texto",PostType.News));*/
         model.addAttribute("name",game.getGameTitle());
         model.addAttribute("tipoPost", tipoPost);
         model.addAttribute("lista", myPosts);

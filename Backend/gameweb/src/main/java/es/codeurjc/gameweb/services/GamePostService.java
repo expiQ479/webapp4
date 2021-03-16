@@ -1,5 +1,6 @@
 package es.codeurjc.gameweb.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,20 @@ public class GamePostService {
 	public List<Game> findAll() {
 		return repository.findAll();
 	}
-
+	public ArrayList<Game> findGamesOfGenre(Genres gameGenre){
+		ArrayList<Game> aux=new ArrayList<Game>();
+		for (Game g : repository.findAll()) {
+			if(g.getGenre().equals(gameGenre)){
+				aux.add(g);
+			}
+		}
+		if(!aux.isEmpty()){
+			return aux;
+		}
+		else return null;
+		
+	}
+	//needs function to get BestRatedGames
 	public void save(Game game) {
 		repository.save(game);
 	}

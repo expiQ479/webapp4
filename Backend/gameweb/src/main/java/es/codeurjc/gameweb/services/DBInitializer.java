@@ -2,9 +2,11 @@ package es.codeurjc.gameweb.services;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.tomcat.jni.User;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -14,12 +16,20 @@ import org.springframework.stereotype.Service;
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
+import es.codeurjc.gameweb.models.Post;
+import es.codeurjc.gameweb.models.PostType;
 import es.codeurjc.gameweb.repositories.GameRepository;
+import es.codeurjc.gameweb.repositories.PostRepository;
+import es.codeurjc.gameweb.repositories.UserRepository;
 
 @Service
 public class DBInitializer {
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private UserService users;
     @PostConstruct
 	public void init() throws IOException, URISyntaxException {
         //sample games of 4dgames
@@ -116,8 +126,15 @@ public class DBInitializer {
         setGameImage(g16, "/sample_images/image-15.jpg");
         Chat chat16 = new Chat();
         g16.setChat(chat16);
-        gameRepository.save(g16);
-
+        gameRepository.save(g16);;
+        Post p1=new Post("Noticia 1", "11/11/11", "11/11/11", "Esta es la noticia 1", PostType.News);
+        postRepository.save(p1);
+        Post p2=new Post("Noticia 2", "11/11/11", "11/11/11", "Esta es la noticia 2", PostType.News);
+        postRepository.save(p2);
+        Post p3=new Post("Noticia 3", "11/11/11", "11/11/11", "Esta es la noticia 3", PostType.News);
+        postRepository.save(p3);
+        Post p4=new Post("Noticia 4", "11/11/11", "11/11/11", "Esta es la noticia 4", PostType.News);
+        postRepository.save(p4);
 
     }
 
