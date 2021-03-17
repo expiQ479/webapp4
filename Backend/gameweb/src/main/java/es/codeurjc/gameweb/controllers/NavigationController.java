@@ -67,14 +67,17 @@ public class NavigationController implements ErrorController {
         commonFunctions.getSession(model);      
         if(commonFunctions.getU().isLogged()){
             try {
-                model.addAttribute("recommendedGames",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey())) );
+                model.addAttribute("selectedList",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey())) );
+                model.addAttribute("whatList", "Recomendados");
             } catch (Exception e) {
-                model.addAttribute("recommendedGames", null);
+                model.addAttribute("selectedList", gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames()));
+                model.addAttribute("whatList", "Mejor valorados");
             }
             
         }
         else{
-            model.addAttribute("recommendedGames", null);
+            model.addAttribute("selectedList", gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames()));
+            model.addAttribute("whatList", "Mejor valorados");
         }       
         model.addAttribute("games", gamePostService.findAll());
         return "index";

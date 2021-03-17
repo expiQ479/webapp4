@@ -92,5 +92,20 @@ public class GamePostService {
 		return repository.findByGenre(genre);
 	}
 
+    public ArrayList<Game> findBestRatedGames() {
+		float maxScore=0;
+        ArrayList<Game> aux=new ArrayList<Game>();
+		for (Game g : repository.findAll()) {
+			if(g.getAverageScore() >= maxScore)
+				aux.add(g);
+				maxScore=g.getAverageScore();
+			}
+		
+		if(!aux.isEmpty()){
+			return aux;
+		}
+		else return null;
+    }
+
 }
 
