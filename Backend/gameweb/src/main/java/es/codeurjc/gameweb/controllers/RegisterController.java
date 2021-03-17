@@ -42,6 +42,7 @@ public class RegisterController {
         } catch (Exception e) {
             model.addAttribute("recommendedGames", null);
         }
+        model.addAttribute("whatList", "Recomendados");
         return "index";
         }
         commonFunctions.getSession(model);

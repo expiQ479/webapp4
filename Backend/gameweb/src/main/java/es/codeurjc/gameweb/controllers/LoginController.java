@@ -44,6 +44,7 @@ public class LoginController {
                 } catch (Exception e) {
                     model.addAttribute("recommendedGames", null);
                 }
+                model.addAttribute("whatList", "Recomendados");
                 return "index";
             }
         }

@@ -70,13 +70,13 @@ public class NavigationController implements ErrorController {
                 model.addAttribute("selectedList",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey())) );
                 model.addAttribute("whatList", "Recomendados");
             } catch (Exception e) {
-                model.addAttribute("selectedList", gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames()));
+                model.addAttribute("selectedList", null);
                 model.addAttribute("whatList", "Mejor valorados");
             }
             
         }
         else{
-            model.addAttribute("selectedList", gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames()));
+            model.addAttribute("selectedList", null);
             model.addAttribute("whatList", "Mejor valorados");
         }       
         model.addAttribute("games", gamePostService.findAll());
@@ -200,6 +200,7 @@ public class NavigationController implements ErrorController {
         commonFunctions.getU().setLogged(false);
         commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
+        model.addAttribute("whatList", "Mejor valorados");
         return "index";
     }
 
@@ -233,6 +234,7 @@ public class NavigationController implements ErrorController {
 			model.addAttribute("game", game.get());
 			return "createPostPage";
 		} else {
+            model.addAttribute("whatList", "Recomendados");
 			return "index";
 		}
     }
@@ -244,6 +246,7 @@ public class NavigationController implements ErrorController {
 			model.addAttribute("game", game.get());
 			return "editGame";
 		} else {
+            model.addAttribute("whatList", "Recomendados");
 			return "index";
 		}
     }
