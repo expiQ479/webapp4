@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.UserService;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class ProfileController {
         model.addAttribute("name", name);
         model.addAttribute("password", commonFunctions.getU().getPassword());
         commonFunctions.getU().setInfo(name);
-        userService.deleteById(commonFunctions.getU().getId());
+        
         userService.save(commonFunctions.getU());
         commonFunctions.getSession(model);
         return "Profile";
@@ -42,7 +44,9 @@ public class ProfileController {
 
     @RequestMapping("/Subscriptions")
     public String showSubscriptions(Model model){
-        model.addAttribute("listaSubs",commonFunctions.getU().getMyGames());
+        Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
+        User User = myUser.get();
+        model.addAttribute("listaSubs",User.getMyGames());
         commonFunctions.getSession(model);
         return "Subscriptions";
     }

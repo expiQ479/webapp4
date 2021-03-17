@@ -5,48 +5,39 @@ import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import es.codeurjc.gameweb.controllers.CommonFunctions;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.User;
+import java.util.List;
+import java.util.Optional;
+import es.codeurjc.gameweb.repositories.UserRepository;
 
 @Service
 public class UserService{
 
-    private ConcurrentMap<Long, User> user = new ConcurrentHashMap<>();
-    private AtomicLong nextId = new AtomicLong();
-    public UserService(){
-        ArrayList<Game> suscripciones = new ArrayList<>();
-        suscripciones.add(new Game("Skyrim", Genres.RPG, "Juego RPG clasico"));
-		User user1 = new User("Kike", "12345", suscripciones);
-		user1.setAdmin(true);
-		User user2 = new User("Pepe", "54321", suscripciones);
-		user2.setAdmin(false);
-        save(user1);
-        save(user2);
+    @Autowired
+    private UserRepository users;
+
+    public Optional<User> findById(long id) {
+        return users.findById(id);
     }
 
-    public Collection<User> findAll() {
-		return user.values();
-	}
+    public boolean exist(long id) {
+        return users.existsById(id);
+    }
 
-	public User findById(long id) {
-		return user.get(id);
-	}
+    public List<User> findAll() {
+        return users.findAll();
+    }
 
-	public void save(User u) {
-		long id = nextId.getAndIncrement();
+    public void save(User user){
+        users.save(user);
+    }
 
-		u.setId(id);
-
-		this.user.put(id, u);
-	}
-
-	public void deleteById(long id) {
-		this.user.remove(id);
-	}
+    public void delete(long id) {
+        users.deleteById(id);
+    }
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.tomcat.jni.User;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -18,6 +17,7 @@ import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.Post;
 import es.codeurjc.gameweb.models.PostType;
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.repositories.GameRepository;
 import es.codeurjc.gameweb.repositories.PostRepository;
 import es.codeurjc.gameweb.repositories.UserRepository;
@@ -29,7 +29,7 @@ public class DBInitializer {
     @Autowired
     private PostRepository postRepository;
     @Autowired
-    private UserService users;
+    private UserRepository userRepository;
     @PostConstruct
 	public void init() throws IOException, URISyntaxException {
         //sample games of 4dgames
@@ -140,12 +140,29 @@ public class DBInitializer {
         g4.addPost(p4);
         postRepository.save(p4);
 
+        ArrayList<Game> suscripciones= new ArrayList<>();
+        suscripciones.add(null);
+		User user1 = new User("Kiken", "12345", suscripciones);
+		user1.setAdmin(true);
+        //setUserImage(user1, "/user_images/image-0.jpg");
+        userRepository.save(user1);
+
+		/*User user2 = new User("Pepe", "54321", null);
+		user2.setAdmin(false);
+        users.save(user2);*/
     }
 
     public void setGameImage(Game game, String classpathResource) throws IOException {
         game.setImage(true);
         Resource image = (Resource) new ClassPathResource(classpathResource);
         game.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
+
+    }
+
+    public void setUserImage(User user, String classpathResource) throws IOException {
+        user.setImage(true);
+        Resource image = (Resource) new ClassPathResource(classpathResource);
+        user.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
 
     }
 

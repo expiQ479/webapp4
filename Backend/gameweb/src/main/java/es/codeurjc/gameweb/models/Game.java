@@ -33,6 +33,7 @@ public class Game {
     private String gameTitle;
     private Genres genre;
     HashMap<Long, Integer> mapScores = new HashMap<Long, Integer>();
+    
     private float averageScore;
     
     @Column(columnDefinition = "TEXT")
