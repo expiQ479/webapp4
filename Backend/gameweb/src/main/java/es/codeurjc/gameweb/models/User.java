@@ -1,17 +1,14 @@
 package es.codeurjc.gameweb.models;
 
+import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-
-import com.mysql.cj.jdbc.Blob;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Component;
@@ -21,6 +18,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 @Entity
 @DynamicUpdate
+@Table(name="users")
 public class User {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -104,8 +102,8 @@ public class User {
         return imageFile;
     }
 
-    public void setImageFile(java.sql.Blob blob) {
-        this.imageFile = (Blob) blob;
+    public void setImageFile(Blob blob) {
+        this.imageFile = blob;
     }
 
     public boolean isImage() {

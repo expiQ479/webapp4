@@ -33,7 +33,7 @@ public class DBInitializer {
     @PostConstruct
 	public void init() throws IOException, URISyntaxException {
         //sample games of 4dgames
-        
+
         Game g1 =new Game("Stardew Valley", Genres.RPG,"¡Stardew Valley es un RPG de vida en el campo! Hereda la vieja granja de tu abuelo en Stardew Valley. Armado con herramientas de segunda mano y algo de dinero, te dispones a empezar tu nueva vida. ¿Podrás aprender a vivir de la tierra y a convertir esos campos de malezas en un hogar próspero? No va a ser fácil. Desde que Joja Corporation llegó a la ciudad, las antiguas formas de vivir han desaparecido. El centro comunitario, en su momento el centro de actividad más activo de la ciudad, se encuentra ahora en ruinas. Pero el valle se encuentra lleno de oportunidades. ¡Con un poco de dedicación, podrás ser uno de los que devuelva Stardew Valley a la gloria!");
 		setGameImage(g1, "/sample_images/image-0.jpg");
         g1.setChat(new Chat());
@@ -140,16 +140,15 @@ public class DBInitializer {
         g4.addPost(p4);
         postRepository.save(p4);
 
-        ArrayList<Game> suscripciones= new ArrayList<>();
-        suscripciones.add(null);
-		User user1 = new User("Kiken", "12345", suscripciones);
+		User user1 = new User("Kike", "12345", null);
 		user1.setAdmin(true);
-        //setUserImage(user1, "/user_images/image-0.jpg");
+        setUserImage(user1, "/user_images/image-0.jpg");
         userRepository.save(user1);
 
-		/*User user2 = new User("Pepe", "54321", null);
+		User user2 = new User("Pepe", "54321", null);
 		user2.setAdmin(false);
-        users.save(user2);*/
+        userRepository.save(user2);
+
     }
 
     public void setGameImage(Game game, String classpathResource) throws IOException {
