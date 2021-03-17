@@ -128,15 +128,19 @@ public class DBInitializer {
         g16.setChat(chat16);
         gameRepository.save(g16);;
         Post p1=new Post("Noticia 1", "11/11/11", "11/11/11","Huey", "Esta es la noticia 1", PostType.News);
+        setPostImage(p1, "/sample_images/post-image-1.jpg");
         g1.addPost(p1);
         postRepository.save(p1);
         Post p2=new Post("Noticia 2", "11/11/11", "11/11/11","Dewey", "Esta es la noticia 2", PostType.Updates);
+        setPostImage(p2, "/sample_images/post-image-2.jpg");
         g2.addPost(p2);
         postRepository.save(p2);
         Post p3=new Post("Noticia 3", "11/11/11", "11/11/11","Louie", "Esta es la noticia 3", PostType.Guides);
+        setPostImage(p3, "/sample_images/post-image-3.jpg");
         g3.addPost(p3);
         postRepository.save(p3);
         Post p4=new Post("Noticia 4", "11/11/11", "11/11/11","Webby", "Esta es la noticia 4", PostType.News);
+        setPostImage(p4, "/sample_images/post-image-4.jpg");
         g4.addPost(p4);
         postRepository.save(p4);
 
@@ -158,7 +162,11 @@ public class DBInitializer {
         game.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
 
     }
-
+    public void setPostImage(Post post, String classpathResource)throws IOException{
+        post.setImage(true);
+        Resource image = (Resource) new ClassPathResource(classpathResource);
+        post.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
+    }
     public void setUserImage(User user, String classpathResource) throws IOException {
         user.setImage(true);
         Resource image = (Resource) new ClassPathResource(classpathResource);
