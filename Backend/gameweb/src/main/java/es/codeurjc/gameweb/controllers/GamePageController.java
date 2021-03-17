@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
+import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.repositories.UserRepository;
 import es.codeurjc.gameweb.services.GamePostService;
-
+import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class GamePageController {
@@ -25,13 +27,19 @@ public class GamePageController {
     @Autowired
 	private GamePostService gamePostService;
     
+    @Autowired
+	private UserService userService;
+
     @RequestMapping("/GamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id){  
         Optional<Game> myGame=gamePostService.findById(id);
         Game game=myGame.get();
+        Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
+        User User =myUser.get();
         commonFunctions.getU().addElementToGameList(game);
         commonFunctions.getSession(model);    
         myGame = gamePostService.findById(id);
+        userService.save(User);
         model.addAttribute("game", myGame); 
         model.addAttribute("customMessage", "Suscripción realizada con éxito");
         return "savedGame";   
