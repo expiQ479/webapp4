@@ -1,6 +1,9 @@
 package es.codeurjc.gameweb.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import java.sql.Blob;
@@ -35,6 +39,10 @@ public class Game {
     private String description;
     @OneToOne(cascade=CascadeType.ALL)
     private Chat chat;
+    @OneToMany(mappedBy = "fromGame",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Post> thePosts=new ArrayList<>();
+
+    
 
     public Game(){}
 
@@ -45,7 +53,20 @@ public class Game {
         this.description = description;
         this.mapScores.put((long) 0, 0);
     }
-    
+    public List<Post> getThePosts() {
+        return this.thePosts;
+    }
+    public void addPost(Post p){
+        thePosts.add(p);
+        p.setFromGame(this);
+    }
+    public void removePost(Post p){
+        thePosts.remove(p);
+        p.setFromGame(null);
+    }
+    public void setThePosts(List<Post> thePosts) {
+        this.thePosts = thePosts;
+    }
     public String getGameTitle() {
         return gameTitle;
     }

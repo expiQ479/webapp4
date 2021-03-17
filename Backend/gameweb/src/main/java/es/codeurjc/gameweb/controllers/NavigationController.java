@@ -44,33 +44,38 @@ public class NavigationController implements ErrorController {
     private static final String IMAGES = "images";
     private Genres genres;
     
-
-
-    @GetMapping("/")
-    public String showIndex(Model model) {
-        commonFunctions.getSession(model);
+    public Map.Entry<Genres,Integer> recommendedAlgorithm(){
         HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
         for(Genres g : Genres.values()){
             amountOfGamesWithGenre.put(g, 0);
         }
+        Map.Entry<Genres,Integer> maxEntry=null;
+        for (Game game : commonFunctions.getU().getMyGames()) {
+            amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
+        }
+        
+        for(Map.Entry<Genres,Integer> entry : amountOfGamesWithGenre.entrySet()){
+            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0){
+                maxEntry=entry;
+            }           
+        }
+        return maxEntry;
+    }
+
+    @GetMapping("/")
+    public String showIndex(Model model) {
+        commonFunctions.getSession(model);      
         if(commonFunctions.getU().isLogged()){
-            for (Game game : commonFunctions.getU().getMyGames()) {
-                amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
+            try {
+                model.addAttribute("recommendedGames",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey())) );
+            } catch (Exception e) {
+                model.addAttribute("recommendedGames", null);
             }
-            Map.Entry<Genres,Integer> maxEntry=null;
-            for(Map.Entry<Genres,Integer> entry : amountOfGamesWithGenre.entrySet()){
-                if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0){
-                    maxEntry=entry;
-                }           
-            }
-
-            model.addAttribute("recommendedGames",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(maxEntry.getKey())) );
-
+            
         }
         else{
             model.addAttribute("recommendedGames", null);
-        }
-        
+        }       
         model.addAttribute("games", gamePostService.findAll());
         return "index";
     }

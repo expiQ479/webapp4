@@ -56,7 +56,7 @@ public class GamePostsController {
 		gamePostService.save(game);
 
 		commonFunctions.getSession(model);
-
+		model.addAttribute("customMessage", "Juego modificado con exito");
 		return "savedGame";
 	}
 	@GetMapping("/game/{id}/delete")

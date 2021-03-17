@@ -6,7 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.ManyToAny;
 
 
 @Entity
@@ -19,7 +22,7 @@ public class Post {
     private String title;
     private String creationDate;
     private String updateDate;
-    @OneToOne
+    @ManyToOne
     private Game fromGame;
     private String postText;
     //debería ser tipo User pero debido a problemas lo dejare para después y que por ahora solo muestre el nombre en el post expandido.
@@ -28,12 +31,11 @@ public class Post {
 
     
     public Post(){}
-    public Post(String title, String creationDate, String updateDate,Game fromGame,String author,String postText,PostType theType){
+    public Post(String title, String creationDate, String updateDate,String author,String postText,PostType theType){
         super();
         this.title=title;
         this.creationDate=creationDate;
         this.updateDate=updateDate;
-        this.fromGame=fromGame;
         this.postText=postText;
         this.author=author;
         this.theType=theType;

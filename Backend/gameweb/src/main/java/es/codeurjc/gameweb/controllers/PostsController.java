@@ -35,15 +35,18 @@ public class PostsController {
         Post thePost;
         switch(theType){
             case "Guías":
-                thePost=new Post(newTitle, "6/11/21", "6/11/21", game, commonFunctions.getU().getInfo(), postText, PostType.Guides);
+                thePost=new Post(newTitle, "6/11/21", "6/11/21", commonFunctions.getU().getInfo(), postText, PostType.Guides);
+                game.addPost(thePost);
                 pService.save(thePost);
                 break;
             case "Noticias":
-                thePost=new Post(newTitle, "6/11/21", "6/11/21", game, commonFunctions.getU().getInfo(), postText, PostType.News);
+                thePost=new Post(newTitle, "6/11/21", "6/11/21", commonFunctions.getU().getInfo(), postText, PostType.News);
+                game.addPost(thePost);
                 pService.save(thePost);
                 break;
             case "Actualizaciones":
-                thePost=new Post(newTitle, "6/11/21", "6/11/21", game, commonFunctions.getU().getInfo(), postText, PostType.Updates);
+                thePost=new Post(newTitle, "6/11/21", "6/11/21", commonFunctions.getU().getInfo(), postText, PostType.Updates);
+                game.addPost(thePost);
                 pService.save(thePost);
                 break;
         }
