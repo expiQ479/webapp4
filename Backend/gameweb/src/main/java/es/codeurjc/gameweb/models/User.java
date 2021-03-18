@@ -24,17 +24,17 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Lob
+	private Blob imageFile;
+
+	private boolean image;
+
     private String info;
     private String password;
     private boolean logged = false;
     private boolean admin = false;
 
     private ArrayList<Game> myGames;
-
-    @Lob
-	private Blob imageFile;
-
-	private boolean image;
 
     public User(){}
 
@@ -99,11 +99,11 @@ public class User {
     }
 
     public Blob getImageFile() {
-        return imageFile;
+        return this.imageFile;
     }
 
-    public void setImageFile(Blob blob) {
-        this.imageFile = blob;
+    public void setImageFile(Blob imageFile) {
+        this.imageFile = imageFile;
     }
 
     public boolean isImage() {

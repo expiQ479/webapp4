@@ -1,5 +1,12 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Optional;
+
+import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.UserService;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.InputStreamResource;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
 
 @Controller
 public class ProfileController {
@@ -29,15 +33,13 @@ public class ProfileController {
     private UserService userService;
     @Autowired
 	private ImageService imageUserService;
-	private static final String User = "User_Images";
+	private static final String user = "user_images";
 
     @PostMapping("/Profile")
     public String changeName(Model model, @RequestParam String name) {
-        model.addAttribute("name", name);
-        model.addAttribute("password", commonFunctions.getU().getPassword());
         commonFunctions.getU().setInfo(name);
-        
         userService.save(commonFunctions.getU());
+        model.addAttribute("user", commonFunctions.getU());
         commonFunctions.getSession(model);
         return "Profile";
     }
@@ -53,25 +55,38 @@ public class ProfileController {
 
     @PostMapping("/CambiarContraseña")
     public String changePass(Model model, @RequestParam String password) {
-        model.addAttribute("name", commonFunctions.getU().getInfo());
-        model.addAttribute("password", password);
         commonFunctions.getU().setPassword(password);
+        userService.save(commonFunctions.getU());
+        model.addAttribute("user", commonFunctions.getU());
         commonFunctions.getSession(model);
         return "Profile";
     }
 
     @PostMapping("/CambiarFoto")
-	public String newFotoUser(Model model, MultipartFile image) throws IOException {
-        model.addAttribute("name", commonFunctions.getU().getInfo());
-        model.addAttribute("password", commonFunctions.getU().getPassword());
-        imageUserService.saveImage(User, commonFunctions.getU().getId(), image);
+	public String newFotoUser(Model model, MultipartFile image) throws IOException, SQLException {
+        updateImage(commonFunctions.getU(), true, image);
+        model.addAttribute("user", commonFunctions.getU());
         commonFunctions.getSession(model);	
 		return "Profile";
 	}
 
-    @GetMapping("/Profile/{id}/image")	
-	public ResponseEntity<Object> downloadImage(@PathVariable int id) throws MalformedURLException {
-        return imageUserService.createResponseFromImage(User, id);		
+    private void updateImage(User user, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
+		if (!imageField.isEmpty()) {
+			user.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+			user.setImage(true);
+		} else {
+			if (removeImage) {
+				user.setImageFile(null);
+				user.setImage(false);
+			} else {
+				User dbUser = userService.findById(commonFunctions.getU().getId()).orElseThrow();
+				if (dbUser.isImage()) {
+					user.setImageFile(BlobProxy.generateProxy(dbUser.getImageFile().getBinaryStream(),
+							dbUser.getImageFile().length()));
+					user.setImage(true);
+				}
+			}
+		}
 	}
 
 }

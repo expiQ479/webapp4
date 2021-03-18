@@ -29,6 +29,7 @@ import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.PostService;
+import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class NavigationController implements ErrorController {
@@ -40,9 +41,9 @@ public class NavigationController implements ErrorController {
     private GamePostService gamePostService;
     @Autowired
     private PostService pService;
-    @Autowired
-    private static final String IMAGES = "images";
     private Genres genres;
+    @Autowired
+    private UserService userService;
     
     public Map.Entry<Genres,Integer> recommendedAlgorithm(){
         HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
@@ -98,6 +99,21 @@ public class NavigationController implements ErrorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/Profile/{id}/image")
+	public ResponseEntity<Object> downloadUserImage(@PathVariable long id) throws SQLException {
+
+		Optional<User> user = userService.findById(id);
+		if (user.isPresent() && user.get().getImageFile() != null) {
+
+			Resource file = new InputStreamResource(user.get().getImageFile().getBinaryStream());
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+					.contentLength(user.get().getImageFile().length()).body(file);
+
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
     @GetMapping("/adminUpdates")
     public String showAdminGamesPage(Model model) {
@@ -182,8 +198,7 @@ public class NavigationController implements ErrorController {
     }
     @RequestMapping("/Profile") 
     public String showProfile(Model model) {
-        model.addAttribute("name", commonFunctions.getU().getInfo());
-        model.addAttribute("password", commonFunctions.getU().getPassword());
+        model.addAttribute("user", commonFunctions.getU());
         commonFunctions.getSession(model);
         return "Profile";
     }

@@ -102,6 +102,7 @@ public class Post {
     public void setImageFile(Blob imageFile) {
         this.imageFile = imageFile;
     }
+    
     public boolean isImage() {
         return this.image;
     }

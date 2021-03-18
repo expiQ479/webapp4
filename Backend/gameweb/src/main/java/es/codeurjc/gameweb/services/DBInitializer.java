@@ -144,13 +144,16 @@ public class DBInitializer {
         g4.addPost(p4);
         postRepository.save(p4);
 
-		User user1 = new User("Kike", "12345", null);
+        ArrayList<Game> suscriptions = new ArrayList<>();
+        suscriptions.add(null);
+		User user1 = new User("Kike", "12345", suscriptions);
 		user1.setAdmin(true);
-        setUserImage(user1, "/user_images/image-0.jpg");
+        setUserImage(user1, "/sample_images/user-image-0.jpg");
         userRepository.save(user1);
 
 		User user2 = new User("Pepe", "54321", null);
 		user2.setAdmin(false);
+        setUserImage(user1, "/sample_images/user-image-1.jpg");
         userRepository.save(user2);
 
     }
@@ -166,6 +169,7 @@ public class DBInitializer {
         Resource image = (Resource) new ClassPathResource(classpathResource);
         post.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
     }
+
     public void setUserImage(User user, String classpathResource) throws IOException {
         user.setImage(true);
         Resource image = (Resource) new ClassPathResource(classpathResource);
