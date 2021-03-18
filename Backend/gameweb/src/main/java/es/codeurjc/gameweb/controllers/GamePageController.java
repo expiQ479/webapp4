@@ -36,13 +36,14 @@ public class GamePageController {
         Game game=myGame.get();
         Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
         User User =myUser.get();
-        commonFunctions.getU().addElementToGameList(game);
-        commonFunctions.getSession(model);    
+        commonFunctions.getU().addElementToGameList(game.getId());
+        commonFunctions.getSession(model);
+        User = commonFunctions.getU();
         myGame = gamePostService.findById(id);
         userService.save(User);
-        model.addAttribute("game", myGame); 
+        model.addAttribute("game", myGame);
         model.addAttribute("customMessage", "Suscripción realizada con éxito");
-        return "savedGame";   
+        return "savedGame";
     }  
     
     public float doAverageScore(HashMap<Long, Integer> MyScores){

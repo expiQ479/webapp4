@@ -69,13 +69,13 @@ public class User {
     public void setLogged(boolean logged) {
         this.logged = logged;
     }
-    public void addElementToGameList(Game game){
+    public void addElementToGameList(Long long1){
         if(this.myGames==null){
             this.myGames=new ArrayList<Long>();
-            this.myGames.add(game.getId());
+            this.myGames.add(long1);
         }
         else{
-            this.myGames.add(game.getId());
+            this.myGames.add(long1);
         }
     }
     public String getPassword() {
