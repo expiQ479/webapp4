@@ -54,8 +54,13 @@ public class ProfileController {
         Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
         User User = myUser.get();
         ArrayList<Game> myGames = new ArrayList<>();
-        for(int i=0; i<User.getMyGames().size(); i++){
-            myGames.add(gamePostService.findById(User.getMyGames().get(i)).get());
+        if(commonFunctions.getU().getMyGames()==null){
+            myGames = null;
+        }
+        else{
+            for(int i=0; i<User.getMyGames().size(); i++){
+                myGames.add(gamePostService.findById(User.getMyGames().get(i)).get());
+            }
         }
         model.addAttribute("listaSubs",myGames);
         commonFunctions.getSession(model);
@@ -74,6 +79,7 @@ public class ProfileController {
     @PostMapping("/CambiarFoto")
 	public String newFotoUser(Model model, MultipartFile image) throws IOException, SQLException {
         updateImage(commonFunctions.getU(), true, image);
+        userService.save(commonFunctions.getU());
         model.addAttribute("user", commonFunctions.getU());
         commonFunctions.getSession(model);	
 		return "Profile";

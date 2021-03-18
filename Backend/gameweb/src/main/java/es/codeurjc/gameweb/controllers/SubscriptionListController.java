@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.codeurjc.gameweb.services.GamePostService;
+import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class SubscriptionListController {
@@ -16,6 +17,9 @@ public class SubscriptionListController {
     @Autowired
     private GamePostService gamePostService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/Subscriptions/{gameTitle}")
     public String eliminarSubs(Model model, @PathVariable String gameTitle){
         for(int i=0; i<commonFunctions.getU().getMyGames().size(); i++){
@@ -23,6 +27,7 @@ public class SubscriptionListController {
                 commonFunctions.getU().getMyGames().remove(commonFunctions.getU().getMyGames().get(i));
                 model.addAttribute("listaSubs",commonFunctions.getU().getMyGames());
                 commonFunctions.getSession(model);
+                userService.save(commonFunctions.getU());
             }
         }
         commonFunctions.getSession(model);

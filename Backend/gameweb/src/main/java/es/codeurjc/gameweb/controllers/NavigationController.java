@@ -100,9 +100,9 @@ public class NavigationController implements ErrorController {
         }
     }
 
-    @GetMapping("/Profile/{id}/image")
-	public ResponseEntity<Object> downloadUserImage(@PathVariable long id) throws SQLException {
-
+    @GetMapping("/Profile/image")
+	public ResponseEntity<Object> downloadUserImage() throws SQLException {
+        Long id = commonFunctions.getU().getId();
 		Optional<User> user = userService.findById(id);
 		if (user.isPresent() && user.get().getImageFile() != null) {
 
