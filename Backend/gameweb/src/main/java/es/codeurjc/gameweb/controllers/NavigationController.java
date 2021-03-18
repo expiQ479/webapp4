@@ -21,6 +21,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 import es.codeurjc.gameweb.models.*;
 
 import org.springframework.http.HttpHeaders;
@@ -66,22 +70,37 @@ public class NavigationController implements ErrorController {
     @GetMapping("/")
     public String showIndex(Model model) {
         commonFunctions.getSession(model);      
-        if(commonFunctions.getU().isLogged()){
+        if(commonFunctions.getU().isLogged()){   
             try {
-                model.addAttribute("selectedList",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey())) );
+                ArrayList<Game> toShow=gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey());       
+            
+                model.addAttribute("selectedList",toShow);
                 model.addAttribute("whatList", "Recomendados");
-            } catch (Exception e) {
-                model.addAttribute("selectedList", null);
-                model.addAttribute("whatList", "Mejor valorados");
-            }
+            } catch (Exception e) { 
+            
+                model.addAttribute("selectedList",null);
+                model.addAttribute("whatList", "");
+            } 
             
         }
         else{
-            model.addAttribute("selectedList", null);
-            model.addAttribute("whatList", "Mejor valorados");
+            try {
+                model.addAttribute("selectedList", gamePostService.findBestRatedGames());
+                model.addAttribute("whatList", "Juegos mejor valorados");
+            } catch (Exception e) {
+                model.addAttribute("selectedList", null);
+                model.addAttribute("whatList", "");
+            }
+            
         }       
-        model.addAttribute("games", gamePostService.findAll());
+        model.addAttribute("games", gamePostService.findAll(PageRequest.of(0, 8)));
+        model.addAttribute("nextPage", 1);
         return "index";
+    }
+    @GetMapping("/showMoreGames/{nextPage}")
+    public String showMoreGames(Model model,@PathVariable int nextPage){
+        model.addAttribute("games", gamePostService.findAll(PageRequest.of(nextPage, 8)));
+        return "showMoreGames";
     }
 
     @GetMapping("/games/{id}/image")
