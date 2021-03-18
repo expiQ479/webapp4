@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import es.codeurjc.gameweb.models.Game;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.repositories.GameRepository;
 
@@ -91,7 +93,10 @@ public class GamePostService {
 	public List<Game> findByCategory(Genres genre){
 		return repository.findByGenre(genre);
 	}
-
+	
+	public Page<Game> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
+	}
     public ArrayList<Game> findBestRatedGames() {
 		float maxScore=0;
         ArrayList<Game> aux=new ArrayList<Game>();
