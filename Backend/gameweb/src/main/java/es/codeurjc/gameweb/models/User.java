@@ -34,11 +34,11 @@ public class User {
     private boolean logged = false;
     private boolean admin = false;
 
-    private ArrayList<Game> myGames;
+    private ArrayList<Long> myGames;
 
     public User(){}
 
-    public User(String info, String password, ArrayList<Game> myGames) {
+    public User(String info, String password, ArrayList<Long> myGames) {
         super();
         this.info = info;
         this.password = password;
@@ -60,10 +60,10 @@ public class User {
     public boolean isLogged() {
         return logged;
     }
-    public ArrayList<Game> getMyGames(){
+    public ArrayList<Long> getMyGames(){
         return this.myGames;
     }
-    public void setMyGames(ArrayList<Game> myGames){
+    public void setMyGames(ArrayList<Long> myGames){
         this.myGames=myGames;
     }
     public void setLogged(boolean logged) {
@@ -71,11 +71,11 @@ public class User {
     }
     public void addElementToGameList(Game game){
         if(this.myGames==null){
-            this.myGames=new ArrayList<Game>();
-            this.myGames.add(game);
+            this.myGames=new ArrayList<Long>();
+            this.myGames.add(game.getId());
         }
         else{
-            this.myGames.add(game);
+            this.myGames.add(game.getId());
         }
     }
     public String getPassword() {

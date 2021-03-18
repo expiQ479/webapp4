@@ -144,8 +144,8 @@ public class DBInitializer {
         g4.addPost(p4);
         postRepository.save(p4);
 
-        ArrayList<Game> suscriptions = new ArrayList<>();
-        suscriptions.add(null);
+        ArrayList<Long> suscriptions = new ArrayList<>();
+        suscriptions.add(g2.getId());
 		User user1 = new User("Kike", "12345", suscriptions);
 		user1.setAdmin(true);
         setUserImage(user1, "/sample_images/user-image-0.jpg");

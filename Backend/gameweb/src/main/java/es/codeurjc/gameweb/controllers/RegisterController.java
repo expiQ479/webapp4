@@ -37,34 +37,11 @@ public class RegisterController {
             commonFunctions.setU(user);
             commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
-        try {
-            model.addAttribute("recommendedGames",gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey())) );
-        } catch (Exception e) {
-            model.addAttribute("recommendedGames", null);
-        }
         model.addAttribute("whatList", "Recomendados");
         return "index";
         }
         commonFunctions.getSession(model);
         return "RegisterPage";
-    }
-
-    public Map.Entry<Genres,Integer> recommendedAlgorithm(){
-        HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
-        for(Genres g : Genres.values()){
-            amountOfGamesWithGenre.put(g, 0);
-        }
-        Map.Entry<Genres,Integer> maxEntry=null;
-        for (Game game : commonFunctions.getU().getMyGames()) {
-            amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
-        }
-        
-        for(Map.Entry<Genres,Integer> entry : amountOfGamesWithGenre.entrySet()){
-            if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0){
-                maxEntry=entry;
-            }           
-        }
-        return maxEntry;
     }
 
 }

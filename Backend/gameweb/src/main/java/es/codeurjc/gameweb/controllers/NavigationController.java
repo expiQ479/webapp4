@@ -51,8 +51,8 @@ public class NavigationController implements ErrorController {
             amountOfGamesWithGenre.put(g, 0);
         }
         Map.Entry<Genres,Integer> maxEntry=null;
-        for (Game game : commonFunctions.getU().getMyGames()) {
-            amountOfGamesWithGenre.put(game.getGenre(),amountOfGamesWithGenre.get(game.getGenre())+1);
+        for (Long game : commonFunctions.getU().getMyGames()) {
+            amountOfGamesWithGenre.put(gamePostService.findById(game).get().getGenre(),amountOfGamesWithGenre.get(gamePostService.findById(game).get().getGenre())+1);
         }
         
         for(Map.Entry<Genres,Integer> entry : amountOfGamesWithGenre.entrySet()){

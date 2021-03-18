@@ -2,6 +2,7 @@ package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.UserService;
 import org.springframework.core.io.Resource;
@@ -34,6 +37,8 @@ public class ProfileController {
     @Autowired
 	private ImageService imageUserService;
 	private static final String user = "user_images";
+    @Autowired
+    private GamePostService gamePostService;
 
     @PostMapping("/Profile")
     public String changeName(Model model, @RequestParam String name) {
@@ -48,7 +53,11 @@ public class ProfileController {
     public String showSubscriptions(Model model){
         Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
         User User = myUser.get();
-        model.addAttribute("listaSubs",User.getMyGames());
+        ArrayList<Game> myGames = new ArrayList<>();
+        for(int i=0; i<User.getMyGames().size(); i++){
+            myGames.add(gamePostService.findById(User.getMyGames().get(i)).get());
+        }
+        model.addAttribute("listaSubs",myGames);
         commonFunctions.getSession(model);
         return "Subscriptions";
     }
