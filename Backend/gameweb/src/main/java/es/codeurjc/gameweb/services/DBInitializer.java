@@ -153,7 +153,7 @@ public class DBInitializer {
 
 		User user2 = new User("Pepe", "54321", null);
 		user2.setAdmin(false);
-        setUserImage(user1, "/sample_images/user-image-1.jpg");
+        setUserImage(user2, "/sample_images/user-image-1.jpg");
         userRepository.save(user2);
 
     }
