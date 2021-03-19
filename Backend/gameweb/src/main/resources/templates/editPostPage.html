@@ -1,0 +1,58 @@
+{{>header}}
+<div class="container container-white" style="padding-bottom: 420px;">
+    <div class="row">
+        <div class="col-lg-12">
+            <p></p>
+            <h2>Editar {{post.title}}</h2>
+            <p></p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>                       
+                        <th>Título</th>
+                        <th>Texto</th>
+                        <th>Tipo</th>
+                        <th>Autor</th>
+                        <th class="responsiveC">Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form action="/editPost/{{post.id}}" method="post" enctype="multipart/form-data">
+                    <tr>
+                        
+                        <td>
+                            <input type='text' value='{{post.title}}' name='newTitle' />
+                            <input type="hidden" name="id" value="{{post.id}}" />
+                        </td>
+                        <td>
+                            <textarea name='newPostText' value="{{post.postText}}" rows=20 cols=40>{{post.postText}}</textarea>
+                        </td>
+                        <td>
+                            <div class="form-input">
+                                <div class="wrap">
+                                  <input list="postTypes" name="newType" type="text"
+                                      placeholder="Escoge la categoría">
+                                  <datalist id="postTypes">
+                                      <option value="Guías"></option>
+                                      <option value="Noticias"></option>
+                                      <option value="Actualizaciones"></option>
+                                  </datalist>
+                              </div>
+                                </div> 
+                        </td>
+                        <td>
+                            <input type='text' value='{{post.author}}' name='author' />
+                        </td>
+                    </tr>
+                    <input type='submit' value='Guardar' />
+                </form>
+                </tbody>
+            </table>
+            
+            
+        </div>
+        <!-- /.col-lg-12 -->
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</div>
+{{>footer}}

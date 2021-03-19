@@ -19,11 +19,17 @@
           <p>{{post.author}}</p>
           <p>{{post.creationDate}}</p>
           <p>{{post.updateDate}}</p>
-  
+          {{#isAdmin}}
+          <form action="/editPostPage/{{post.id}}">
+            <button class="btn btn-secondary" style="background-color: rgb(0, 204, 255);" type='submit'  aria-haspopup="true" aria-expanded="false">
+                Editar post
+            </button>                            
+          </form>
+          {{/isAdmin}}
           <hr>
   
           <!-- Preview Image -->
-          <img class="img-fluid rounded" src="/posts/{{id}}/image" alt="">
+          <img class="img-fluid rounded" src="/images/sample1.jpg" alt="">
   
           <hr>
   
@@ -33,23 +39,25 @@
 
       </div>
       <!-- Sidebar Widgets Column -->
-      <div class="col-lg-4"> 
-        <!-- Side Widget -->
-          <div class="container" style="margin: 20px;">
-            <h1 class="my-4">Recomendados</h1>
-            <div class="card h-100">
-              <a href="GamePage.html"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Juego Recomendado 1</a>
-                </h4>
-                <p class="card-text">Descripcion juego</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
+      <div class="col-lg-3 col-md-4 col-sm-4">
+        <h2 class="my-4">{{whatList}}</h2>
+        
+        <div class="container" style="margin-right: 20px; margin-bottom: 20px;">
+        {{#selectedList}}
+        <div class="card h-100">
+          <a href="/GamePage/{{id}}"><img class="card-img-top" src="/games/{{id}}/image" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#" class="links"></a>
+            </h4>
+            <p class="card-text">{{gameTitle}}</p>
           </div>
+          <div class="card-footer">
+            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+          </div>
+        </div>
+        {{/selectedList}}
+        
       </div>
     </div>
   </div>

@@ -61,10 +61,7 @@ public class NavigationController implements ErrorController {
         }
         return maxEntry;
     }
-
-    @GetMapping("/")
-    public String showIndex(Model model) {
-        commonFunctions.getSession(model);      
+    public void setSomeList(Model model){
         if(commonFunctions.getU().isLogged()){   
             try {
                 ArrayList<Game> toShow=gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey());       
@@ -87,7 +84,12 @@ public class NavigationController implements ErrorController {
                 model.addAttribute("whatList", "");
             }
             
-        }       
+        }
+    }
+    @GetMapping("/")
+    public String showIndex(Model model) {
+        commonFunctions.getSession(model);      
+        setSomeList(model);      
         model.addAttribute("games", gamePostService.findAll(PageRequest.of(0, 8)));
         model.addAttribute("nextPage", 1);
         return "index";
@@ -165,23 +167,29 @@ public class NavigationController implements ErrorController {
                 chat.getListMessages().get(i).setMessageWriter(false);
         }
         if(commonFunctions.getU().isLogged()){
-            model.addAttribute("canSub", !commonFunctions.getU().getMyGames().contains(game.getId()));
+            try {
+                model.addAttribute("canSub", !commonFunctions.getU().getMyGames().contains(game.getId()));
+            } catch (Exception e) {
+                model.addAttribute("canSub", true);
+            }
+            
             model.addAttribute("Messages", chat.getListMessages());
         }    
         commonFunctions.getSession(model);
         return "GamePage";
-    }
-    @RequestMapping("/morePosts") 
-    public String showMorePosts(Model model) {
-        
-        return "morePosts";
     }
     @RequestMapping("/showMoreGames") 
     public String showMoreGames(Model model) {
         
         return "showMoreGames";
     }
-
+    @RequestMapping("/editPostPage/{id}")
+    public String showEditPost(Model model, @PathVariable long id) {
+        Optional<Post> p=pService.findById(id);
+        model.addAttribute("post", p.get());
+        commonFunctions.getSession(model);
+        return "editPostPage";
+    }
     
     @RequestMapping("/listPosts/{id}/{theType}")
     public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType){       
@@ -189,6 +197,7 @@ public class NavigationController implements ErrorController {
         Game game =myGame.get();       
         model.addAttribute("name",game.getGameTitle());
         model.addAttribute("postType", theType);
+        setSomeList(model); 
         PostType ty=null;
         switch(theType){
             case "Guias":
@@ -245,6 +254,8 @@ public class NavigationController implements ErrorController {
     public String showExpandedPost(Model model, @PathVariable long id) {
         Optional<Post> p=pService.findById(id);
         model.addAttribute("post", p.get());
+        setSomeList(model); 
+        model.addAttribute("isAdmin", commonFunctions.getU().isAdmin());
         commonFunctions.getSession(model);
         return "expandedPost";
     }
