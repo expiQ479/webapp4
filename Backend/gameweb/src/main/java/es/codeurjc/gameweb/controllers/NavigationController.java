@@ -167,7 +167,12 @@ public class NavigationController implements ErrorController {
                 chat.getListMessages().get(i).setMessageWriter(false);
         }
         if(commonFunctions.getU().isLogged()){
-            model.addAttribute("canSub", !commonFunctions.getU().getMyGames().contains(game.getId()));
+            try {
+                model.addAttribute("canSub", !commonFunctions.getU().getMyGames().contains(game.getId()));
+            } catch (Exception e) {
+                model.addAttribute("canSub", true);
+            }
+            
             model.addAttribute("Messages", chat.getListMessages());
         }    
         commonFunctions.getSession(model);
