@@ -209,8 +209,13 @@ public class NavigationController implements ErrorController {
                 break;
         }
         System.out.println(ty.name());
-        ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
-        model.addAttribute("lista", toShow);
+        try {
+            ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
+            model.addAttribute("lista", toShow);
+        } catch (Exception e) {
+            model.addAttribute("lista", null);
+        }
+        
         commonFunctions.getSession(model);
         return "listPosts";
     }
