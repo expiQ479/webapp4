@@ -1,7 +1,5 @@
 package es.codeurjc.gameweb.controllers;
 
-import java.io.Console;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
 import es.codeurjc.gameweb.models.*;
@@ -31,7 +27,6 @@ import org.springframework.http.HttpHeaders;
 
 import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GamePostService;
-import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.PostService;
 import es.codeurjc.gameweb.services.UserService;
 
@@ -235,6 +230,7 @@ public class NavigationController implements ErrorController {
         commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
         model.addAttribute("whatList", "Mejor valorados");
+        model.addAttribute("nextPage", 1);
         return "index";
     }
 

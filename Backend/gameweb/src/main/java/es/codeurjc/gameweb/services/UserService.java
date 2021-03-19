@@ -1,15 +1,7 @@
 package es.codeurjc.gameweb.services;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import es.codeurjc.gameweb.controllers.CommonFunctions;
-import es.codeurjc.gameweb.models.Game;
-import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.User;
 import java.util.List;
 import java.util.Optional;

@@ -14,7 +14,6 @@ import es.codeurjc.gameweb.models.Post;
 import es.codeurjc.gameweb.models.PostType;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.PostService;
-import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class PostsController {

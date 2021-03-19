@@ -11,12 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
-import es.codeurjc.gameweb.models.Genres;
 
 import es.codeurjc.gameweb.services.GamePostService;
 
@@ -27,8 +25,6 @@ public class GamePostsController {
 	private GamePostService gamePostService;
 	@Autowired
 	private CommonFunctions commonFunctions;
-
-	private static final String IMAGES = "images";
 
 	@PostMapping("/GameAdded")
 	public String newPost(Model model,MultipartFile imageField, Game game) throws IOException {

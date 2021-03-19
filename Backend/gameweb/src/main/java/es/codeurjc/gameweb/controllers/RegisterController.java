@@ -1,8 +1,6 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.codeurjc.gameweb.models.Game;
-import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.UserService;

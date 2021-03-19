@@ -1,6 +1,5 @@
 package es.codeurjc.gameweb.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.repositories.UserRepository;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.UserService;
 
