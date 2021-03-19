@@ -38,6 +38,7 @@ public class RegisterController {
             commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
         model.addAttribute("whatList", "Recomendados");
+        model.addAttribute("nextPage", 1);
         return "index";
         }
         commonFunctions.getSession(model);
