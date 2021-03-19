@@ -2,6 +2,7 @@ package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -15,8 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
-
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.GamePostService;
+import es.codeurjc.gameweb.services.UserService;
 
 
 @Controller
@@ -25,6 +27,8 @@ public class GamePostsController {
 	private GamePostService gamePostService;
 	@Autowired
 	private CommonFunctions commonFunctions;
+	@Autowired
+    private UserService userService;
 
 	@PostMapping("/GameAdded")
 	public String newPost(Model model,MultipartFile imageField, Game game) throws IOException {
@@ -61,8 +65,21 @@ public class GamePostsController {
 		if (game.isPresent()) {
 			gamePostService.delete(id);
 		}
+		List<User> users = userService.findAll();
+		//It search the users that are suscribe to the game and it remove the game from their suscriptions
+		User user;
+		for(int i=0; i<users.size(); i++){
+			user = users.get(i);
+			if(!user.getMyGames().isEmpty()){
+				if(user.getMyGames().contains(id)){
+					user.getMyGames().remove(id);
+					userService.save(user);
+				}
+			}
+		}
 		commonFunctions.getSession(model);
-		return "gameDeleted";
+		model.addAttribute("customMessage", "El juego se ha eliminado con exito");
+		return "savedGame";
 	}
 
 	private void updateImage(Game game, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {

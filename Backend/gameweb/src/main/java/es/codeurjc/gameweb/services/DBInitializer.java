@@ -144,14 +144,15 @@ public class DBInitializer {
         g4.addPost(p4);
         postRepository.save(p4);
 
-        ArrayList<Long> suscriptions = new ArrayList<>();
-        suscriptions.add(g2.getId());
-		User user1 = new User("Kike", "12345", suscriptions);
+        ArrayList<Long> suscriptions1 = new ArrayList<>();
+        suscriptions1.add(g2.getId());
+		User user1 = new User("Kike", "12345", suscriptions1);
 		user1.setAdmin(true);
         setUserImage(user1, "/sample_images/user-image-0.jpg");
         userRepository.save(user1);
-
-		User user2 = new User("Pepe", "54321", null);
+        
+        ArrayList<Long> suscriptions2 = new ArrayList<>();
+		User user2 = new User("Pepe", "54321", suscriptions2);
 		user2.setAdmin(false);
         setUserImage(user2, "/sample_images/user-image-1.jpg");
         userRepository.save(user2);
