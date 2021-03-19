@@ -64,25 +64,20 @@ public class NavigationController implements ErrorController {
     public void setSomeList(Model model){
         if(commonFunctions.getU().isLogged()){   
             try {
-                ArrayList<Game> toShow=gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey());       
-            
+                ArrayList<Game> toShow=gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey()));                 
                 model.addAttribute("selectedList",toShow);
                 model.addAttribute("whatList", "Recomendados");
             } catch (Exception e) { 
-            
-                model.addAttribute("selectedList",null);
-                model.addAttribute("whatList", "");
+                ArrayList<Game> toShow=gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames());                 
+                model.addAttribute("selectedList",toShow);
+                model.addAttribute("whatList", "Mejor valorados");
             } 
             
         }
         else{
-            try {
-                model.addAttribute("selectedList", gamePostService.findBestRatedGames());
-                model.addAttribute("whatList", "Juegos mejor valorados");
-            } catch (Exception e) {
-                model.addAttribute("selectedList", null);
-                model.addAttribute("whatList", "");
-            }
+            ArrayList<Game> toShow=gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames());                 
+                model.addAttribute("selectedList",toShow);
+                model.addAttribute("whatList", "Mejor valorados");
             
         }
     }

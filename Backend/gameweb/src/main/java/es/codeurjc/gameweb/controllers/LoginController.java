@@ -1,6 +1,7 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.UserService;
@@ -35,7 +37,9 @@ public class LoginController {
                 commonFunctions.setU(user);
                 commonFunctions.getSession(model);
                 model.addAttribute("games", gamePostService.findAll());
-                model.addAttribute("whatList", "Recomendados");
+                ArrayList<Game> toShow=gamePostService.getNumberOfGames(3, gamePostService.findBestRatedGames());                 
+                model.addAttribute("selectedList",toShow);
+                model.addAttribute("whatList", "Mejor valorados");
                 model.addAttribute("nextPage", 1);
                 return "index";
             }
