@@ -1,5 +1,7 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +56,29 @@ public class PostsController {
         model.addAttribute("customMessage", "Post añadido con éxito");
         return "savedGame";  
     }  
+    @PostMapping("/editPost/{id}")
+    public String editPost(Model model,@PathVariable Long id, @RequestParam String newTitle,@RequestParam String newType,@RequestParam String author,@RequestParam String newPostText)throws IOException, SQLException{
+        
+        PostType ty=null;
+        switch(newType){
+            case "Guias":
+                ty=PostType.Guides;
+                break;
+            case "Noticias":
+                ty=PostType.News;
+                break;
+            case "Actualizaciones":
+                ty=PostType.Updates;
+                break;
+        }
+        Post theUpdatedOne=pService.findById(id).get();
+        theUpdatedOne.setTitle(newTitle);
+        theUpdatedOne.setTheType(ty);
+        theUpdatedOne.setAuthor(author);
+        theUpdatedOne.setPostText(newPostText);
+        pService.save(theUpdatedOne);
+        commonFunctions.getSession(model);
+        model.addAttribute("customMessage", "Post editado con éxito");
+        return "savedGame";  
+    }
 }
