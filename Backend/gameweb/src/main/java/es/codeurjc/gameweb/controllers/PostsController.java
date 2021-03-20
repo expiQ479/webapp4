@@ -2,8 +2,6 @@ package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -17,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Post;
 import es.codeurjc.gameweb.models.PostType;
+
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.PostService;
 
@@ -35,39 +35,50 @@ public class PostsController {
     private PostService pService;
     private Optional<Game> myGame;
      
+    
     @PostMapping("/newPost/{id}")
-    public String CreatePost(Model model,@PathVariable Long id,@RequestParam String newTitle,@RequestParam String theType, @RequestParam String postText){ 
-        myGame = gamePostService.findById(id);
-        Game game =myGame.get();
-        Post thePost;
-        switch(theType){
-            case "Guías":
-                thePost=new Post(newTitle, "6/11/21", "6/11/21", commonFunctions.getU().getInfo(), postText, PostType.Guides);
-                game.addPost(thePost);
-                pService.save(thePost);
-                break;
-            case "Noticias":
-                thePost=new Post(newTitle, "6/11/21", "6/11/21", commonFunctions.getU().getInfo(), postText, PostType.News);
-                game.addPost(thePost);
-                pService.save(thePost);
-                break;
-            case "Actualizaciones":
-                thePost=new Post(newTitle, "6/11/21", "6/11/21", commonFunctions.getU().getInfo(), postText, PostType.Updates);
-                game.addPost(thePost);
-                pService.save(thePost);
-                break;
-        }
-        
+    public String CreatePost(Model model,@PathVariable Long id,@RequestParam String newTitle,@RequestParam String theType, @RequestParam String postText,MultipartFile imageField)throws IOException{ 
         commonFunctions.getSession(model);
+        myGame = gamePostService.findById(id);     
+        Game game =myGame.get();
+        Post thePost=new Post(newTitle, getCurrentDate(), getCurrentDate(), commonFunctions.getU().getInfo(), postText,parseType(theType));
+        if (imageField != null) {
+			thePost.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+			thePost.setImage(true);
+		}
+		else
+            thePost.setImage(false);
+        game.addPost(thePost);
+        pService.save(thePost);
+        
         model.addAttribute("customMessage", "Post añadido con éxito");
         return "savedGame";  
     }  
     @PostMapping("/editPost/{id}")
     public String editPost(Model model,@PathVariable Long id, @RequestParam String newTitle,@RequestParam String newType,@RequestParam String author,@RequestParam String newPostText,MultipartFile imageField,boolean removeImage)throws IOException, SQLException{
         
+        Post theUpdatedOne=pService.findById(id).get();
+        theUpdatedOne.setUpdateDate(getCurrentDate());
+        theUpdatedOne.setTitle(newTitle);
+        theUpdatedOne.setTheType(parseType(newType));
+        theUpdatedOne.setAuthor(author);
+        theUpdatedOne.setPostText(newPostText);
+        updateImage(theUpdatedOne, removeImage, imageField);
+        pService.save(theUpdatedOne);
+        commonFunctions.getSession(model);
+        model.addAttribute("customMessage", "Post editado con éxito");
+        return "savedGame";  
+    }
+    private String getCurrentDate(){
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yy");
+        LocalDateTime now=LocalDateTime.now();
+        String newDate=formatter.format(now);
+        return newDate;
+    }
+    private PostType parseType(String theType){
         PostType ty=null;
-        switch(newType){
-            case "Guias":
+        switch(theType){
+            case "Guías":
                 ty=PostType.Guides;
                 break;
             case "Noticias":
@@ -77,20 +88,7 @@ public class PostsController {
                 ty=PostType.Updates;
                 break;
         }
-        Post theUpdatedOne=pService.findById(id).get();
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yy");
-        LocalDateTime now=LocalDateTime.now();
-        String newUDate=formatter.format(now);
-        theUpdatedOne.setUpdateDate(newUDate);
-        theUpdatedOne.setTitle(newTitle);
-        theUpdatedOne.setTheType(ty);
-        theUpdatedOne.setAuthor(author);
-        theUpdatedOne.setPostText(newPostText);
-        updateImage(theUpdatedOne, removeImage, imageField);
-        pService.save(theUpdatedOne);
-        commonFunctions.getSession(model);
-        model.addAttribute("customMessage", "Post editado con éxito");
-        return "savedGame";  
+        return ty;
     }
     private void updateImage(Post post, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
 		if (!imageField.isEmpty()) {
