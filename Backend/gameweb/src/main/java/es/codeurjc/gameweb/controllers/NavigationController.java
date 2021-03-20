@@ -110,6 +110,21 @@ public class NavigationController implements ErrorController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/posts/{id}/image")
+    public ResponseEntity<Object> downloadPostImage(@PathVariable long id) throws SQLException {
+
+        Optional<Post> post = pService.findById(id);
+        if (post.isPresent() && post.get().getImageFile() != null) {
+
+            Resource file = new InputStreamResource(post.get().getImageFile().getBinaryStream());
+
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .contentLength(post.get().getImageFile().length()).body(file);
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/Profile/image")
 	public ResponseEntity<Object> downloadUserImage() throws SQLException {
@@ -209,8 +224,13 @@ public class NavigationController implements ErrorController {
                 break;
         }
         System.out.println(ty.name());
-        ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
-        model.addAttribute("lista", toShow);
+        try {
+            ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
+            model.addAttribute("lista", toShow);
+        } catch (Exception e) {
+            model.addAttribute("lista", null);
+        }
+        
         commonFunctions.getSession(model);
         return "listPosts";
     }
