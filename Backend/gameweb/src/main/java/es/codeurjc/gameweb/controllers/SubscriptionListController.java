@@ -38,6 +38,12 @@ public class SubscriptionListController {
         }
         model.addAttribute("listaSubs", myGames);
         commonFunctions.getSession(model);
+        if(commonFunctions.getU().getMyGames().isEmpty()){
+            model.addAttribute("noSubs", "No tienes ninguna subscripcion");
+        }
+        else{
+            model.addAttribute("noSubs", "");
+        }
         return "Subscriptions";
     } 
    

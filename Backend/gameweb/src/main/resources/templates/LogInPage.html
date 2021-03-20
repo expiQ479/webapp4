@@ -24,8 +24,13 @@
                   <div class="form-input col-md-8">
                     <input type="submit" value="IniciarSesion">
                   </div>
+              </form>
+              <form action="/googleUser" method='POST'>
                   <div class="g-signin2 col-md-4" data-onsuccess="onSignIn" style="padding-left: 20px;padding-top: 13px;">
-                    <button class="btn-info"></button>
+                    <button class="btn-info" data-onsuccess="onSingIn">
+                      <input type="text" id="fullNameGoogleUser"   value="" name="name" 	hidden/> 	<!-- FULL NAME GOOGLE USER -->
+                      <input type="text" id="profileImgGoogleUser" value="" name="profileImgGU"	hidden/>  	<!-- PROFILE IMAGE GOOGLE USER -->
+                    </button>
                   </div>
                   </div>
                 </div>
