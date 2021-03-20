@@ -151,7 +151,8 @@ public class NavigationController implements ErrorController {
 
 
     @GetMapping("/RegisterPage")
-    public String showRegister() {
+    public String showRegister(Model model) {
+        model.addAttribute("problem", "pepe");
         return "RegisterPage";
     }
 

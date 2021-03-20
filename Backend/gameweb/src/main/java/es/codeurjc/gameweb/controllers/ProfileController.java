@@ -33,11 +33,22 @@ public class ProfileController {
 
     @PostMapping("/Profile")
     public String changeName(Model model, @RequestParam String name) {
-        commonFunctions.getU().setInfo(name);
-        userService.save(commonFunctions.getU());
-        model.addAttribute("user", commonFunctions.getU());
-        commonFunctions.getSession(model);
-        return "Profile";
+        List<User> users = userService.findAll();
+        boolean encontrado= false;
+        for(int i=0; i<users.size(); i++){
+            if(users.get(i).getInfo().equals(name)){
+                encontrado= true;
+            }
+        }
+        if(!encontrado){
+            commonFunctions.getU().setInfo(name);
+            userService.save(commonFunctions.getU());
+            model.addAttribute("user", commonFunctions.getU());
+            commonFunctions.getSession(model);
+            return "Profile";
+        }
+        model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
+        return "savedGame";
     }
 
     @RequestMapping("/Subscriptions")
