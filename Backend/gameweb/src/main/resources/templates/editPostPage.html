@@ -42,6 +42,11 @@
                         <td>
                             <input type='text' value='{{post.author}}' name='author' />
                         </td>
+                        <td>
+                            <img src="/posts/{{post.id}}/image" class="responsive2" width="240" height="135"></img>
+                            <input type='file' name='imageField' accept=".jpg, .jpeg"/>	
+                            <input type='checkbox' name='removeImage'> <label>Eliminar imagen</label><br>
+                        </td>
                     </tr>
                     <input type='submit' value='Guardar' />
                 </form>

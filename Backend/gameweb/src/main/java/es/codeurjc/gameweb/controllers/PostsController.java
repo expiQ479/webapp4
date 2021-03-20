@@ -2,14 +2,20 @@ package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Post;
@@ -57,7 +63,7 @@ public class PostsController {
         return "savedGame";  
     }  
     @PostMapping("/editPost/{id}")
-    public String editPost(Model model,@PathVariable Long id, @RequestParam String newTitle,@RequestParam String newType,@RequestParam String author,@RequestParam String newPostText)throws IOException, SQLException{
+    public String editPost(Model model,@PathVariable Long id, @RequestParam String newTitle,@RequestParam String newType,@RequestParam String author,@RequestParam String newPostText,MultipartFile imageField,boolean removeImage)throws IOException, SQLException{
         
         PostType ty=null;
         switch(newType){
@@ -72,13 +78,37 @@ public class PostsController {
                 break;
         }
         Post theUpdatedOne=pService.findById(id).get();
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yy");
+        LocalDateTime now=LocalDateTime.now();
+        String newUDate=formatter.format(now);
+        theUpdatedOne.setUpdateDate(newUDate);
         theUpdatedOne.setTitle(newTitle);
         theUpdatedOne.setTheType(ty);
         theUpdatedOne.setAuthor(author);
         theUpdatedOne.setPostText(newPostText);
+        updateImage(theUpdatedOne, removeImage, imageField);
         pService.save(theUpdatedOne);
         commonFunctions.getSession(model);
         model.addAttribute("customMessage", "Post editado con éxito");
         return "savedGame";  
     }
+    private void updateImage(Post post, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
+		if (!imageField.isEmpty()) {
+			post.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
+			post.setImage(true);
+		} else {
+			if (removeImage) {
+				post.setImageFile(null);
+				post.setImage(false);
+			} else {
+				// Maintain the same image loading it before updating the book
+				Post dbPost = pService.findById(post.getId()).orElseThrow();
+				if (dbPost.isImage()) {
+					post.setImageFile(BlobProxy.generateProxy(dbPost.getImageFile().getBinaryStream(),
+                        dbPost.getImageFile().length()));
+					post.setImage(true);
+				}
+			}
+		}
+	}
 }
