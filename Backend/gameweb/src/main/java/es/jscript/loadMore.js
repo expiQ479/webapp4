@@ -1,0 +1,9 @@
+$(document).ready(function(){
+    $('#loadMore').click(function(){
+      $.ajax({
+      url:"/showMoreGames/{{nextPage}}"
+      }).done(function(data){
+        $("#loadZone").html(data);
+      });
+    });
+  });

@@ -1,5 +1,6 @@
 package es.codeurjc.gameweb.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.sql.Blob;
 
 @Entity
-
+@DynamicUpdate
 public class Post {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,8 +24,8 @@ public class Post {
     private String updateDate;
     @ManyToOne
     private Game fromGame;
+    @Column(columnDefinition = "TEXT")
     private String postText;
-    //debería ser tipo User pero debido a problemas lo dejare para después y que por ahora solo muestre el nombre en el post expandido.
     private String author;
     private PostType theType;
     @Lob
