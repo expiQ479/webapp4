@@ -34,14 +34,21 @@ public class GamePageController {
         Game game=myGame.get();
         Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
         User User =myUser.get();
-        commonFunctions.getU().addElementToGameList(game.getId());
-        commonFunctions.getSession(model);
-        User = commonFunctions.getU();
-        myGame = gamePostService.findById(id);
-        userService.save(User);
-        model.addAttribute("game", myGame);
-        model.addAttribute("customMessage", "Suscripción realizada con éxito");
-        return "savedGame";
+        if(!User.getMyGames().contains(id)){
+            commonFunctions.getU().addElementToGameList(game.getId());
+            commonFunctions.getSession(model);
+            User = commonFunctions.getU();
+            myGame = gamePostService.findById(id);
+            userService.save(User);
+            model.addAttribute("game", myGame);
+            model.addAttribute("customMessage", "Suscripción realizada con éxito");
+            return "savedGame";
+        }
+        else{
+            model.addAttribute("game", myGame);
+            model.addAttribute("customMessage", "Ya te has subscrito a ese juego");
+            return "savedGame";
+        }
     }  
     @RequestMapping("/GamePage/{id}/unsubButton")
     public String unsubButton(Model model, @PathVariable Long id){
