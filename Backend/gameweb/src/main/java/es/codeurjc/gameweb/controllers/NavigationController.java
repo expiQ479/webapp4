@@ -152,7 +152,7 @@ public class NavigationController implements ErrorController {
 
     @GetMapping("/RegisterPage")
     public String showRegister(Model model) {
-        model.addAttribute("problem", "pepe");
+        model.addAttribute("problem", "");
         return "RegisterPage";
     }
 
