@@ -17,7 +17,7 @@ public class UserService{
         return users.findById(id);
     }
     public Optional<User> findByName(String name) {
-        return users.findByName(name);
+        return users.findByInfo(name);
     }
 
     public boolean exist(long id) {

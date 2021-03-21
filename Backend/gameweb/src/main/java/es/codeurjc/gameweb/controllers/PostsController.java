@@ -1,66 +1,46 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.ArrayList;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 
+import es.codeurjc.gameweb.models.*;
+import es.codeurjc.gameweb.services.*;
 
-import es.codeurjc.gameweb.models.Game;
-import es.codeurjc.gameweb.models.Post;
-import es.codeurjc.gameweb.models.PostType;
-import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.services.GamePostService;
-import es.codeurjc.gameweb.services.PostService;
-import es.codeurjc.gameweb.services.UserService;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PostsController {
 
     @Autowired
-	private GamePostService gamePostService;
-
+    private PostService pService;    
     @Autowired
-    private PostService pService;
-    private Optional<Game> myGame;
-    
+    private GameService gamePostService;
     @Autowired
-    private UserService userService;
+	private UserService userService;
+    @Autowired
+    private AlgorithmService algorithm;
     
-    @PostMapping("/newPost/{id}")
-    public String CreatePost(Model model,@PathVariable Long id,@RequestParam String newTitle,@RequestParam String theType, @RequestParam String postText,MultipartFile imageField, HttpServletRequest request)throws IOException{ 
-        Principal principal = request.getUserPrincipal();
-        Optional<User> myUser= userService.findByName(principal.getName());
-        User user =myUser.get();
-        myGame = gamePostService.findById(id);     
-        Game game =myGame.get();
-        Post thePost=new Post(newTitle, getCurrentDate(), getCurrentDate(), user.getInfo(), postText,parseType(theType));
-        if (imageField != null) {
-			thePost.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
-			thePost.setImage(true);
-		}
-		else
-            thePost.setImage(false);
-        game.addPost(thePost);
-        pService.save(thePost);
-        
-        model.addAttribute("customMessage", "Post añadido con éxito");
-        return "savedGame";  
-    }  
-    @PostMapping("/editPost/{id}")
+    @PostMapping("/adminUpdates/editPost/{id}")
     public String editPost(Model model,@PathVariable Long id, @RequestParam String newTitle,@RequestParam String newType,@RequestParam String author,@RequestParam String newPostText,MultipartFile imageField,boolean removeImage)throws IOException, SQLException{
         
         Post theUpdatedOne=pService.findById(id).get();
@@ -72,14 +52,109 @@ public class PostsController {
         updateImage(theUpdatedOne, removeImage, imageField);
         pService.save(theUpdatedOne);
         model.addAttribute("customMessage", "Post editado con éxito");
-        return "savedGame";  
+        return "successPage";  
     }
+
+    @RequestMapping("posts/expandedPost/{id}")
+    public String showExpandedPost(Model model, @PathVariable long id, HttpServletRequest request) {
+        ArrayList<Object> gamesToShow;
+        Optional<Post> p=pService.findById(id);
+        model.addAttribute("post", p.get());
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        gamesToShow=algorithm.setSomeList(user);
+        model.addAttribute("selectedList",gamesToShow.get(1));
+        if (gamesToShow.get(0).equals(0))
+            model.addAttribute("whatList", "Recomendados");
+        else
+            model.addAttribute("whatList", "Mejor valorados");
+        return "expandedPost";
+    }
+
+    @RequestMapping("posts/listPosts/{id}/{theType}")
+    public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType, HttpServletRequest request){  
+        ArrayList<Object> gamesToShow;
+        Optional<Game> myGame = gamePostService.findById(id);
+        Game game =myGame.get();       
+        model.addAttribute("name",game.getGameTitle());
+        model.addAttribute("postType", theType);
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        gamesToShow=algorithm.setSomeList(user);
+        model.addAttribute("selectedList",gamesToShow.get(1));
+        if (gamesToShow.get(0).equals(0))
+            model.addAttribute("whatList", "Recomendados");
+        else
+            model.addAttribute("whatList", "Mejor valorados");
+        PostType ty=null;
+        switch(theType){
+            case "Guias":
+                ty=PostType.Guides;
+                break;
+            case "Noticias":
+                ty=PostType.News;
+                break;
+            case "Actualizaciones":
+                ty=PostType.Updates;
+                break;
+            default:
+            System.out.println("PROBLEMOSN");
+                break;
+        }
+        System.out.println(ty.name());
+        try {
+            ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
+            model.addAttribute("lista", toShow);
+        } catch (Exception e) {
+            model.addAttribute("lista", null);
+        }
+        return "listPosts";
+    }
+
+    @RequestMapping("adminUpdates/createPostPage/{id}")
+    public String showCreatePostPage(Model model, @PathVariable long id) {    
+        Optional<Game> game = gamePostService.findById(id);
+		if (game.isPresent()) {
+			model.addAttribute("game", game.get());
+			return "createPostPage";
+		} else {
+            model.addAttribute("whatList", "Recomendados");
+			return "index";
+		}
+    }
+
+    @GetMapping("/posts/{id}/image")
+    public ResponseEntity<Object> downloadPostImage(@PathVariable long id) throws SQLException {
+
+        Optional<Post> post = pService.findById(id);
+        if (post.isPresent() && post.get().getImageFile() != null) {
+
+            Resource file = new InputStreamResource(post.get().getImageFile().getBinaryStream());
+
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .contentLength(post.get().getImageFile().length()).body(file);
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @RequestMapping("adminUpdates/editPostPage/{id}")
+    public String showEditPost(Model model, @PathVariable long id) {
+        Optional<Post> p=pService.findById(id);
+        model.addAttribute("post", p.get());
+        return "editPostPage";
+    }
+
     private String getCurrentDate(){
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yy");
         LocalDateTime now=LocalDateTime.now();
         String newDate=formatter.format(now);
         return newDate;
     }
+
     private PostType parseType(String theType){
         PostType ty=null;
         switch(theType){
@@ -95,6 +170,7 @@ public class PostsController {
         }
         return ty;
     }
+    
     private void updateImage(Post post, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
 		if (!imageField.isEmpty()) {
 			post.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));

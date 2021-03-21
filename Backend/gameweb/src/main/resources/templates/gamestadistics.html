@@ -34,19 +34,19 @@
           {{#logged}}
           {{#admin}}
           <li class="nav-item">
-            <a href="/adminUpdates" class="btn" role="button">Editar Juegos </a>
+            <a href="/adminUpdates/" class="btn" role="button">Editar Juegos </a>
           </li>
           {{/admin}}
           <li class="nav-item">
-              <a href="/Profile"><image src="/images/icono_user.png" width="50" height="50" style="margin-left: 20px; border-radius: 150px;"></image></a>
+              <a href="/profile/"><image src="/images/icono_user.png" width="50" height="50" style="margin-left: 20px; border-radius: 150px;"></image></a>
           </li>
           {{/logged}}
           {{^logged}}
           <li class="nav-item">
-            <a class="nav-link" href="/LogInPage" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
+            <a class="nav-link" href="/login" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/RegisterPage" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
+            <a class="nav-link" href="/register" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
           </li>
           {{/logged}}
         </ul>
@@ -60,7 +60,7 @@
     <h1>Estadísticas de {{game.gameTitle}}</h1>
     <div class="row">
         <div class="col-lg-4">
-            <img src="/games/{{id}}/image" width="375" height="525">
+            <img src="/gamePage/{{id}}/image" width="375" height="525">
             <h4 style="text-align: center;">Valoracion media de {{game.gameTitle}} es {{game.averageScore}}</h4>  
         </div>
         <div class="col-lg-8">

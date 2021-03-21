@@ -13,12 +13,12 @@ import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.repositories.GameRepository;
 
 @Service
-public class GamePostService {
+public class GameService {
 
     /*private ConcurrentMap<Long, Game> gamesPosted = new ConcurrentHashMap<>();
 	private AtomicLong nextId = new AtomicLong();*/
 
-	public GamePostService() {        
+	public GameService() {        
 			
 	}
 
