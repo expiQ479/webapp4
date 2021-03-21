@@ -34,7 +34,6 @@ public class User {
 
     private String info;
     private String password;
-    private boolean logged = false;
     
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
@@ -60,18 +59,13 @@ public class User {
         return info;
     }
 
-    public boolean isLogged() {
-        return logged;
-    }
     public ArrayList<Long> getMyGames(){
         return this.myGames;
     }
     public void setMyGames(ArrayList<Long> myGames){
         this.myGames=myGames;
     }
-    public void setLogged(boolean logged) {
-        this.logged = logged;
-    }
+    
     public void addElementToGameList(Long long1){
         if(this.myGames==null){
             this.myGames=new ArrayList<Long>();

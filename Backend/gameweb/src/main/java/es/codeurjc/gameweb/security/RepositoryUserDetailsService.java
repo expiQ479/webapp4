@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.repositories.UserRepository;
 import es.codeurjc.gameweb.services.UserService;
 
 

@@ -1,38 +1,57 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
+import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.UserService;
 
 
 @Controller
-public class GamePostsController {
+public class GameController {
 	@Autowired
 	private GamePostService gamePostService;
 	@Autowired
-	private CommonFunctions commonFunctions;
-	@Autowired
     private UserService userService;
+	
+	@ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+		Principal principal = request.getUserPrincipal();
+
+		if (principal != null) {
+
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
 
 	@PostMapping("/GameAdded")
 	public String newPost(Model model,MultipartFile imageField, Game game) throws IOException {
-        commonFunctions.getSession(model);
 		if (!imageField.isEmpty()) {
 			game.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
 			game.setImage(true);
@@ -44,6 +63,45 @@ public class GamePostsController {
 		model.addAttribute("customMessage", "Juego creado con exito");
 		return "savedGame";
 	}
+	@PostMapping("/searchGames")
+	public String editBookProcess(Model model, boolean Horror,boolean Shooter,boolean Action,
+    boolean Platformer, boolean Sports, boolean Puzzles, boolean Narrative, boolean RPG){
+        List<Game> games = new ArrayList<Game>();
+        if (Horror){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Horror);
+            games.addAll(wantedGames);
+        }
+        if (Shooter){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Shooter);
+            games.addAll(wantedGames);
+        }
+        if (Action){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Action);
+            games.addAll(wantedGames);
+        }
+        if (Platformer){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Platformer);
+            games.addAll(wantedGames);
+        }
+        if (Sports){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Sports);
+            games.addAll(wantedGames);
+        }
+        if (Puzzles){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Puzzles);
+            games.addAll(wantedGames);
+        }
+        if (Narrative){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Narrative);
+            games.addAll(wantedGames);
+        }
+        if (RPG){
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.RPG);
+            games.addAll(wantedGames);
+        }
+        model.addAttribute("games", games);
+		return "GameList";
+	}
 	
 	@PostMapping("/editGame")
 	public String editBookProcess(Model model,MultipartFile imageField, Game game, boolean removeImage)
@@ -54,8 +112,6 @@ public class GamePostsController {
 		updateImage(game, removeImage, imageField);
 		game.setChat(aux);
 		gamePostService.save(game);
-
-		commonFunctions.getSession(model);
 		model.addAttribute("customMessage", "Juego modificado con exito");
 		return "savedGame";
 	}
@@ -77,7 +133,6 @@ public class GamePostsController {
 				}
 			}
 		}
-		commonFunctions.getSession(model);
 		model.addAttribute("customMessage", "El juego se ha eliminado con exito");
 		return "savedGame";
 	}
