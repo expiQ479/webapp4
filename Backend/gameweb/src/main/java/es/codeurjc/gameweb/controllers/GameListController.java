@@ -1,12 +1,16 @@
 package es.codeurjc.gameweb.controllers;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.codeurjc.gameweb.models.Game;
@@ -16,14 +20,27 @@ import es.codeurjc.gameweb.services.GamePostService;
 @Controller
 public class GameListController {
     @Autowired
-    private CommonFunctions commonFunctions;
-    @Autowired
     private GamePostService gamePostService;
+
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+		Principal principal = request.getUserPrincipal();
+
+		if (principal != null) {
+
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
 
     @PostMapping("/searchGames")
 	public String editBookProcess(Model model, boolean Horror,boolean Shooter,boolean Action,
     boolean Platformer, boolean Sports, boolean Puzzles, boolean Narrative, boolean RPG){
-        commonFunctions.getSession(model);
         List<Game> games = new ArrayList<Game>();
         if (Horror){
             List<Game> wantedGames=gamePostService.findByCategory(Genres.Horror);
