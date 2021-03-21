@@ -10,6 +10,7 @@ import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.gameweb.models.Chat;
@@ -30,6 +31,8 @@ public class DBInitializer {
     private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+	private PasswordEncoder passwordEncoder;
     @PostConstruct
 	public void init() throws IOException, URISyntaxException {
         //sample games of 4dgames
@@ -144,7 +147,7 @@ public class DBInitializer {
         g4.addPost(p4);
         postRepository.save(p4);
 
-        ArrayList<Long> suscriptions1 = new ArrayList<>();
+        /*ArrayList<Long> suscriptions1 = new ArrayList<>();
         suscriptions1.add(g2.getId());
 		User user1 = new User("Kike", "12345", suscriptions1);
 		user1.setAdmin(true);
@@ -155,7 +158,12 @@ public class DBInitializer {
 		User user2 = new User("Pepe", "54321", suscriptions2);
 		user2.setAdmin(false);
         setUserImage(user2, "/sample_images/user-image-1.jpg");
-        userRepository.save(user2);
+        userRepository.save(user2);*/
+
+        ArrayList<Long> suscriptions0 = new ArrayList<>();
+        User user0 = new User("admin",passwordEncoder.encode("admin"),suscriptions0, "USER", "ADMIN");
+        setUserImage(user0, "/sample_images/user-image-0.jpg");
+        userRepository.save(user0);
 
     }
 
