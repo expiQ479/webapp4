@@ -34,8 +34,6 @@ import es.codeurjc.gameweb.services.UserService;
 @Controller
 public class NavigationController implements ErrorController {
     @Autowired
-    private CommonFunctions commonFunctions;
-    @Autowired
     private ChatService chatService;
     @Autowired
     private GamePostService gamePostService;
@@ -62,13 +60,13 @@ public class NavigationController implements ErrorController {
 	}
 
 
-    public Map.Entry<Genres,Integer> recommendedAlgorithm(){
+    public Map.Entry<Genres,Integer> recommendedAlgorithm(User user){
         HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
         for(Genres g : Genres.values()){
             amountOfGamesWithGenre.put(g, 0);
         }
         Map.Entry<Genres,Integer> maxEntry=null;
-        for (Long game : commonFunctions.getU().getMyGames()) {
+        for (Long game : user.getMyGames()) {
             amountOfGamesWithGenre.put(gamePostService.findById(game).get().getGenre(),amountOfGamesWithGenre.get(gamePostService.findById(game).get().getGenre())+1);
         }
         
@@ -79,10 +77,10 @@ public class NavigationController implements ErrorController {
         }
         return maxEntry;
     }
-    public void setSomeList(Model model){
-        if(commonFunctions.getU().isLogged()){   
+    public void setSomeList(Model model,  User user){
+        if(user.isLogged()){   
             try {
-                ArrayList<Game> toShow=gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm().getKey()));                 
+                ArrayList<Game> toShow=gamePostService.getNumberOfGames(3, gamePostService.findGamesOfGenre(recommendedAlgorithm(user).getKey()));                 
                 model.addAttribute("selectedList",toShow);
                 model.addAttribute("whatList", "Recomendados");
             } catch (Exception e) { 
@@ -100,9 +98,11 @@ public class NavigationController implements ErrorController {
         }
     }
     @GetMapping("/")
-    public String showIndex(Model model) {
-        commonFunctions.getSession(model);      
-        setSomeList(model);      
+    public String showIndex(Model model, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();      
+        setSomeList(model, user);      
         model.addAttribute("games", gamePostService.findAll(PageRequest.of(0, 8)));
         model.addAttribute("nextPage", 1);
         return "index";
@@ -145,14 +145,15 @@ public class NavigationController implements ErrorController {
     }
 
     @GetMapping("/Profile/image")
-	public ResponseEntity<Object> downloadUserImage() throws SQLException {
-        Long id = commonFunctions.getU().getId();
-		Optional<User> user = userService.findById(id);
-		if (user.isPresent() && user.get().getImageFile() != null) {
+	public ResponseEntity<Object> downloadUserImage(HttpServletRequest request) throws SQLException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+		if (user.getImageFile() != null) {
 
-			Resource file = new InputStreamResource(user.get().getImageFile().getBinaryStream());
+			Resource file = new InputStreamResource(user.getImageFile().getBinaryStream());
 			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-					.contentLength(user.get().getImageFile().length()).body(file);
+					.contentLength(user.getImageFile().length()).body(file);
 
 		} else {
 			return ResponseEntity.notFound().build();
@@ -161,7 +162,6 @@ public class NavigationController implements ErrorController {
 
     @GetMapping("/adminUpdates")
     public String showAdminGamesPage(Model model) {
-        commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
 
         return "adminUpdates";
@@ -176,13 +176,14 @@ public class NavigationController implements ErrorController {
 
     @GetMapping("/addGame")
     public String addGame(Model model) {
-        commonFunctions.getSession(model);
         return "newGame";
     }
 
     @RequestMapping("/GamePage/{id}")
-    public String showGame(Model model, @PathVariable Long id) {
-
+    public String showGame(Model model, @PathVariable Long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         Optional<Game> myGame = gamePostService.findById(id);
         Optional<Chat> myChat = chatService.findById(id+1);
         Game game = myGame.get();
@@ -190,21 +191,20 @@ public class NavigationController implements ErrorController {
         chat = myChat.get();
         model.addAttribute("game", game);
         for (Integer i = 0; i <= chat.getListMessages().size() - 1; i++) {
-            if (commonFunctions.getU().getInfo().equals(chat.getListMessages().get(i).getNameUser()))
+            if (user.getInfo().equals(chat.getListMessages().get(i).getNameUser()))
                 chat.getListMessages().get(i).setMessageWriter(true);
             else
                 chat.getListMessages().get(i).setMessageWriter(false);
         }
-        if(commonFunctions.getU().isLogged()){
+        if(user.isLogged()){
             try {
-                model.addAttribute("canSub", !commonFunctions.getU().getMyGames().contains(game.getId()));
+                model.addAttribute("canSub", !user.getMyGames().contains(game.getId()));
             } catch (Exception e) {
                 model.addAttribute("canSub", true);
             }
             
             model.addAttribute("Messages", chat.getListMessages());
         }    
-        commonFunctions.getSession(model);
         return "GamePage";
     }
     @RequestMapping("/showMoreGames") 
@@ -216,17 +216,19 @@ public class NavigationController implements ErrorController {
     public String showEditPost(Model model, @PathVariable long id) {
         Optional<Post> p=pService.findById(id);
         model.addAttribute("post", p.get());
-        commonFunctions.getSession(model);
         return "editPostPage";
     }
     
     @RequestMapping("/listPosts/{id}/{theType}")
-    public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType){       
+    public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType, HttpServletRequest request){  
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();     
         Optional<Game> myGame = gamePostService.findById(id);
         Game game =myGame.get();       
         model.addAttribute("name",game.getGameTitle());
         model.addAttribute("postType", theType);
-        setSomeList(model); 
+        setSomeList(model,user); 
         PostType ty=null;
         switch(theType){
             case "Guias":
@@ -249,28 +251,25 @@ public class NavigationController implements ErrorController {
         } catch (Exception e) {
             model.addAttribute("lista", null);
         }
-        
-        commonFunctions.getSession(model);
         return "listPosts";
     }
     @RequestMapping("/Profile") 
-    public String showProfile(Model model) {
-        model.addAttribute("user", commonFunctions.getU());
-        commonFunctions.getSession(model);
+    public String showProfile(Model model, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        model.addAttribute("user", user);
         return "Profile";
     }
 
     @RequestMapping("/Profile/{name}/Suscripciones")
     public String showSuscriptions(Model model, @PathVariable String name) {
         model.addAttribute("name", name);
-        commonFunctions.getSession(model);
         return "Suscripciones";
     }
 
     @GetMapping("/Index")
     public String SignOff(Model model) {
-        commonFunctions.getU().setLogged(false);
-        commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findBestRatedGames());
         model.addAttribute("whatList", "Mejor valorados");
         model.addAttribute("nextPage", 1);
@@ -285,25 +284,25 @@ public class NavigationController implements ErrorController {
     
 
     @RequestMapping("/expandedPost/{id}")
-    public String showExpandedPost(Model model, @PathVariable long id) {
+    public String showExpandedPost(Model model, @PathVariable long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         Optional<Post> p=pService.findById(id);
         model.addAttribute("post", p.get());
-        setSomeList(model); 
+        setSomeList(model,user); 
         model.addAttribute("isAdmin", true);
-        commonFunctions.getSession(model);
         return "expandedPost";
     }
 
     @GetMapping("/Juegos")
     public String showListGames(Model model) {
-        commonFunctions.getSession(model);
         model.addAttribute("games", gamePostService.findAll());
         model.addAttribute("genres", genres);
         return "gameList";
     }
     @RequestMapping("/createPostPage/{id}")
     public String showCreatePostPage(Model model, @PathVariable long id) {    
-        commonFunctions.getSession(model);
         Optional<Game> game = gamePostService.findById(id);
 		if (game.isPresent()) {
 			model.addAttribute("game", game.get());
@@ -315,7 +314,6 @@ public class NavigationController implements ErrorController {
     }
     @GetMapping("/EditarJuego/{id}")
     public String editGame(Model model, @PathVariable long id) {
-        commonFunctions.getSession(model);
         Optional<Game> game = gamePostService.findById(id);
 		if (game.isPresent()) {
 			model.addAttribute("game", game.get());
@@ -386,7 +384,6 @@ public class NavigationController implements ErrorController {
         model.addAttribute("gamestars3", int3);
         model.addAttribute("gamestars4", int4);
         model.addAttribute("gamestars5", int5);
-        commonFunctions.getSession(model);
 
         return "gamestadistics";
     }

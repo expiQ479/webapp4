@@ -1,8 +1,12 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +28,13 @@ public class RegisterController {
     private UserService userService;
 
     @Autowired
-    private CommonFunctions commonFunctions;
-
-    @Autowired
 	private GamePostService gamePostService;
 
     @PostMapping("/IndexLogged")
-    public String newUser(Model model, @RequestParam String name, @RequestParam String password, @RequestParam String password1) throws IOException {
+    public String newUser(Model model, @RequestParam String name, @RequestParam String password, @RequestParam String password1, HttpServletRequest request) throws IOException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         List<User> users = userService.findAll();
         boolean encontrado= false;
         for(int i=0; i<users.size(); i++){
@@ -41,24 +45,19 @@ public class RegisterController {
         if(!encontrado){
             if(password.equals(password1)){
                 ArrayList<Long> myGames = new ArrayList<>();
-                User user = new User(name,password,myGames,"USER");
+                User Newuser = new User(name,password,myGames,"USER");
                 setUserImage(user, "/sample_images/user-image-default.jpg");
-                userService.save(user);
-                user.setLogged(true);
-                commonFunctions.setU(user);
-                commonFunctions.getSession(model);
+                userService.save(Newuser);
             model.addAttribute("games", gamePostService.findAll());
             model.addAttribute("whatList", "Recomendados");
             model.addAttribute("nextPage", 1);
             return "index";
             }
             else{
-                commonFunctions.getSession(model);
                 model.addAttribute("problem", "Contraseña de confirmacion incorrecta");
                 return "RegisterPage";
             }
         }
-        commonFunctions.getSession(model);
         model.addAttribute("problem", "Nombre de usuario ya existente");
         return "RegisterPage";
     }

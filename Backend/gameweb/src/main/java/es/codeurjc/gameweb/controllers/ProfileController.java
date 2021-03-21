@@ -1,15 +1,19 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,15 +28,16 @@ import es.codeurjc.gameweb.services.UserService;
 public class ProfileController {
     
     @Autowired
-    private CommonFunctions commonFunctions;
-    @Autowired
     private UserService userService;
 
     @Autowired
     private GamePostService gamePostService;
 
     @PostMapping("/Profile")
-    public String changeName(Model model, @RequestParam String name) {
+    public String changeName(Model model, @RequestParam String name, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         List<User> users = userService.findAll();
         boolean encontrado= false;
         for(int i=0; i<users.size(); i++){
@@ -41,10 +46,9 @@ public class ProfileController {
             }
         }
         if(!encontrado){
-            commonFunctions.getU().setInfo(name);
-            userService.save(commonFunctions.getU());
-            model.addAttribute("user", commonFunctions.getU());
-            commonFunctions.getSession(model);
+            user.setInfo(name);
+            userService.save(user);
+            model.addAttribute("user", user);
             return "Profile";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
@@ -52,21 +56,21 @@ public class ProfileController {
     }
 
     @RequestMapping("/Subscriptions")
-    public String showSubscriptions(Model model){
-        Optional<User> myUser=userService.findById(commonFunctions.getU().getId());
-        User User = myUser.get();
+    public String showSubscriptions(Model model, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         ArrayList<Game> myGames = new ArrayList<>();
-        if(commonFunctions.getU().getMyGames()==null){
+        if(user.getMyGames()==null){
             myGames = null;
         }
         else{
-            for(int i=0; i<User.getMyGames().size(); i++){
-                myGames.add(gamePostService.findById(User.getMyGames().get(i)).get());
+            for(int i=0; i<user.getMyGames().size(); i++){
+                myGames.add(gamePostService.findById(user.getMyGames().get(i)).get());
             }
         }
         model.addAttribute("listaSubs",myGames);
-        commonFunctions.getSession(model);
-        if(commonFunctions.getU().getMyGames().isEmpty()){
+        if(user.getMyGames().isEmpty()){
             model.addAttribute("noSubs", "No tienes ninguna subscripcion");
         }
         else{
@@ -76,22 +80,51 @@ public class ProfileController {
     }
 
     @PostMapping("/CambiarContraseña")
-    public String changePass(Model model, @RequestParam String password) {
-        commonFunctions.getU().setPassword(password);
-        userService.save(commonFunctions.getU());
-        model.addAttribute("user", commonFunctions.getU());
-        commonFunctions.getSession(model);
+    public String changePass(Model model, @RequestParam String password, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        user.setPassword(password);
+        userService.save(user);
+        model.addAttribute("user", user);
         return "Profile";
     }
 
     @PostMapping("/CambiarFoto")
-	public String newFotoUser(Model model, MultipartFile image) throws IOException, SQLException {
-        updateImage(commonFunctions.getU(), true, image);
-        userService.save(commonFunctions.getU());
-        model.addAttribute("user", commonFunctions.getU());
-        commonFunctions.getSession(model);	
+	public String newFotoUser(Model model, MultipartFile image, HttpServletRequest request) throws IOException, SQLException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        updateImage(user, true, image);
+        userService.save(user);
+        model.addAttribute("user", user);	
 		return "Profile";
 	}
+
+    @RequestMapping("/Subscriptions/{id}")
+    public String eliminarSubs(Model model, @PathVariable Long id, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        ArrayList<Game> myGames = new ArrayList<>();
+        for(int i=0; i<user.getMyGames().size(); i++){
+            if(user.getMyGames().get(i).equals(id)){
+                user.getMyGames().remove(user.getMyGames().get(i));
+                userService.save(user);
+            }
+            else{
+                myGames.add(gamePostService.findById(user.getMyGames().get(i)).get());
+            }
+        }
+        model.addAttribute("listaSubs", myGames);
+        if(user.getMyGames().isEmpty()){
+            model.addAttribute("noSubs", "No tienes ninguna subscripcion");
+        }
+        else{
+            model.addAttribute("noSubs", "");
+        }
+        return "Subscriptions";
+    } 
 
     private void updateImage(User user, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
 		if (!imageField.isEmpty()) {
@@ -102,7 +135,7 @@ public class ProfileController {
 				user.setImageFile(null);
 				user.setImage(false);
 			} else {
-				User dbUser = userService.findById(commonFunctions.getU().getId()).orElseThrow();
+				User dbUser = userService.findById(user.getId()).orElseThrow();
 				if (dbUser.isImage()) {
 					user.setImageFile(BlobProxy.generateProxy(dbUser.getImageFile().getBinaryStream(),
 							dbUser.getImageFile().length()));
