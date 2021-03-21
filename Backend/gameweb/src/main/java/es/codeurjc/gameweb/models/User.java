@@ -2,8 +2,11 @@ package es.codeurjc.gameweb.models;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,25 +35,25 @@ public class User {
     private String info;
     private String password;
     private boolean logged = false;
-    private boolean admin = false;
+    
+    @ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 
     private ArrayList<Long> myGames;
 
     public User(){}
 
-    public User(String info, String password, ArrayList<Long> myGames) {
+    public User(String info, String password, ArrayList<Long> myGames,String... roles) {
         super();
         this.info = info;
         this.password = password;
         this.myGames= myGames;
+        this.roles = List.of(roles);
     }
+    
 
     public void setInfo(String info) {
         this.info = info;
-    }
-
-    public boolean isAdmin() {
-        return admin;
     }
 
     public String getInfo() {
@@ -94,10 +97,6 @@ public class User {
         this.id = id;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
     public Blob getImageFile() {
         return this.imageFile;
     }
@@ -112,6 +111,14 @@ public class User {
 
     public void setImage(boolean image) {
         this.image = image;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
 }

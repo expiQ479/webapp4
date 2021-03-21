@@ -1,5 +1,6 @@
 package es.codeurjc.gameweb.controllers;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,23 @@ public class NavigationController implements ErrorController {
     @Autowired
     private UserService userService;
     
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+		Principal principal = request.getUserPrincipal();
+
+		if (principal != null) {
+
+			model.addAttribute("logged", true);
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
+
+
     public Map.Entry<Genres,Integer> recommendedAlgorithm(){
         HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
         for(Genres g : Genres.values()){
@@ -271,7 +289,7 @@ public class NavigationController implements ErrorController {
         Optional<Post> p=pService.findById(id);
         model.addAttribute("post", p.get());
         setSomeList(model); 
-        model.addAttribute("isAdmin", commonFunctions.getU().isAdmin());
+        model.addAttribute("isAdmin", true);
         commonFunctions.getSession(model);
         return "expandedPost";
     }

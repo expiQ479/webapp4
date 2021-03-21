@@ -41,8 +41,7 @@ public class RegisterController {
         if(!encontrado){
             if(password.equals(password1)){
                 ArrayList<Long> myGames = new ArrayList<>();
-                User user = new User(name,password,myGames);
-                user.setAdmin(false);
+                User user = new User(name,password,myGames,"USER");
                 setUserImage(user, "/sample_images/user-image-default.jpg");
                 userService.save(user);
                 user.setLogged(true);
