@@ -100,47 +100,50 @@ public class GamePageController {
 
         Optional<Game> myGame = gamePostService.findById(id);
         Game game = myGame.get();
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         
         //we check if the array have the initialized value to change it in case it have it or just add the new one in other case
         if (game.getMapScores().containsValue(0)){
             game.getMapScores().clear();
-            game.getMapScores().put(commonFunctions.getU().getId(), stars);
+            game.getMapScores().put(user.getId(), stars);
         }
         else 
-            game.getMapScores().put(commonFunctions.getU().getId(), stars);
+            game.getMapScores().put(user.getId(), stars);
 
         //call to the method to do the average and set it on the game parameters
         float myAverage= doAverageScore(game.getMapScores());
         game.setAverageScore(myAverage);
         gamePostService.save(game);
-        commonFunctions.getSession(model);
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
 
         return "savedGame";
     }
     @PostMapping("/AgregarChat/{id}")
-    public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat) {
+    public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat,HttpServletRequest request) {
         Optional<Game> game = gamePostService.findById(id);
         Game myGame = game.get();
         model.addAttribute("game", myGame);
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         //iterate the chat messages to allign them to the right or to the left
         for (Integer i=0;i<=myGame.getChat().getListMessages().size()-1;i++){
-            if(commonFunctions.getU().getInfo().equals(myGame.getChat().getListMessages().get(i).getNameUser())) 
+            if(user.getInfo().equals(myGame.getChat().getListMessages().get(i).getNameUser())) 
             myGame.getChat().getListMessages().get(i).setMessageWriter(true);
             else
             myGame.getChat().getListMessages().get(i).setMessageWriter(false);
         }
         model.addAttribute("Messages", myGame.getChat().getListMessages());
-        commonFunctions.getSession(model);
         
         //Create the message and add it to the chat of the game
-        Message MyMessage = new Message(commonFunctions.getU().getInfo(), sentChat,true);
+        Message MyMessage = new Message(user.getInfo(), sentChat,true);
         myGame.getChat().getListMessages().add(MyMessage);
         model.addAttribute("Messages", myGame.getChat().getListMessages());
-        commonFunctions.getSession(model);
         gamePostService.save(myGame);
-        if(commonFunctions.getU().isLogged()){
-            model.addAttribute("canSub", !commonFunctions.getU().getMyGames().contains(myGame.getId()));
+        if(principal!=null){
+            model.addAttribute("canSub", !user.getMyGames().contains(myGame.getId()));
             //model.addAttribute("Messages", chat.getListMessages());
         }   
         return "GamePage";
