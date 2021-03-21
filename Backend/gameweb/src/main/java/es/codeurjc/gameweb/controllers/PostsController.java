@@ -79,15 +79,17 @@ public class PostsController {
         Game game =myGame.get();       
         model.addAttribute("name",game.getGameTitle());
         model.addAttribute("postType", theType);
-        Principal principal = request.getUserPrincipal();
-        Optional<User> myUser= userService.findByName(principal.getName());
-        User user =myUser.get();
-        gamesToShow=algorithm.setSomeList(user);
-        model.addAttribute("selectedList",gamesToShow.get(1));
-        if (gamesToShow.get(0).equals(0))
+        try{
+            Principal principal = request.getUserPrincipal();
+            Optional<User> myUser= userService.findByName(principal.getName());
+            User user =myUser.get();
+            gamesToShow=algorithm.setSomeList(user);
+            model.addAttribute("selectedList",gamesToShow.get(1));
             model.addAttribute("whatList", "Recomendados");
-        else
+        }
+        catch (Exception e){
             model.addAttribute("whatList", "Mejor valorados");
+        }
         PostType ty=null;
         switch(theType){
             case "Guias":

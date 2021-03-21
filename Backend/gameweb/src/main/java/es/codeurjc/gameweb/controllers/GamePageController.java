@@ -56,6 +56,7 @@ public class GamePageController {
     @RequestMapping("/gamePage/{id}")
     public String showGame(Model model, @PathVariable Long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
+        try{
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
         Optional<Game> myGame = gamePostService.findById(id);
@@ -78,8 +79,14 @@ public class GamePageController {
             }
             
             model.addAttribute("Messages", chat.getListMessages());
-        }    
-        return "gamePage";
+        }
+        return "gamePage"; 
+        } catch (Exception e){
+            Optional<Game> myGame = gamePostService.findById(id); 
+            Game game = myGame.get();
+            model.addAttribute("game", game);
+            return "gamePage";
+        }  
     }
 
     @RequestMapping("/gamePage/{id}/subButton")
