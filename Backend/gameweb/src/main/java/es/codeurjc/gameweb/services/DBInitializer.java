@@ -160,10 +160,15 @@ public class DBInitializer {
         setUserImage(user2, "/sample_images/user-image-1.jpg");
         userRepository.save(user2);*/
 
-        ArrayList<Long> suscriptions0 = new ArrayList<>();
+        /*ArrayList<Long> suscriptions0 = new ArrayList<>();
         User user0 = new User("admin",passwordEncoder.encode("admin"),suscriptions0, "USER", "ADMIN");
         setUserImage(user0, "/sample_images/user-image-0.jpg");
-        userRepository.save(user0);
+        userRepository.save(user0);*/
+
+        ArrayList<Long> suscriptions1 = new ArrayList<>();
+        User user1 = new User("admin",passwordEncoder.encode("admin"),suscriptions1, "USER","ADMIN");
+        setUserImage(user1, "/sample_images/user-image-0.jpg");
+        userRepository.save(user1);
 
     }
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.services.GamePostService;
+import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.UserService;
 
 @Controller
@@ -28,9 +28,9 @@ public class RegisterController {
     private UserService userService;
 
     @Autowired
-	private GamePostService gamePostService;
+	private GameService gamePostService;
 
-    @PostMapping("/IndexLogged")
+    @PostMapping("/signIn")
     public String newUser(Model model, @RequestParam String name, @RequestParam String password, @RequestParam String password1, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -55,18 +55,16 @@ public class RegisterController {
             }
             else{
                 model.addAttribute("problem", "Contraseña de confirmacion incorrecta");
-                return "RegisterPage";
+                return "register";
             }
         }
         model.addAttribute("problem", "Nombre de usuario ya existente");
-        return "RegisterPage";
+        return "signIn";
     }
-
-    public void setUserImage(User user, String classpathResource) throws IOException {
+    private void setUserImage(User user, String classpathResource) throws IOException {
         user.setImage(true);
         Resource image = new ClassPathResource(classpathResource);
         user.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
 
     }
-
 }

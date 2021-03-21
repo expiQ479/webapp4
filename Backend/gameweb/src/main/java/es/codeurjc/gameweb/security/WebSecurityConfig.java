@@ -30,27 +30,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	
     	// Public pages
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/loginerror").permitAll();
-        http.authorizeRequests().antMatchers("/logout").permitAll();
+        http.authorizeRequests().antMatchers("/index").permitAll();
 
         // Private pages
-        http.authorizeRequests().antMatchers("/newbook").hasAnyRole("USER");
-        http.authorizeRequests().antMatchers("/editbook/*").hasAnyRole("USER");
-        http.authorizeRequests().antMatchers("/removebook/*").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/adminUpdates").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/rate/*").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().antMatchers("/agregarChat/*").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().antMatchers("/profile/*").hasAnyRole("USER","ADMIN");
+        
 
         // Login form
         http.formLogin().loginPage("/login");
-        http.formLogin().usernameParameter("username");
+        http.formLogin().usernameParameter("name");
         http.formLogin().passwordParameter("password");
         http.formLogin().defaultSuccessUrl("/");
-        http.formLogin().failureUrl("/loginerror");
+        http.formLogin().failureUrl("/");
 
         // Logout
         http.logout().logoutUrl("/logout");
         http.logout().logoutSuccessUrl("/");
+    
     }
 }

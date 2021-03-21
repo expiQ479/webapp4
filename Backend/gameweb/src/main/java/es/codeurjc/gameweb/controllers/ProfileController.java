@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.services.GamePostService;
+import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.UserService;
+
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+
+
 
 @Controller
 public class ProfileController {
@@ -31,9 +39,9 @@ public class ProfileController {
     private UserService userService;
 
     @Autowired
-    private GamePostService gamePostService;
+    private GameService gamePostService;
 
-    @PostMapping("/Profile")
+    @PostMapping("/profile/changeName")
     public String changeName(Model model, @RequestParam String name, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -52,10 +60,18 @@ public class ProfileController {
             return "Profile";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
-        return "savedGame";
+        return "successPage";
+    }
+    @RequestMapping("/profile/") 
+    public String showProfile(Model model, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        model.addAttribute("user", user);
+        return "Profile";
     }
 
-    @RequestMapping("/Subscriptions")
+    @RequestMapping("/profile/subscriptions")
     public String showSubscriptions(Model model, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -76,10 +92,10 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        return "Subscriptions";
+        return "subscriptions";
     }
 
-    @PostMapping("/CambiarContraseña")
+    @PostMapping("/profile/changePass")
     public String changePass(Model model, @RequestParam String password, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -87,10 +103,10 @@ public class ProfileController {
         user.setPassword(password);
         userService.save(user);
         model.addAttribute("user", user);
-        return "Profile";
+        return "profile";
     }
 
-    @PostMapping("/CambiarFoto")
+    @PostMapping("/profile/changeProfilePhoto")
 	public String newFotoUser(Model model, MultipartFile image, HttpServletRequest request) throws IOException, SQLException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -98,10 +114,10 @@ public class ProfileController {
         updateImage(user, true, image);
         userService.save(user);
         model.addAttribute("user", user);	
-		return "Profile";
+		return "profile";
 	}
 
-    @RequestMapping("/Subscriptions/{id}")
+    @RequestMapping("/profile/subscriptions/{id}")
     public String eliminarSubs(Model model, @PathVariable Long id, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -123,8 +139,28 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        return "Subscriptions";
+        return "subscriptions";
     } 
+    @GetMapping("/profile/image")
+	public ResponseEntity<Object> downloadUserImage(HttpServletRequest request) throws SQLException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+		if (user.getImageFile() != null) {
+
+			Resource file = new InputStreamResource(user.getImageFile().getBinaryStream());
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+					.contentLength(user.getImageFile().length()).body(file);
+
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+    @RequestMapping("/profile/{name}/suscriptions")
+    public String showSuscriptions(Model model, @PathVariable String name) {
+        model.addAttribute("name", name);
+        return "Suscripciones";
+    }
 
     private void updateImage(User user, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
 		if (!imageField.isEmpty()) {

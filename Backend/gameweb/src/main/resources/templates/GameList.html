@@ -8,10 +8,10 @@
           {{#games}}
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="card h-100">
-              <a href="/GamePage/{{id}}"><img class="card-img-top" src="/games/{{id}}/image"  alt=""></a>
+              <a href="/gamePage/{{id}}"><img class="card-img-top" src="/gamePage/{{id}}/image"  alt=""></a>
               <div class="card-body">
                 <h6 class="card-title links">
-                  <a href="/GamePage/{{id}}" class="links">{{gameTitle}}</a>
+                  <a href="/gamePage/{{id}}" class="links">{{gameTitle}}</a>
                 </h6>
                 <!--<p class="card-text">descipcion corta que ya veremos como la ponemos si la ponemos</p>-->
               </div>
@@ -37,7 +37,7 @@
       <div class="col-lg-3 col-md-4 col-sm-4">
         <h1 class="my-4">Categorias</h1>
         <div class="container" style="margin: 10px;">
-          <form action="/searchGames" method="post" enctype="multipart/form-data">
+          <form action="/gameList/filter" method="post" enctype="multipart/form-data">
           <input type="checkbox" name="Horror" > Horror<br>
           <input type="checkbox" name="Shooter" > Shooter<br>
           <input type="checkbox" name="Action"> Action<br>

@@ -14,17 +14,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.services.GamePostService;
+import es.codeurjc.gameweb.services.ChatService;
+import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.UserService;
+
+import java.sql.SQLException;
 
 @Controller
 public class GamePageController {  
     @Autowired
-	private GamePostService gamePostService;
+	private GameService gamePostService;
+    @Autowired
+    private ChatService chatService;
     
     @Autowired
 	private UserService userService;
@@ -32,21 +43,46 @@ public class GamePageController {
 
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
-
 		Principal principal = request.getUserPrincipal();
-
 		if (principal != null) {
 
 			model.addAttribute("logged", true);
 			model.addAttribute("userName", principal.getName());
 			model.addAttribute("admin", request.isUserInRole("ADMIN"));
-
 		} else {
 			model.addAttribute("logged", false);
 		}
 	}
+    @RequestMapping("/gamePage/{id}")
+    public String showGame(Model model, @PathVariable Long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
+        Optional<Game> myGame = gamePostService.findById(id);
+        Optional<Chat> myChat = chatService.findById(id+1);
+        Game game = myGame.get();
+        Chat chat;
+        chat = myChat.get();
+        model.addAttribute("game", game);
+        for (Integer i = 0; i <= chat.getListMessages().size() - 1; i++) {
+            if (user.getInfo().equals(chat.getListMessages().get(i).getNameUser()))
+                chat.getListMessages().get(i).setMessageWriter(true);
+            else
+                chat.getListMessages().get(i).setMessageWriter(false);
+        }
+        if(principal != null){
+            try {
+                model.addAttribute("canSub", !user.getMyGames().contains(game.getId()));
+            } catch (Exception e) {
+                model.addAttribute("canSub", true);
+            }
+            
+            model.addAttribute("Messages", chat.getListMessages());
+        }    
+        return "gamePage";
+    }
 
-    @RequestMapping("/GamePage/{id}/subButton")
+    @RequestMapping("/gamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id, HttpServletRequest request){  
         Principal principal = request.getUserPrincipal();
         Optional<Game> myGame=gamePostService.findById(id);
@@ -59,15 +95,15 @@ public class GamePageController {
             userService.save(user);
             model.addAttribute("game", myGame);
             model.addAttribute("customMessage", "Suscripción realizada con éxito");
-            return "savedGame";
+            return "successPage";
         }
         else{
             model.addAttribute("game", myGame);
             model.addAttribute("customMessage", "Ya te has subscrito a ese juego");
-            return "savedGame";
+            return "successPage";
         }
     }  
-    @RequestMapping("/GamePage/{id}/unsubButton")
+    @RequestMapping("/gamePage/{id}/unsubButton")
     public String unsubButton(Model model, @PathVariable Long id,HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -80,7 +116,22 @@ public class GamePageController {
             }
         }
         model.addAttribute("customMessage", "Desuscripción realizada con éxito");        
-        return "savedGame";
+        return "succesPage";
+    }
+    @GetMapping("/gamePage/{id}/image")
+    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
+
+        Optional<Game> game = gamePostService.findById(id);
+        if (game.isPresent() && game.get().getImageFile() != null) {
+
+            Resource file = new InputStreamResource(game.get().getImageFile().getBinaryStream());
+
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .contentLength(game.get().getImageFile().length()).body(file);
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     } 
     public float doAverageScore(HashMap<Long, Integer> MyScores){
         float aux = 0;
@@ -95,7 +146,7 @@ public class GamePageController {
         return aux;
     }
 
-    @RequestMapping("/valorar/{id}")
+    @RequestMapping("/rate/{id}")
     public String ValorarGame(Model model, @PathVariable Long id, @RequestParam Integer stars,HttpServletRequest request) {
 
         Optional<Game> myGame = gamePostService.findById(id);
@@ -118,9 +169,9 @@ public class GamePageController {
         gamePostService.save(game);
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
 
-        return "savedGame";
+        return "succesPage";
     }
-    @PostMapping("/AgregarChat/{id}")
+    @PostMapping("/agregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat,HttpServletRequest request) {
         Optional<Game> game = gamePostService.findById(id);
         Game myGame = game.get();
@@ -146,7 +197,39 @@ public class GamePageController {
             model.addAttribute("canSub", !user.getMyGames().contains(myGame.getId()));
             //model.addAttribute("Messages", chat.getListMessages());
         }   
-        return "GamePage";
+        return "gamePage";
     }
+    @RequestMapping("/statistics/{id}")
+    public String showGameStats(Model model, @PathVariable Long id) {
+
+        Optional<Game> myGame = gamePostService.findById(id);
+        
+        Game game = myGame.get();
+        model.addAttribute("game", game);
+        Integer int1=doAverageRatio(game.getMapScores(),1);
+        Integer int2=doAverageRatio(game.getMapScores(),2);
+        Integer int3=doAverageRatio(game.getMapScores(),3);
+        Integer int4=doAverageRatio(game.getMapScores(),4);
+        Integer int5=doAverageRatio(game.getMapScores(),5);
+        model.addAttribute("gamestars1", int1);
+        model.addAttribute("gamestars2", int2);
+        model.addAttribute("gamestars3", int3);
+        model.addAttribute("gamestars4", int4);
+        model.addAttribute("gamestars5", int5);
+
+        return "gameStadistics";
+    }
+    private Integer doAverageRatio(HashMap<Long,Integer> MyScores, Integer index){
+        Integer aux = 0;
+        Integer numberofindexinthearray = 0;
+        for (Integer value : MyScores.values()) {
+            if (value.equals(index))
+            numberofindexinthearray++;
+        }
+        aux = (numberofindexinthearray*100)/(MyScores.size());
+        return aux;
+    }
+
+    
     
 }
