@@ -1,10 +1,13 @@
 package es.codeurjc.gameweb.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Post;
 import es.codeurjc.gameweb.models.PostType;
-
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.GamePostService;
 import es.codeurjc.gameweb.services.PostService;
+import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class PostsController {
-    @Autowired
-    private CommonFunctions commonFunctions;
 
     @Autowired
 	private GamePostService gamePostService;
@@ -34,14 +36,18 @@ public class PostsController {
     @Autowired
     private PostService pService;
     private Optional<Game> myGame;
-     
+    
+    @Autowired
+    private UserService userService;
     
     @PostMapping("/newPost/{id}")
-    public String CreatePost(Model model,@PathVariable Long id,@RequestParam String newTitle,@RequestParam String theType, @RequestParam String postText,MultipartFile imageField)throws IOException{ 
-        commonFunctions.getSession(model);
+    public String CreatePost(Model model,@PathVariable Long id,@RequestParam String newTitle,@RequestParam String theType, @RequestParam String postText,MultipartFile imageField, HttpServletRequest request)throws IOException{ 
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get();
         myGame = gamePostService.findById(id);     
         Game game =myGame.get();
-        Post thePost=new Post(newTitle, getCurrentDate(), getCurrentDate(), commonFunctions.getU().getInfo(), postText,parseType(theType));
+        Post thePost=new Post(newTitle, getCurrentDate(), getCurrentDate(), user.getInfo(), postText,parseType(theType));
         if (imageField != null) {
 			thePost.setImageFile(BlobProxy.generateProxy(imageField.getInputStream(), imageField.getSize()));
 			thePost.setImage(true);
@@ -65,7 +71,6 @@ public class PostsController {
         theUpdatedOne.setPostText(newPostText);
         updateImage(theUpdatedOne, removeImage, imageField);
         pService.save(theUpdatedOne);
-        commonFunctions.getSession(model);
         model.addAttribute("customMessage", "Post editado con éxito");
         return "savedGame";  
     }
