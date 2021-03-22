@@ -120,7 +120,7 @@ example example example example example
 ### Focussed files:
  | Number | Description | Focused on Files |
  | ------------- | ------------- | ------------ |
- | #1 | example| GamePage.java|
+ | #1 | Las leches de algunos de los mamíferos domésticos (de vaca, principalmente, pero también de búfala, oveja, cabra, yegua, camella, alce, cerda y otros) forman parte de la alimentación humana corriente en algunas culturas, base de numerosos productos lácteos, como la mantequilla, el queso y el yogur, entre otros.6​ Es muy frecuente el empleo de derivados de la leche en las industrias agroalimentarias, químicas y farmacéuticas, como la leche condensada, la leche en polvo, la caseína o la lactosa.7​ La leche de vaca se utiliza también en la alimentación animal. Está compuesta principalmente por agua, iones (sal, minerales y calcio), glúcidos (lactosa), materia grasa y proteínas.2​ Hay evidencias de que, además, en la leche de casi todos los mamíferos (incluidos los humanos) se pueden formar por rotura de las caseínas péptidos bioactivos denominados casomorfinas, que actúan como agonistas de los receptores de opioides, mimetizando el efecto biológico de la morfina. La suposición de que una de ellas, la β-casomorfina-7 está implicada en el desarrollo de autismo o enfermedades cardiovasculares carece de evidencias científicas.8​La leche de los mamíferos marinos, como las ballenas (por ejemplo), es mucho más rica en grasas y nutrientes que la de los mamíferos terrestres.9​| GamePage.java|
  
 ### Relevenats commits:
  | Number | Description | Commit |
