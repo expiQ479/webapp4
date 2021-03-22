@@ -61,6 +61,7 @@
                         <form action="/agregarChat/{{game.id}}" class="form-inline my-2 my-lg-0" style="padding: 20px" method="post">
                             <input class="form-control mr-sm-2" type="text"  placeholder="Escribe algo" name="sentChat" >
                             <input class="btn btnenviar my-2 my-sm-0" type="submit" value="Enviar">
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>
                     </div>
                 </div>
@@ -151,6 +152,7 @@
                                   --><input id="radio5" type="submit" style="display: none;" name="stars" value=1><!--
                                   --><label for="radio5">★</label>
                               </form>
+                              <input type="hidden" name="_csrf" value="{{token}}"/>
                             </div>
                           </div>
                     </li>                 

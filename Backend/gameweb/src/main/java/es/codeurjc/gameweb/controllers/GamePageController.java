@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
-import es.codeurjc.gameweb.models.PostType;
 import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GameService;

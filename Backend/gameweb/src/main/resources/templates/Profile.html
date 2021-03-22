@@ -20,6 +20,7 @@
               <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
               <input type='submit' value='Save'/>
             </div>
+            <input type="hidden" name="_csrf" value="{{token}}"/>
           </form>
         </div>
 
@@ -60,8 +61,9 @@
             </form>
           </div>
           <div style="margin: 20px">
-            <form action="/Index">
+            <form action="/logout" method="post">
               <input class="btn btn-danger" type="submit" value="Cerrar Sesion" style="margin-left: 105px;">
+              <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
           </div>
         </div>
