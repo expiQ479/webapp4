@@ -107,7 +107,24 @@ example example example example example
  | #1 | example| [commit](https://)|
  
 
-
+## Build instructions
+Disclaimer: The Project is running on version 11 of Java and Visual Studio Code.
+In order to construct the Project, we used a target folder with the .jar file. To create it, you must open the Project in Visual Studio Code and get into the terminal.
+Once there, navigate to the .mvn\wrapper folder introducing the command:
+```cmd
+cd Backend\gameweb\.mvn\wrapper
+```
+When the console prompt indicates you are inside the wrapper folder, introduce:
+```cmd
+& "c:\Users\Usuario\Git\webapp4\Backend\gameweb\mvnw.cmd" package -f "c:\Users\Usuario\Git\webapp4\Backend\gameweb\pom.xml"
+```
+This will generate the .jar file, along the target folder
+With your shell of choice, navigate to the location of the .jar file and once there execute:
+```cmd
+java –jar {your_jar_filename_here.jar}
+```
+You can include options such as --server.port to indicate which port the app will use (this overwrites the application.properties settings)
+If everything is correct, it will compile and allow for execution.
 
 
 
