@@ -36,14 +36,17 @@ public class IndexController {
 		}
 	}
     @GetMapping("/index")
-    public String SignOff(Model model) {
+    public String showIndex(Model model, HttpServletRequest request) {  
         model.addAttribute("games", gamePostService.findBestRatedGames());
+        ArrayList<Object> gamesToShow;
+        gamesToShow=algorithm.setSomeList(request);
+        model.addAttribute("selectedList",gamesToShow.get(1));
         model.addAttribute("whatList", "Mejor valorados");
         model.addAttribute("nextPage", 1);
         return "index";
-    } 
+    }  
     @GetMapping("/")
-    public String showIndex(Model model, HttpServletRequest request) {  
+    public String showindex2(Model model, HttpServletRequest request) {  
         model.addAttribute("games", gamePostService.findBestRatedGames());
         ArrayList<Object> gamesToShow;
         gamesToShow=algorithm.setSomeList(request);

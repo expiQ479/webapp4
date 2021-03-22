@@ -18,6 +18,7 @@
             <img src="/profile/image" width="350" height="350" style="padding-top: 20px; margin-top: 10px; border-radius: 200px;">
             <div style="margin-top: 50px;">
               <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
+              <input type="hidden" name="_csrf" value="{{token}}"/>
               <input type='submit' value='Save'/>
             </div>
           </form>
@@ -57,11 +58,13 @@
           <div style="margin: 20px">
             <form action="/profile/subscriptions">
               <input class="btn btn-info" type="submit" value="Suscripciones" style="margin-left: 105px;">
+              <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
           </div>
           <div style="margin: 20px">
-            <form action="/Index">
-              <input class="btn btn-danger" type="submit" value="Cerrar Sesion" style="margin-left: 105px;">
+            <form action="/logout" method="post">
+              <input type="hidden" name="_csrf" value="{{token}}"/>
+              <input class="btn btn-danger" type="submit" value="Cerrar sesion" style="margin-left: 105px;">
             </form>
           </div>
         </div>
