@@ -111,6 +111,21 @@ Subscription list, accesible from the profile page. It shows a list with an imag
 ## Data base diagram
 ![](Capturas%204DGames/DBDiagram.PNG)
 
+## Team participation
+#### Gabriel Fuentes Villasevil
+
+#### Completed tasks
+example example example example example
+
+ | Number | Description | Focused on Files |
+ | ------------- | ------------- | ------------ |
+ | #1 | example| GamePage.java|
+ 
+
+
+
+
+
 
 
 
