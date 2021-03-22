@@ -106,7 +106,7 @@ public class PostsController {
         return "listPosts";
     }
 
-    @RequestMapping("/adminUpdates/createPostPage/{id}")
+    @RequestMapping("/createPostPage/{id}")
     public String showCreatePostPage(Model model, @PathVariable long id) {    
         Optional<Game> game = gamePostService.findById(id);
 		if (game.isPresent()) {

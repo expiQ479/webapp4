@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,9 @@ public class ProfileController {
     @Autowired
     private GameService gamePostService;
 
+    @Autowired
+	private PasswordEncoder passwordEncoder;
+
     @PostMapping("/profile/changeName")
     public String changeName(Model model, @RequestParam String name, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
@@ -56,7 +60,7 @@ public class ProfileController {
         if(!encontrado){
             user.setInfo(name);
             userService.save(user);
-            model.addAttribute("user", user);
+            model.addAttribute("user", userService.findByName(name));
             return "Profile";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
@@ -100,7 +104,7 @@ public class ProfileController {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         userService.save(user);
         model.addAttribute("user", user);
         return "profile";
