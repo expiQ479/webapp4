@@ -42,6 +42,7 @@
             <form action="/profile/changeName" method="post">
               <input type="text" placeholder="Cambiar Nombre.." name="name">
               <input type="submit" value="Save">
+              <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>
           </div>
           <p></p>
@@ -49,6 +50,7 @@
               <form action="/profile/changePass" method="post">
                 <input type="text" placeholder="Cambiar Contraseña.." name="password">
                 <input type="submit" value="Save">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
               </form>
           </div>
           <p></p>
