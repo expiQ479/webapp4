@@ -9,14 +9,12 @@
   
           <!-- Author -->
           <p class="lead">
-            by
-            <a href="#">Start Bootstrap</a>
+            by {{post.author}} 
           </p>
   
           <hr>
   
           <!-- Date/Time -->
-          <p><strong>Creador del post:</strong> {{post.author}}</p>
           <p><strong>Fecha de creaction:</strong> {{post.creationDate}}</p>
           <p><strong>Fecha de la última actualización:</strong> {{post.updateDate}}</p>
           {{#isAdmin}}

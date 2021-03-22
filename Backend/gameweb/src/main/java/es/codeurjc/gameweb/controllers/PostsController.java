@@ -38,6 +38,8 @@ public class PostsController {
     private GameService gamePostService;
     @Autowired
     private AlgorithmService algorithm;
+    @Autowired
+	private UserService userService;
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -53,7 +55,12 @@ public class PostsController {
 			model.addAttribute("logged", false);
 		}
 	}
-    
+    @RequestMapping("/adminUpdates/editPost/{id}")
+    public String getEditPostPage(Model model,@PathVariable Long id){
+        Post theUpdatedOne=pService.findById(id).get();
+        model.addAttribute("post", theUpdatedOne);
+        return "editPostPage";  
+    }
     @PostMapping("/adminUpdates/editPost/{id}")
     public String editPost(Model model,@PathVariable Long id, @RequestParam String newTitle,@RequestParam String newType,@RequestParam String author,@RequestParam String newPostText,MultipartFile imageField,boolean removeImage)throws IOException, SQLException{
         
@@ -71,6 +78,8 @@ public class PostsController {
 
     @RequestMapping("/expandedPost/{id}")
     public String showExpandedPost(Model model, @PathVariable long id, HttpServletRequest request) {
+        
+        
         ArrayList<Object> gamesToShow;
         Optional<Post> p=pService.findById(id);
         model.addAttribute("post", p.get());
@@ -80,6 +89,19 @@ public class PostsController {
             model.addAttribute("whatList", "Recomendados");
         else
             model.addAttribute("whatList", "Mejor valorados");
+        try {
+            Principal principal = request.getUserPrincipal();
+            Optional<User> myUser= userService.findByName(principal.getName());
+            User user =myUser.get();
+            if(user.getRoles().contains("ADMIN")){
+                model.addAttribute("isAdmin", true);
+            }
+            else{
+                model.addAttribute("isAdmin", false);
+            }
+        } catch (Exception e) {
+            model.addAttribute("isAdmin", false);
+        }
         return "expandedPost";
     }
 
