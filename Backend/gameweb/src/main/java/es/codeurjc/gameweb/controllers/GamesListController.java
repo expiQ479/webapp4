@@ -7,10 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.codeurjc.gameweb.models.Game;
@@ -36,12 +38,12 @@ public class GamesListController {
 			model.addAttribute("logged", false);
 		}
 	}
-    @GetMapping("/gameList/")
-    public String showListGames(Model model) {
-        model.addAttribute("games", gamePostService.findAll());
+    @GetMapping("/gameList/{numPage}")
+    public String showListGames(Model model,@PathVariable int numPage) {
+        model.addAttribute("games", gamePostService.findAll(PageRequest.of(numPage, 4)));
+        model.addAttribute("numPage", numPage+1);
         return "gameList";
     }
-	
 	@PostMapping("/gameList/filter")
 	public String searchGames(Model model, boolean Horror,boolean Shooter,boolean Action,
     boolean Platformer, boolean Sports, boolean Puzzles, boolean Narrative, boolean RPG){
