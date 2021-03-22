@@ -77,12 +77,13 @@ public class ProfileController {
         if(!encontrado){
             user.setInfo(name);
             userService.save(user);
-            model.addAttribute("user", userService.findByName(name));
-            return "Profile";
+            model.addAttribute("user", user);
+            return "login";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
         return "successPage";
     }
+
     @RequestMapping("/profile/") 
     public String showProfile(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
