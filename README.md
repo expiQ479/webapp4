@@ -106,9 +106,11 @@ Subscription list, accesible from the profile page. It shows a list with an imag
 ![](Navegaciones%204DGames.png)
 # Phase 2
 ## Class and template diagram
-![](Capturas%204DGames/DBDiagram.png)
-## Data base diagram
 ![](Capturas%204DGames/diagramaClases.png)
+
+## Data base diagram
+![](Capturas%204DGames/DBDiagram.PNG)
+
 
 
 
