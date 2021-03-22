@@ -84,6 +84,10 @@ Subscription list, accesible from the profile page. It shows a list with an imag
 ## Navegation Diagram
 ![](Navegaciones%204DGames.png)
 # Phase 2
+
+## Class and template diagram
+![](Capturas%204DGames/diagramaClases.png)
+
 ## Build instructions
 Disclaimer: The Project is running on version 11 of Java and Visual Studio Code.
 ---
@@ -103,9 +107,6 @@ java –jar {your_jar_filename_here.jar}
 ```
 You can include options such as --server.port to indicate which port the app will use (this overwrites the application.properties settings)
 If everything is correct, it will compile and allow for execution.
-
-## Class and template diagram
-![](Capturas%204DGames/diagramaClases.png)
 
 ## Data base diagram
 ![](Capturas%204DGames/DBDiagram.PNG)
