@@ -40,8 +40,14 @@ public class IndexController {
         model.addAttribute("games", gamePostService.findBestRatedGames());
         ArrayList<Object> gamesToShow;
         gamesToShow=algorithm.setSomeList(request);
+        ArrayList<Integer> aux = (ArrayList<Integer>) gamesToShow.get(0);
+        Integer i = aux.get(0);
+        if (i.equals(0))
+            model.addAttribute("whatList", "Recomandados");
+        else
+            model.addAttribute("whatList", "Mas valorados");
+
         model.addAttribute("selectedList",gamesToShow.get(1));
-        model.addAttribute("whatList", "Mejor valorados");
         model.addAttribute("nextPage", 1);
         return "index";
     }  
@@ -50,8 +56,13 @@ public class IndexController {
         model.addAttribute("games", gamePostService.findBestRatedGames());
         ArrayList<Object> gamesToShow;
         gamesToShow=algorithm.setSomeList(request);
+        ArrayList<Integer> aux = (ArrayList<Integer>) gamesToShow.get(0);
+        Integer i = aux.get(0);
+        if (i.equals(0))
+            model.addAttribute("whatList", "Recomandados");
+        else
+            model.addAttribute("whatList", "Mas valorados");
         model.addAttribute("selectedList",gamesToShow.get(1));
-        model.addAttribute("whatList", "Mejor valorados");
         model.addAttribute("nextPage", 1);
         return "index";
     }   
