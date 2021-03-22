@@ -123,7 +123,7 @@ public class GamePageController {
             }
         }
         model.addAttribute("customMessage", "Desuscripción realizada con éxito");        
-        return "succesPage";
+        return "successPage";
     }
     @GetMapping("/gamePage/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
