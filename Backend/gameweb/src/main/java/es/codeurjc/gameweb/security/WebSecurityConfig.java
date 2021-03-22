@@ -43,12 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Private pages
         http.authorizeRequests().antMatchers("/adminUpdates/*").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/createPostPage/*").hasAnyRole("ADMIN");
         http.authorizeRequests().antMatchers("/rate/*").hasAnyRole("USER","ADMIN");
         http.authorizeRequests().antMatchers("/agregarChat/*").hasAnyRole("USER","ADMIN");
         http.authorizeRequests().antMatchers("/profile/*").hasAnyRole("USER","ADMIN");
-        http.authorizeRequests().antMatchers("/createPostPage/*").hasAnyRole("ADMIN");
         
-
         // Login form
         http.formLogin().loginPage("/login");
         http.formLogin().usernameParameter("name");

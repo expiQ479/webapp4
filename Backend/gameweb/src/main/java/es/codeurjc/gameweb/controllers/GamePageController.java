@@ -176,7 +176,7 @@ public class GamePageController {
         gamePostService.save(game);
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
 
-        return "succesPage";
+        return "successPage";
     }
     @PostMapping("/agregarChat/{id}")
     public String newChat(Model model, @PathVariable Long id, @RequestParam String sentChat,HttpServletRequest request) {

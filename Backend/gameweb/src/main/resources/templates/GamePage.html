@@ -60,6 +60,7 @@
                         </div>
                         <form action="/agregarChat/{{game.id}}" class="form-inline my-2 my-lg-0" style="padding: 20px" method="post">
                             <input class="form-control mr-sm-2" type="text"  placeholder="Escribe algo" name="sentChat" >
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
                             <input class="btn btnenviar my-2 my-sm-0" type="submit" value="Enviar">
                             <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>
@@ -141,6 +142,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <form action="/rate/{{id}}" style = "direction: rtl; unicode-bidi: bidi-override;" method="post">
+                                <input type="hidden" name="_csrf" value="{{token}}"/>
                                   <input id="radio1" type="submit" style="display: none;" name="stars" value=5><!--
                                   --><label for="radio1">★</label><!--
                                   --><input id="radio2" type="submit" style="display: none;" name="stars" value=4><!--

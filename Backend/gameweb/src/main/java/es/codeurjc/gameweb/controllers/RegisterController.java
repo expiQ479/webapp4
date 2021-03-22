@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.UserService;
 
 @Controller
@@ -23,9 +22,6 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-	private GameService gamePostService;
 
     @Autowired
 	private PasswordEncoder passwordEncoder;
@@ -45,17 +41,17 @@ public class RegisterController {
                 User Newuser = new User(name,passwordEncoder.encode(password),myGames,"USER");
                 setUserImage(Newuser, "/sample_images/user-image-default.jpg");
                 userService.save(Newuser);
-                model.addAttribute("games", gamePostService.findAll());
-                model.addAttribute("whatList", "Recomendados");
-                model.addAttribute("nextPage", 1);
-                return "index";
+                model.addAttribute("customMessage", "se ha registrado con exito, ahora puede iniciar sesion");
+                return "successPage";
             }
             else{
-                model.addAttribute("problem", "Contraseña de confirmacion incorrecta");
+                model.addAttribute("problem1", "");
+                model.addAttribute("problem2", "Contraseña de confirmacion incorrecta");
                 return "register";
             }
         }
-        model.addAttribute("problem", "Nombre de usuario ya existente");
+        model.addAttribute("problem1", "Nombre de usuario ya existente");
+        model.addAttribute("problem2", "");
         return "register";
     }
     private void setUserImage(User user, String classpathResource) throws IOException {

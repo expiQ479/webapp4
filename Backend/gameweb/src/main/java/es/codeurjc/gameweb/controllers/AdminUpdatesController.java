@@ -103,7 +103,7 @@ public class AdminUpdatesController {
 		}
     }
 
-	@GetMapping("/adminUpdates/{id}/delete")
+	@GetMapping("/adminUpdates/delete/{id}")
 	public String deletePost(Model model, @PathVariable long id) {
 		Optional<Game> game = gamePostService.findById(id);
 		if (game.isPresent()) {
