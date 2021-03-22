@@ -106,6 +106,73 @@ example example example example example
  | ------ | ----------- | ------ |
  | #1 | example| [commit](https://)|
  
+ ## Carlos Javier Hervás Ledesma
+
+### Completed tasks description
+Bulk of my work was the entity, upload, editing and showcase of the Post entity, creation of two algorithms, shape the basic models for the entities and some secondary functions, such as subscription/unsubscription to a Game entity.
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | Controller for posts. Includes creation, edit, and access to post related pages.| [PostsController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/PostsController.java)|
+ | #2 | Controller for games, worked on sub & unsub buttons.| [GamePageController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/GamePageController.java)|
+ | #3 | Post model. Holds all post info with getters/setters.| [Post.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Post.java)|
+ | #4 | Algorithm service. Includes both recommended & best rated algorithms, along with any auxiliary methods.| [AlgorithmService.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/AlgorithmService.java)|
+ | #5 | Game service. Worked on some auxiliary functions to filter games depending on determined factors| [GameService.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/GameService.java)|
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | Subscription button & function for game entities.| [commit #38](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/78e2ce614686c4b313b51635b92e4e1941dc7fc4)|
+ | #2 | Recommended algorithm. Depending on the user's subscriptions it recommends different games| [commit #61](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/377ad4a2f72284ea87b9bd7dfa56b0cb6f63ae82)|
+ | #3 | Post creation function with image.| [commit #78](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/b86744df818014da08c30496f5457e69bacdf34a)|
+ | #4 | Edit posts function.| [commit #74](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/620570a8971a740e6072652ad3614cc3a8e7c0f7)|
+ | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit #44](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7bf44e378796ad2d6721bd65dc01e3031ceed127)|
+ 
+ ## Enrique Carmona Blazquez
+
+### Completed tasks description
+My job in this project, was essentially, create the entity User and all the methods that involve the user, with this i mean that i have done the register of the user, the log in, the suscription to the games and all the functions of the profile and the page with all the suscriptions. At the same time i colaborated with Eduardo Sierra in the process of creation of the security, i colaborated too with Gabriel Fuentes in the creation of the chat and also help fixing some errors during the creation of the project.
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | Controller for the profile: Image of the user, change image of the user, change password and name, log out and nav to suscription list.| [ProfileController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/ProfileController.java)|
+ | #2 | Controller for the register: Register of the user, error if the user already exist and if the password confirmation its correct.| [RegisterController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/RegisterController.java)|
+ | #3 | Model User: Its the entity user with all the atributes methods relevant to the data of the user.| [User.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/User.java)|
+ | #4 | Service of the User: its refers to the methods for manipulate the data store in the DB | [UserService.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/UserService.java)|
+ | #5 | Its the secury of the app web, this file determinate the restrictions for the users and permit the logout and login| [WebSecurityConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/security/WebSecurityConfig.java)|
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | Update security now you cant create a user with the same name, or change your nam to other user name that already exist.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/tree/61f14d0930940bac692aca280a1dd0fa7c356583)|
+ | #2 | One of the Security updates| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/d634c01a78ff7d692f3ecbe008a0a1d820fa651c)|
+ | #3 | One of the lastest updates in the suscriptions.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/30f3f18997da860034b604a50c5d22a1fb7177d9)|
+ | #4 | Creatión of the service of the user and implementation of al refere to the user DB.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/36c0b919e8d19ec1c56cc8b531ffccaa609061d7)|
+ | #5 | One of the implementation of the profile, more specifictly the operation of change the image of the user| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/100216de2e7f75e2b000c7590739683bd6aae782)|
+ 
+ ## Eduardo Sierra Martin
+
+### Completed tasks description
+Most of the actions of the administration staff, such as the uploading of games and covers. That games can be edited and deleted with a dedicated interface. Supervise the design of the entire website and security.
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | the controller of all the actions that administrators can execute on their dedicated pages| [AdminUpdatesController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/AdminUpdatesController.java)|
+ | #2 | show all games on the website in a list and filter functionality| [GameListController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/GamesListController.java) |
+ | #3 | "Recommended games" algorithm implemented as a service usable by drivers | [AlgorithmService.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/AlgorithmService.java) |
+ | #4 | Initialize the databases with sample data| [DBInitializer.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/DBInitializer.java) |
+ | #5 | It is the game as such, the basis of which the entire web application is composed| [Game.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/b82e1abd9732d6b630c7d8316d049c16cb3d7c20/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Game.java) |
+
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | code restructuring to add better quality| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/f8a859a986531c11d52d655f76e7efab49458023)|
+ | #2 | it´s can edit, upload and remove games but in db| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/90c97350fa186e7046ae28d0c606c4468cdbd8d2)|
+ | #3 | it´s can upload games as admins| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/6960378b7a2d184d1cd240ca323cf09c52542280)|
+ | #4 | first almost full funcional DB in the aplication web| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/5463e644cadb4e71441a9d1f9db1afa8e96da27f)|
+ | #5 | first security implementation| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/4e93beb5852e1ac222f75fe532ddd97a66409fc6)|
+ 
 
 
 
