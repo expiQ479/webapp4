@@ -104,4 +104,34 @@ Subscription list, accesible from the profile page. It shows a list with an imag
 
 ## Navegation Diagram
 ![](Navegaciones%204DGames.png)
+# Phase 2
+## Class and template diagram
+![](Capturas%204DGames/diagramaClases.png)
+
+## Data base diagram
+![](Capturas%204DGames/DBDiagram.PNG)
+
+# Team participation
+## Gabriel Fuentes Villasevil
+
+### Completed tasks description
+example example example example example
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | example of description| [GamePage.java](https://es.wikipedia.org/wiki/Leche)|
+ 
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | example| [commit](https://)|
+ 
+
+
+
+
+
+
+
 
