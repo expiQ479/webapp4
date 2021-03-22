@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/statistics/*").permitAll();
         http.authorizeRequests().antMatchers("/listPosts/*").permitAll();
         http.authorizeRequests().antMatchers("/expandedPost/{id}").permitAll();
+        http.authorizeRequests().antMatchers("/singIn").permitAll();
 
 
         // Private pages
