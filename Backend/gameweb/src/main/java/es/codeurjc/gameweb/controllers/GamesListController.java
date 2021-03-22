@@ -21,7 +21,6 @@ import es.codeurjc.gameweb.services.GameService;
 public class GamesListController {
 	@Autowired
 	private GameService gamePostService;	
-    private Genres genres;
 	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -40,7 +39,6 @@ public class GamesListController {
     @GetMapping("/gameList/")
     public String showListGames(Model model) {
         model.addAttribute("games", gamePostService.findAll());
-        model.addAttribute("genres", genres);
         return "gameList";
     }
 	
