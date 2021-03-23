@@ -115,17 +115,26 @@ If everything is correct, it will compile and allow for execution.
 ## Gabriel Fuentes Villasevil
 
 ### Completed tasks description
-example example example example example
+
+The complete implementation of the stadistics in the app, catching the valorations of the users and showing them, the implementation of the chat inside the games and all the search work to fill the page with examples and the gamepage template with all its functions. Also help in security.
 
 ### Focussed files:
  | Number | Description | Focused on Files |
  | ------ | ------------| -----------------|
- | #1 | example of description| [GamePage.java](https://es.wikipedia.org/wiki/Leche)|
- 
-### Relevenats commits:
+ | #1 | Show real example information in the games. | [DBInitializer.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/DBInitializer.java)|
+ | #2 | The stadistics (a bar diagram of the valorations of the game) and all the functions behind the stadistics| [GamePageController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/GamePageController.java) |
+ | #3 | The Chat inside each game, with all its implementation | [GamePageController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/GamePageController.java) |
+ | #4 | Maked that all in the game template works properly| [gamePage.html](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/resources/templates/gamePage.html) |
+ | #5 | Creation of Message and Chat models| [Message.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Message.java)[Chat.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Chat.java) |
+
+### Relevants commits:
  | Number | Description | Commit |
  | ------ | ----------- | ------ |
- | #1 | example| [commit](https://)|
+ | #1 | creation of log in and register controllers and make that shows gamepage different takeing in consideration if the user is logged or not| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/ada07298f5b1737a136ec3557f0221823aa42d1e)|
+ | #2 | creation of messages and chat structures | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/1e07c6a7cbcbe43d3afc65e6ba34660e5a512be2)|
+ | #3 | One of the last changes to the game and chat implementations, and implements that each game have a different page instead of all the same, with mustache| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/8971779a7b7f2af4549868de0ad89e3614ad896e)|
+ | #4 | Last change to the valoration implementation, finishing it| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/6c8133c96325587dd41b88f9e28407b1ac2ce9ee)|
+ | #5 | Make that the application have real example info instead of just a "Lorem ipsums"| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/6c4d8ede1134bdb977cc32f103958e6afe86d43e)|
  
  ## Carlos Javier Hervás Ledesma
 
