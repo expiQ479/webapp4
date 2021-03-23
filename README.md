@@ -82,7 +82,7 @@ Register page. You must introduce an ID, email, password and a confirmation.
 Subscription list, accesible from the profile page. It shows a list with an image, title, description, genre and the option to unsubscribe.
 
 ## Navegation Diagram
-![](Navegaciones%204DGames.png)
+![](Capturas%204DGames/Navegation%20diagram%20Phase%202.png)
 # Phase 2
 
 ## Class and template diagram
