@@ -15,39 +15,10 @@ import es.codeurjc.gameweb.repositories.GameRepository;
 @Service
 public class GameService {
 
-    /*private ConcurrentMap<Long, Game> gamesPosted = new ConcurrentHashMap<>();
-	private AtomicLong nextId = new AtomicLong();*/
-
 	public GameService() {        
 			
 	}
 
-	/*public Collection<Game> findAll() {
-		return gamesPosted.values();
-	}
-
-	public Game findById(long id) {
-		return gamesPosted.get(id);
-	}
-
-	public void save(Game game) {
-		long id = nextId.getAndIncrement();
-
-		game.setId(id);
-
-		this.gamesPosted.put(id, game);
-	}
-	public void update(Game game,long id) {
-		Game g = gamesPosted.get(id);
-		g.setGameTitle(game.getGameTitle());
-		g.setDescription(game.getDescription());
-		g.setGenre(game.getGenre());
-	}
-
-	public void deleteById(long id) {
-		this.gamesPosted.remove(id);
-	}
-	*/
 	@Autowired
 	private GameRepository repository;
 
