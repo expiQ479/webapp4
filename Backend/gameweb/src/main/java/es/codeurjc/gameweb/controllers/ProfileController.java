@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -63,7 +64,7 @@ public class ProfileController {
 	}
 
     @PostMapping("/profile/changeName")
-    public String changeName(Model model, @RequestParam String name, HttpServletRequest request) {
+    public String changeName(Model model, @RequestParam String name, HttpServletRequest request) throws ServletException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
@@ -78,7 +79,9 @@ public class ProfileController {
             user.setInfo(name);
             userService.save(user);
             model.addAttribute("user", user);
-            return "login";
+            request.logout();
+            model.addAttribute("customMessage", "Se cerrará sesión para evitar errores");
+            return "successPage";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
         return "successPage";
