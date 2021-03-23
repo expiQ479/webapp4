@@ -83,9 +83,11 @@ public class AdminUpdatesController {
 			throws IOException, SQLException {
 		Optional<Game> myGame=gamePostService.findById(game.getId());
 		Game g=myGame.get();
-		Chat aux = g.getChat();
+		Chat chat = g.getChat();
+		List<Post> posts = g.getThePosts();
 		updateImage(game, removeImage, imageField);
-		game.setChat(aux);
+		game.setChat(chat);
+		game.setThePosts(posts);
 		gamePostService.save(game);
 		model.addAttribute("customMessage", "Juego modificado con exito");
 		return "successPage";
