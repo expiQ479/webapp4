@@ -125,7 +125,7 @@ The complete implementation of the stadistics in the app, catching the valoratio
  | #2 | The stadistics (a bar diagram of the valorations of the game) and all the functions behind the stadistics| [GamePageController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/GamePageController.java) |
  | #3 | The Chat inside each game, with all its implementation | [GamePageController.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/controllers/GamePageController.java) |
  | #4 | Maked that all in the game template works properly| [gamePage.html](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/resources/templates/gamePage.html) |
- | #5 | Creation of Message and Chat models| [Message.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Message.java)[Chat.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Chat.java) |
+ | #5 | Creation of Message and Chat models| [Message.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Message.java)[  Chat.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/f00aa0ce40ea01f1a48f6b4c0496abe1875dee95/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/Chat.java) |
 
 ### Relevants commits:
  | Number | Description | Commit |
