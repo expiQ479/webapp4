@@ -81,7 +81,7 @@ Register page. You must introduce an ID, email, password and a confirmation.
 ![](Capturas%204DGames/Suscripciones.png)
 Subscription list, accesible from the profile page. It shows a list with an image, title, description, genre and the option to unsubscribe.
 
-## Navegation Diagram
+## Navigation Diagram
 ![](Capturas%204DGames/Navegation%20diagram%20Phase%202.png)
 # Phase 2
 
@@ -152,11 +152,11 @@ Bulk of my work was the entity, upload, editing and showcase of the Post entity,
 ### Relevenats commits:
  | Number | Description | Commit |
  | ------ | ----------- | ------ |
- | #1 | Subscription button & function for game entities.| [commit #38](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/78e2ce614686c4b313b51635b92e4e1941dc7fc4)|
- | #2 | Recommended algorithm. Depending on the user's subscriptions it recommends different games| [commit #61](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/377ad4a2f72284ea87b9bd7dfa56b0cb6f63ae82)|
- | #3 | Post creation function with image.| [commit #78](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/b86744df818014da08c30496f5457e69bacdf34a)|
- | #4 | Edit posts function.| [commit #74](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/620570a8971a740e6072652ad3614cc3a8e7c0f7)|
- | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit #44](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7bf44e378796ad2d6721bd65dc01e3031ceed127)|
+ | #1 | Subscription button & function for game entities.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/78e2ce614686c4b313b51635b92e4e1941dc7fc4)|
+ | #2 | Recommended algorithm. Depending on the user's subscriptions it recommends different games| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/377ad4a2f72284ea87b9bd7dfa56b0cb6f63ae82)|
+ | #3 | Post creation function with image.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/b86744df818014da08c30496f5457e69bacdf34a)|
+ | #4 | Edit posts function.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/620570a8971a740e6072652ad3614cc3a8e7c0f7)|
+ | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7bf44e378796ad2d6721bd65dc01e3031ceed127)|
  
  ## Enrique Carmona Blazquez
 
