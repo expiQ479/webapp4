@@ -582,7 +582,7 @@ public class DBInitializer {
 
         ArrayList<Long> suscriptions0 = new ArrayList<>();
         User user0 = new User("Kike",passwordEncoder.encode("user"),suscriptions0, "USER");
-        setUserImage(user0, "/sample_images/user-image-0.jpg");
+        setUserImage(user0, "/sample_images/user-image-1.jpg");
         userRepository.save(user0);
 
         ArrayList<Long> suscriptions1 = new ArrayList<>();
