@@ -21,6 +21,7 @@
       return parseInt("{{numPage}}")+increaseNumber.counter
     }
     $(document).ready(function(){
+      document.getElementById("toChange").action="/gameList/filter/"+parseInt("{{numPage}}");
       $('#loadMore').click(function(){
         var nextPage=increaseNumber();
         var max=parseInt("{{maximo}}");
@@ -28,7 +29,8 @@
         url:"/gameList/"+nextPage
         }).done(function(data){  
           var result=$(data).find("#gamesZone");
-          $("#loadZone").append(result);        
+          $("#loadZone").append(result);     
+          document.getElementById("toChange").action="/gameList/filter/"+nextPage;   
           if(nextPage==max-1){
             $("#loadMore").remove();
           }
@@ -58,12 +60,12 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="/gameList/" class="btn" role="button">Juegos</a>
+            <a href="/gameList/0" class="btn" role="button">Juegos</a>
           </li>
           {{#logged}}
           {{#admin}}
           <li class="nav-item">
-            <a href="/adminUpdates/" class="btn" role="button">Editar Juegos </a>
+            <a href="/adminUpdates/0" class="btn" role="button">Editar Juegos </a>
           </li>
           {{/admin}}
           <li class="nav-item">
@@ -110,9 +112,11 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 mb-12" style="align-items: center; width:100%">
             <div class="card-body">
+              {{#canLoadMore}}
               <div class="card h-100">
                   <button class="btn btn-info" id="loadMore">Mostrar Más</button>
               </div>
+              {{/canLoadMore}}
             </div>
           </div>
         </div>
@@ -122,7 +126,8 @@
       <div class="col-lg-3 col-md-4 col-sm-4">
         <h1 class="my-4">Categorias</h1>
         <div class="container" style="margin: 10px;">
-          <form id="toChange" action="/gameList/filter/{{numPage}}" method="post" enctype="multipart/form-data">
+          
+          <form id="toChange" action="" method="post" enctype="multipart/form-data">
           <input type="checkbox" name="Horror" > Horror<br>
           <input type="checkbox" name="Shooter" > Shooter<br>
           <input type="checkbox" name="Action"> Action<br>

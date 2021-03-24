@@ -93,5 +93,14 @@ public class GameService {
 		else return null;
     }
 
+    public ArrayList<Game> findNumberOfGames(int n) {
+        ArrayList<Game> aux=new ArrayList<Game>();
+		List<Game> allGames=this.findAll();
+		for(int i=0;i<n;i++){
+			aux.add(allGames.get(i));
+		}
+		return aux;
+    }
+
 }
 
