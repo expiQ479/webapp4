@@ -141,16 +141,23 @@ public class PostsController {
             System.out.println("PROBLEMOSN");
                 break;
         }
-        
+        int quantity=pService.findPostOfType(pService.findPostOfGame(game), ty).size();
         try {
             
             ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGamePage(game, PageRequest.of(numPage, 8)), ty);
             model.addAttribute("lista", toShow);
+            if(toShow.size()>=quantity){
+                model.addAttribute("canLoadMore",false) ;
+            } else{
+                model.addAttribute("canLoadMore",true) ;
+            }
+            
         } catch (Exception e) {
             model.addAttribute("lista", null);
         }
-        int quantity=pService.findPostOfType(pService.findPostOfGame(game), ty).size();
-        model.addAttribute("maximo", quantity/4);
+        
+        
+        model.addAttribute("maximo", quantity/8);
         model.addAttribute("numPage", numPage);
         return "listPosts";
     }

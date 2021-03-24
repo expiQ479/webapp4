@@ -95,15 +95,16 @@
     <div class="row">        
       <div class="col-lg-9 col col-md-8 col-sm-8" id="postsZone">
         {{#lista}}
-      <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
-        <a href="/expandedPost/{{id}}"><img src="/posts/{{id}}/image" width="384" height="216"></a>
-        <h5>{{title}}</h5>
-      </div>
-      {{/lista}}
+        <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
+          <a href="/expandedPost/{{id}}"><img src="/posts/{{id}}/image" width="384" height="216"></a>
+          <h5>{{title}}</h5>
+        </div>
+        {{/lista}}
+        {{#canLoadMore}}
       <div id="loadZone"></div>
        <button class="btn btn-info" id="loadMore">Mostrar Más</button>
       </div>
-      
+      {{/canLoadMore}}
       <div class="col-lg-3 col-md-4 col-sm-4">
         <h2 class="my-4">{{whatList}}</h2>
         
@@ -125,6 +126,9 @@
         
       </div>
     </div>
+      </div>
+        
+      
     
   </div>
   <!-- /.container -->

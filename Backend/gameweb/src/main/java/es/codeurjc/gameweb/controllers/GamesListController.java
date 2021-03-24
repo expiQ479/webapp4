@@ -88,6 +88,8 @@ public class GamesListController {
         }
         model.addAttribute("numPage", numPage);
         model.addAttribute("games", games);
+        Page<Game> gamePage=gameRepo.findAll(PageRequest.of(numPage, 8));
+        model.addAttribute("maximo", gamePage.getTotalPages());
 		return "gameList";
 	}
 	
