@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Post;
 import es.codeurjc.gameweb.models.PostType;
 import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.repositories.GameRepository;
 import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.PostService;
 import es.codeurjc.gameweb.services.UserService;
@@ -37,7 +40,8 @@ public class AdminUpdatesController {
     private UserService userService;
 	@Autowired
     private PostService pService;
-	
+	@Autowired
+	private GameRepository gameRepo;
 	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
@@ -52,10 +56,13 @@ public class AdminUpdatesController {
 		}
 	}
 
-	@GetMapping("/adminUpdates/")
-    public String showAdminGamesPage(Model model) {
+	@GetMapping("/adminUpdates/{numPage}")
+    public String showAdminGamesPage(Model model,@PathVariable int numPage) {
         model.addAttribute("games", gamePostService.findAll());
-
+		Page<Game> gamePage=gameRepo.findAll(PageRequest.of(numPage, 8));
+        model.addAttribute("games", gamePostService.findAll(PageRequest.of(numPage, 8)));
+        model.addAttribute("maximo", gamePage.getTotalPages());
+        model.addAttribute("numPage", numPage);
         return "adminUpdates";
     }
 

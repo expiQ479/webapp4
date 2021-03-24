@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,7 +38,7 @@ public class User {
     
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
-
+    @Column(columnDefinition = "LONGBLOB")
     private ArrayList<Long> myGames;
 
     public User(){}
