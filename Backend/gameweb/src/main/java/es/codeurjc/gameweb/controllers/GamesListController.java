@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
+import es.codeurjc.gameweb.repositories.GameRepository;
 import es.codeurjc.gameweb.services.GameService;
 
 @Controller
 public class GamesListController {
 	@Autowired
 	private GameService gamePostService;	
+    @Autowired
+	private GameRepository gameRepo;
 	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -40,46 +44,49 @@ public class GamesListController {
 	}
     @GetMapping("/gameList/{numPage}")
     public String showListGames(Model model,@PathVariable int numPage) {
-        model.addAttribute("games", gamePostService.findAll(PageRequest.of(numPage, 4)));
-        model.addAttribute("numPage", numPage+1);
+        Page<Game> gamePage=gameRepo.findAll(PageRequest.of(numPage, 8));
+        model.addAttribute("games", gamePostService.findAll(PageRequest.of(numPage, 8)));
+        model.addAttribute("maximo", gamePage.getTotalPages());
+        model.addAttribute("numPage", numPage);
         return "gameList";
     }
-	@PostMapping("/gameList/filter")
-	public String searchGames(Model model, boolean Horror,boolean Shooter,boolean Action,
+	@PostMapping("/gameList/filter/{numPage}")
+	public String searchGames(Model model,@PathVariable int numPage, boolean Horror,boolean Shooter,boolean Action,
     boolean Platformer, boolean Sports, boolean Puzzles, boolean Narrative, boolean RPG){
         List<Game> games = new ArrayList<Game>();
         if (Horror){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Horror);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Horror);
             games.addAll(wantedGames);
         }
         if (Shooter){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Shooter);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Shooter);
             games.addAll(wantedGames);
         }
         if (Action){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Action);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Action);
             games.addAll(wantedGames);
         }
         if (Platformer){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Platformer);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Platformer);
             games.addAll(wantedGames);
         }
         if (Sports){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Sports);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Sports);
             games.addAll(wantedGames);
         }
         if (Puzzles){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Puzzles);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Puzzles);
             games.addAll(wantedGames);
         }
         if (Narrative){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.Narrative);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.Narrative);
             games.addAll(wantedGames);
         }
         if (RPG){
-            List<Game> wantedGames=gamePostService.findByCategory(Genres.RPG);
+            List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage, 8), Genres.RPG);
             games.addAll(wantedGames);
         }
+        model.addAttribute("numPage", numPage);
         model.addAttribute("games", games);
 		return "gameList";
 	}

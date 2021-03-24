@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.gameweb.models.Game;
@@ -14,6 +16,9 @@ import es.codeurjc.gameweb.repositories.PostRepository;
 
 @Service
 public class PostService {
+	public PostService(){
+
+	}
     @Autowired
 	private PostRepository posts;
 
@@ -40,6 +45,16 @@ public class PostService {
 				aux.add(p);
 			}
 		}
+		return aux;
+	}
+	public ArrayList<Post> findPostOfGamePage(Game game,Pageable pageable){
+		Page<Post> p=posts.findByfromGame(game, pageable);
+		ArrayList<Post> aux=new ArrayList<Post>();
+		p.forEach(post->{
+			if(post.getFromGame().equals(game)){
+				aux.add(post);
+			}
+		});
 		return aux;
 	}
 	public Optional<Post> findById(long id) {
