@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 
 import es.codeurjc.gameweb.models.*;
+import es.codeurjc.gameweb.repositories.PostRepository;
 import es.codeurjc.gameweb.services.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +44,8 @@ public class PostsController {
     private AlgorithmService algorithm;
     @Autowired
 	private UserService userService;
+    @Autowired
+    private PostRepository postRepo;
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -105,11 +111,12 @@ public class PostsController {
         return "expandedPost";
     }
 
-    @RequestMapping("/listPosts/{id}/{theType}")
-    public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType, HttpServletRequest request){  
+    @RequestMapping("/listPosts/{id}/{theType}/{numPage}")
+    public String showListPost(Model model,@PathVariable Long id,@PathVariable String theType,@PathVariable int numPage, HttpServletRequest request){  
         ArrayList<Object> gamesToShow;
         Optional<Game> myGame = gamePostService.findById(id);
         Game game =myGame.get();       
+        model.addAttribute("theGameID", id);
         model.addAttribute("name",game.getGameTitle());
         model.addAttribute("postType", theType);
         gamesToShow=algorithm.setSomeList(request);
@@ -134,13 +141,24 @@ public class PostsController {
             System.out.println("PROBLEMOSN");
                 break;
         }
-        System.out.println(ty.name());
+        int quantity=pService.findPostOfType(pService.findPostOfGame(game), ty).size();
         try {
-            ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGame(game), ty);
+            
+            ArrayList<Post> toShow=pService.findPostOfType(pService.findPostOfGamePage(game, PageRequest.of(numPage, 8)), ty);
             model.addAttribute("lista", toShow);
+            if(toShow.size()>=quantity){
+                model.addAttribute("canLoadMore",false) ;
+            } else{
+                model.addAttribute("canLoadMore",true) ;
+            }
+            
         } catch (Exception e) {
             model.addAttribute("lista", null);
         }
+        
+        
+        model.addAttribute("maximo", quantity/8);
+        model.addAttribute("numPage", numPage);
         return "listPosts";
     }
 

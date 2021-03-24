@@ -53,7 +53,7 @@ public class GameService {
 		}
 		return aux;
 	}
-	//needs function to get BestRatedGames
+	
 	public void save(Game game) {
 		repository.save(game);
 	}
@@ -67,6 +67,16 @@ public class GameService {
 	
 	public Page<Game> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
+	}
+	public ArrayList<Game> findByCategoryPage(Pageable pageable, Genres genre){
+		Page<Game> games=repository.findAll(pageable);
+		ArrayList<Game> aux=new ArrayList<Game>();
+		games.forEach(game ->{
+			if(game.getGenre().equals(genre)){
+				aux.add(game);
+			}
+		});
+		return aux;
 	}
     public ArrayList<Game> findBestRatedGames() {
 		float maxScore=0;
