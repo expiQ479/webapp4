@@ -37,7 +37,7 @@ public class IndexController {
 	}
     @GetMapping("/index")
     public String showIndex(Model model, HttpServletRequest request) {  
-        model.addAttribute("games", gamePostService.findBestRatedGames());
+        model.addAttribute("games", gamePostService.findNumberOfGames(8));
         ArrayList<Object> gamesToShow;
         gamesToShow=algorithm.setSomeList(request);
         ArrayList<Integer> aux = (ArrayList<Integer>) gamesToShow.get(0);

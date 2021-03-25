@@ -21,7 +21,6 @@
       return parseInt("{{numPage}}")+increaseNumber.counter
     }
     $(document).ready(function(){
-      document.getElementById("toChange").action="/gameList/filter/"+parseInt("{{numPage}}");
       $('#loadMore').click(function(){
         var nextPage=increaseNumber();
         var max=parseInt("{{maximo}}");
@@ -30,7 +29,6 @@
         }).done(function(data){  
           var result=$(data).find("#gamesZone");
           $("#loadZone").append(result);     
-          document.getElementById("toChange").action="/gameList/filter/"+nextPage;   
           if(nextPage==max-1){
             $("#loadMore").remove();
           }
@@ -127,7 +125,7 @@
         <h1 class="my-4">Categorias</h1>
         <div class="container" style="margin: 10px;">
           
-          <form id="toChange" action="" method="post" enctype="multipart/form-data">
+          <form action="/gameList/filter/{{numPage}}" method="post" enctype="multipart/form-data">
           <input type="checkbox" name="Horror" > Horror<br>
           <input type="checkbox" name="Shooter" > Shooter<br>
           <input type="checkbox" name="Action"> Action<br>
