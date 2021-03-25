@@ -56,59 +56,43 @@ public class GamesListController {
     boolean Platformer, boolean Sports, boolean Puzzles, boolean Narrative, boolean RPG){
         List<Game> games = new ArrayList<Game>();
         if (Horror){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Horror);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Horror);
+            games.addAll(wantedGames);         
         }
         if (Shooter){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Shooter);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Shooter);
+            games.addAll(wantedGames);
         }
         if (Action){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Action);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Action);
+            games.addAll(wantedGames);
         }
         if (Platformer){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Platformer);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Platformer);
+            games.addAll(wantedGames);
         }
         if (Sports){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Sports);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Sports);
+            games.addAll(wantedGames);
         }
         if (Puzzles){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Puzzles);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Puzzles);
+            games.addAll(wantedGames);
         }
         if (Narrative){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.Narrative);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.Narrative);
+            games.addAll(wantedGames);
         }
         if (RPG){
-            for(int i=0;i<=numPage;i++){
-                List<Game> wantedGames=gamePostService.findByCategoryPage(PageRequest.of(numPage-i, 8), Genres.RPG);
-                games.addAll(wantedGames);
-            }
+            List<Game> wantedGames=gamePostService.findByCategory(Genres.RPG);
+            games.addAll(wantedGames);
         }
-        
-        model.addAttribute("numPage", numPage);
-        model.addAttribute("games", games);
         Page<Game> gamePage=gameRepo.findAll(PageRequest.of(numPage, 8));
-        model.addAttribute("canLoadMore", false);
+        model.addAttribute("games", games);
         model.addAttribute("maximo", gamePage.getTotalPages());
+        model.addAttribute("canLoadMore", true);
+        model.addAttribute("numPage", numPage);
+        model.addAttribute("canLoadMore", false);
 		return "gameList";
 	}
 	
