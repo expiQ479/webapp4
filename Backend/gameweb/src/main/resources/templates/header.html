@@ -10,18 +10,7 @@
   <meta name="google-signin-client_id" content="774083852848-4dopf21hopfbs79gre07buuju1c89jul.apps.googleusercontent.com">
 
   <title>4DGames</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $('#loadMore').click(function(){
-        $.ajax({
-        url:"/showMoreGames"
-        }).done(function(data){
-          $("#loadZone").html(data);
-        });
-      });
-    });
-  </script>
+  
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   }
