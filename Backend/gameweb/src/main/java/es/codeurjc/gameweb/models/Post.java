@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.sql.Blob;
@@ -23,12 +25,14 @@ public class Post {
     private String creationDate;
     private String updateDate;
     @ManyToOne
+    @JsonIgnore
     private Game fromGame;
     @Column(columnDefinition = "TEXT")
     private String postText;
     private String author;
     private PostType theType;
     @Lob
+    @JsonIgnore
 	private Blob imageFile;
     private boolean image;
     

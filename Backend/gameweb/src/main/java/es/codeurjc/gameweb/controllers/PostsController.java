@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -46,6 +47,11 @@ public class PostsController {
 	private UserService userService;
     @Autowired
     private PostRepository postRepo;
+    
+    @RequestMapping("/posts")
+    public String getPostPage(){
+        return "posts";
+    }
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -61,6 +67,7 @@ public class PostsController {
 			model.addAttribute("logged", false);
 		}
 	}
+    
     @RequestMapping("/adminUpdates/editPost/{id}")
     public String getEditPostPage(Model model,@PathVariable Long id){
         Post theUpdatedOne=pService.findById(id).get();
@@ -87,8 +94,7 @@ public class PostsController {
         
         
         ArrayList<Object> gamesToShow;
-        Optional<Post> p=pService.findById(id);
-        model.addAttribute("post", p.get());
+        model.addAttribute("theID", id);
         gamesToShow=algorithm.setSomeList(request);
         model.addAttribute("selectedList",gamesToShow.get(1));
         if (gamesToShow.get(0).equals(0))
