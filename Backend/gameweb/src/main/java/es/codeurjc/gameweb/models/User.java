@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -24,8 +26,12 @@ import org.springframework.web.context.annotation.SessionScope;
 @DynamicUpdate
 @Table(name="users")
 public class User {
+
+    public interface UserBasico{}
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(UserBasico.class)
     private Long id;
 
     @Lob
@@ -33,6 +39,7 @@ public class User {
 
 	private boolean image;
 
+    @JsonView(UserBasico.class)
     private String info;
     private String password;
     
