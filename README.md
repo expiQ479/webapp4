@@ -155,7 +155,7 @@ The complete implementation of the stadistics in the app, catching the valoratio
  ## Carlos Javier Hervás Ledesma
 
 ### Completed tasks description
-Bulk of my work was the entity, upload, editing and showcase of the Post entity, creation of two algorithms, shape the basic models for the entities and some secondary functions, such as subscription/unsubscription to a Game entity.
+Bulk of my work was the entity, upload, editing and showcase of the Post entity, creation of two algorithms, shape the basic models for the entities and some secondary functions, such as subscription/unsubscription to a Game entity. Also I worked on Load More button (with AJAX implementation) & general bugfixing.
 
 ### Focussed files:
  | Number | Description | Focused on Files |
@@ -172,7 +172,7 @@ Bulk of my work was the entity, upload, editing and showcase of the Post entity,
  | #2 | Recommended algorithm. Depending on the user's subscriptions it recommends different games| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/377ad4a2f72284ea87b9bd7dfa56b0cb6f63ae82)|
  | #3 | Post creation function with image.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/b86744df818014da08c30496f5457e69bacdf34a)|
  | #4 | Edit posts function.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/620570a8971a740e6072652ad3614cc3a8e7c0f7)|
- | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7bf44e378796ad2d6721bd65dc01e3031ceed127)|
+ | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/52344ef7942789fac032b57741bdf3658e2b7e8a)|
  
  ## Enrique Carmona Blazquez
 

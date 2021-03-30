@@ -32,6 +32,7 @@ public class Game {
 
     private String gameTitle;
     private Genres genre;
+    @Column(columnDefinition = "LONGBLOB")
     HashMap<Long, Integer> mapScores = new HashMap<Long, Integer>();
     
     private float averageScore;
