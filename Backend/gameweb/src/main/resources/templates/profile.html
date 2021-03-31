@@ -42,7 +42,7 @@
           <div>
             <ul>
               <li>
-                Nombre de usuario: <span class="nombre_usuario" id="name"></span>
+                Nombre de usuario: <span class="nombre_usuario" id="name">{{info}}</span>
               </li>
             </ul>
           </div>
@@ -66,7 +66,7 @@
           </div>
           <p></p>
           <div style="margin: 20px">
-            <form action="/profile/subscriptions">
+            <form action="/profile/{{id}}/subscriptions">
               <input class="btn btn-info" type="submit" value="Suscripciones" style="margin-left: 105px;">
               <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>

@@ -81,9 +81,11 @@ public class ProfileController {
             model.addAttribute("user", user);
             request.logout();
             model.addAttribute("customMessage", "Se cerrará sesión para evitar errores");
+            model.addAttribute("id", user.getId());
             return "successPage";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
+        model.addAttribute("id", user.getId());
         return "successPage";
     }
 
@@ -97,8 +99,8 @@ public class ProfileController {
         return "Profile";
     }
 
-    @RequestMapping("/profile/subscriptions")
-    public String showSubscriptions(Model model, HttpServletRequest request){
+    @RequestMapping("/profile/{id}/subscriptions")
+    public String showSubscriptions(Model model, HttpServletRequest request, @PathVariable long id){
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
@@ -118,6 +120,7 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
+        model.addAttribute("id", id);
         return "subscriptions";
     }
 
@@ -129,6 +132,7 @@ public class ProfileController {
         user.setPassword(passwordEncoder.encode(password));
         userService.save(user);
         model.addAttribute("user", user);
+        model.addAttribute("id", user.getId());
         return "profile";
     }
 
@@ -139,7 +143,8 @@ public class ProfileController {
         User user =myUser.get();
         updateImage(user, true, image);
         userService.save(user);
-        model.addAttribute("user", user);	
+        model.addAttribute("user", user);
+        model.addAttribute("id", user.getId());	
 		return "profile";
 	}
 
@@ -165,6 +170,7 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
+        model.addAttribute("id", user.getId());
         return "subscriptions";
     } 
     @GetMapping("/profile/image")
