@@ -87,11 +87,12 @@ public class ProfileController {
         return "successPage";
     }
 
-    @RequestMapping("/profile/") 
+    @RequestMapping("/profile/{id}") 
     public String showProfile(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
+        model.addAttribute("id", user.getId());
         model.addAttribute("user", user);
         return "Profile";
     }

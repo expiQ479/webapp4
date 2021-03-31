@@ -27,11 +27,8 @@ import org.springframework.web.context.annotation.SessionScope;
 @Table(name="users")
 public class User {
 
-    public interface UserBasico{}
-
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(UserBasico.class)
     private Long id;
 
     @Lob
@@ -39,7 +36,6 @@ public class User {
 
 	private boolean image;
 
-    @JsonView(UserBasico.class)
     private String info;
     private String password;
     

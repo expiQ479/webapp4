@@ -9,6 +9,18 @@
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     }
   </script>
+  <script>
+    $(document).ready(function(){
+        $.ajax({
+        url:"/profile/"+parseInt("{{id}}")
+        }).done(function(data){
+          console.log(data)
+          $("#name").append(data.info)
+          $("#password").append(data.password)
+          //en cada elemento del post meter los datos
+        });
+    });
+  </script>
   <!-- Page Content -->
   <div class="container container-white" style="padding-bottom: 20px;">
   {{#user}}
@@ -30,7 +42,7 @@
           <div>
             <ul>
               <li>
-                Nombre de usuario: <span class="nombre_usuario">{{info}}</span>
+                Nombre de usuario: <span class="nombre_usuario" id="name"></span>
               </li>
             </ul>
           </div>

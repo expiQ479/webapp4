@@ -1,4 +1,4 @@
-package es.codeurjc.gameweb.controllers;
+package es.codeurjc.gameweb.rest;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -19,22 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import es.codeurjc.gameweb.models.User;
-import es.codeurjc.gameweb.models.User.UserBasico;
 import es.codeurjc.gameweb.services.UserService;
 
 @RestController
+@RequestMapping("/api/profile")
 public class UserRestController {
 
     @Autowired
     private UserService userService;
-    
-    @JsonView(UserBasico.class)
-    @GetMapping("/profile/")
-    public Collection<User> getPosts() {
-        return userService.findAll();
-    }
 
-    @JsonView(UserBasico.class)
     @GetMapping("/profile/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id){
 
@@ -48,7 +41,6 @@ public class UserRestController {
         }
     }
 
-    @JsonView(UserBasico.class)
     @PostMapping("/profile/")
     public ResponseEntity<User> createUser(@RequestBody User user){
         
@@ -59,8 +51,7 @@ public class UserRestController {
         return ResponseEntity.created(location).body(user);
     }
 
-    @JsonView(UserBasico.class)
-    @DeleteMapping("/profile/{id}")
+    /*@DeleteMapping("/profile/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable long id){
 
         Optional<User> user = userService.findById(id);
@@ -74,7 +65,6 @@ public class UserRestController {
         }
     }
 
-    @JsonView(UserBasico.class)
     @PutMapping("/profile/{id}")
     public ResponseEntity<User> replaceUser(@PathVariable long id, @RequestBody User newUser){
         Optional<User> user = userService.findById(id);
@@ -89,5 +79,5 @@ public class UserRestController {
         else{
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
 }
