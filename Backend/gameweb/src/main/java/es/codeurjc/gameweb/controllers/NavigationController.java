@@ -30,7 +30,7 @@ public class NavigationController implements ErrorController {
 		}
 	}
     //HEADER 
-    @GetMapping("/register")
+    @GetMapping("/register/")
     public String showRegister(Model model) {
         model.addAttribute("problem1", "");
         model.addAttribute("problem2", "");

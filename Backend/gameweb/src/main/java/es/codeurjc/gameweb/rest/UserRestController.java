@@ -41,7 +41,7 @@ public class UserRestController {
         }
     }
 
-    @PostMapping("/profile/")
+    @PostMapping("/register/")
     public ResponseEntity<User> createUser(@RequestBody User user){
         
         userService.save(user);

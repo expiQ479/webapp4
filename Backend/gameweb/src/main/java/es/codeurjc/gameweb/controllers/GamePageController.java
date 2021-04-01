@@ -80,6 +80,7 @@ public class GamePageController {
             
             model.addAttribute("Messages", chat.getListMessages());
         }
+        model.addAttribute("id", user.getId());
         return "gamePage"; 
         } catch (Exception e){
             Optional<Game> myGame = gamePostService.findById(id); 
@@ -102,11 +103,13 @@ public class GamePageController {
             userService.save(user);
             model.addAttribute("game", myGame);
             model.addAttribute("customMessage", "Suscripción realizada con éxito");
+            model.addAttribute("id", user.getId());
             return "successPage";
         }
         else{
             model.addAttribute("game", myGame);
             model.addAttribute("customMessage", "Ya te has subscrito a ese juego");
+            model.addAttribute("id", user.getId());
             return "successPage";
         }
     }  
@@ -122,7 +125,8 @@ public class GamePageController {
                 userService.save(user);
             }
         }
-        model.addAttribute("customMessage", "Desuscripción realizada con éxito");        
+        model.addAttribute("customMessage", "Desuscripción realizada con éxito");  
+        model.addAttribute("id", user.getId());      
         return "successPage";
     }
     @GetMapping("/gamePage/{id}/image")
@@ -175,7 +179,7 @@ public class GamePageController {
         game.setAverageScore(myAverage);
         gamePostService.save(game);
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
-
+        model.addAttribute("id", user.getId());
         return "successPage";
     }
     @PostMapping("/agregarChat/{id}")
@@ -204,6 +208,7 @@ public class GamePageController {
             model.addAttribute("canSub", !user.getMyGames().contains(myGame.getId()));
             //model.addAttribute("Messages", chat.getListMessages());
         }   
+        model.addAttribute("id", user.getId());
         return "gamePage";
     }
     @RequestMapping("/statistics/{id}")

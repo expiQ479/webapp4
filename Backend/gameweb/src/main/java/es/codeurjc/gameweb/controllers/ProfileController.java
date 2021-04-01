@@ -188,11 +188,6 @@ public class ProfileController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-    @RequestMapping("/profile/{name}/suscriptions")
-    public String showSuscriptions(Model model, @PathVariable String name) {
-        model.addAttribute("name", name);
-        return "Suscripciones";
-    }
 
     private void updateImage(User user, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
 		if (!imageField.isEmpty()) {
