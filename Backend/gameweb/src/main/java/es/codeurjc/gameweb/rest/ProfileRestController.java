@@ -1,14 +1,10 @@
 package es.codeurjc.gameweb.rest;
 
 import java.net.URI;
-import java.util.Collection;
 import java.util.Optional;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +19,7 @@ import es.codeurjc.gameweb.services.UserService;
 
 @RestController
 @RequestMapping("/api/profile")
-public class UserRestController {
+public class ProfileRestController {
 
     @Autowired
     private UserService userService;
@@ -51,7 +47,7 @@ public class UserRestController {
         return ResponseEntity.created(location).body(user);
     }
 
-    /*@DeleteMapping("/profile/{id}")
+    /*@DeleteMapping("/profile/{id}/subscriptions/")
     public ResponseEntity<User> deleteUser(@PathVariable long id){
 
         Optional<User> user = userService.findById(id);
@@ -63,7 +59,7 @@ public class UserRestController {
         else{
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
 
     @PutMapping("/profile/{id}")
     public ResponseEntity<User> replaceUser(@PathVariable long id, @RequestBody User newUser){
@@ -79,5 +75,5 @@ public class UserRestController {
         else{
             return ResponseEntity.notFound().build();
         }
-    }*/
+    } 
 }

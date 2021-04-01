@@ -16,7 +16,7 @@
   {{#user}}
     <div class="row">
         <div class="col-lg-4" style="text-align: center;">
-          <form action="/profile/changeProfilePhoto" method="post" enctype="multipart/form-data">
+          <form action="/profile/{{id}}/changeProfilePhoto" method="post" enctype="multipart/form-data">
             <img src="/profile/image" width="350" height="350" style="padding-top: 20px; margin-top: 10px; border-radius: 200px;">
             <div style="margin-top: 50px;">
               <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
@@ -40,7 +40,7 @@
         <div class="col-lg-3">
           <h1 class="my-4">Settings</h1>
           <div id="myDropdown" class="dropdown-content">
-            <form action="/profile/changeName" method="post">
+            <form action="/profile/{{id}}/changeName" method="post">
               <input type="text" placeholder="Cambiar Nombre.." name="name">
               <input type="submit" value="Save">
               <input type="hidden" name="_csrf" value="{{token}}"/>
@@ -48,7 +48,7 @@
           </div>
           <p></p>
           <div id="myDropdown" class="dropdown-content">
-              <form action="/profile/changePass" method="post">
+              <form action="/profile/{{id}}/changePass" method="post">
                 <input type="text" placeholder="Cambiar Contraseña.." name="password">
                 <input type="submit" value="Save">
                 <input type="hidden" name="_csrf" value="{{token}}"/>
@@ -56,7 +56,7 @@
           </div>
           <p></p>
           <div style="margin: 20px">
-            <form action="/profile/{{id}}/subscriptions">
+            <form action="/profile/{{id}}/subscriptions/">
               <input class="btn btn-info" type="submit" value="Suscripciones" style="margin-left: 105px;">
               <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>

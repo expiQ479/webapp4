@@ -63,7 +63,7 @@ public class ProfileController {
 		}
 	}
 
-    @PostMapping("/profile/changeName")
+    @PostMapping("/profile/{id}/changeName")
     public String changeName(Model model, @RequestParam String name, HttpServletRequest request) throws ServletException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -81,11 +81,11 @@ public class ProfileController {
             model.addAttribute("user", user);
             request.logout();
             model.addAttribute("customMessage", "Se cerrará sesión para evitar errores");
-            model.addAttribute("id", user.getId());
+            model.addAttribute("Myid", user.getId());
             return "successPage";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
-        model.addAttribute("id", user.getId());
+        model.addAttribute("Myid", user.getId());
         return "successPage";
     }
 
@@ -94,16 +94,15 @@ public class ProfileController {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
-        model.addAttribute("id", user.getId());
+        model.addAttribute("Myid", user.getId());
         model.addAttribute("user", user);
         return "Profile";
     }
 
-    @RequestMapping("/profile/{id}/subscriptions")
+    @GetMapping("/profile/{id}/subscriptions/")
     public String showSubscriptions(Model model, HttpServletRequest request, @PathVariable long id){
-        Principal principal = request.getUserPrincipal();
-        Optional<User> myUser= userService.findByName(principal.getName());
-        User user =myUser.get();
+        Optional<User> myUser= userService.findById(id);
+        User user =myUser.get(); 
         ArrayList<Game> myGames = new ArrayList<>();
         if(user.getMyGames()==null){
             myGames = null;
@@ -120,11 +119,11 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        model.addAttribute("id", id);
+        model.addAttribute("Myid", id);
         return "subscriptions";
     }
 
-    @PostMapping("/profile/changePass")
+    @PostMapping("/profile/{id}/changePass")
     public String changePass(Model model, @RequestParam String password, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -132,11 +131,11 @@ public class ProfileController {
         user.setPassword(passwordEncoder.encode(password));
         userService.save(user);
         model.addAttribute("user", user);
-        model.addAttribute("id", user.getId());
+        model.addAttribute("Myid", user.getId());
         return "profile";
     }
 
-    @PostMapping("/profile/changeProfilePhoto")
+    @PostMapping("/profile/{id}/changeProfilePhoto")
 	public String newFotoUser(Model model, MultipartFile image, HttpServletRequest request) throws IOException, SQLException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -144,14 +143,13 @@ public class ProfileController {
         updateImage(user, true, image);
         userService.save(user);
         model.addAttribute("user", user);
-        model.addAttribute("id", user.getId());	
+        model.addAttribute("Myid", user.getId());	
 		return "profile";
 	}
 
-    @RequestMapping("/profile/subscriptions/{id}")
-    public String eliminarSubs(Model model, @PathVariable Long id, HttpServletRequest request){
-        Principal principal = request.getUserPrincipal();
-        Optional<User> myUser= userService.findByName(principal.getName());
+    @RequestMapping("/profile/{Myid}/deleteSubscription/{id}")
+    public String eliminarSubs(Model model, @PathVariable Long Myid, @PathVariable Long id,HttpServletRequest request){
+        Optional<User> myUser= userService.findById(Myid);
         User user =myUser.get();
         ArrayList<Game> myGames = new ArrayList<>();
         for(int i=0; i<user.getMyGames().size(); i++){
@@ -170,7 +168,8 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        model.addAttribute("id", user.getId());
+        model.addAttribute("Myid", Myid);
+        model.addAttribute("listSubs", user.getMyGames());
         return "subscriptions";
     } 
     @GetMapping("/profile/image")

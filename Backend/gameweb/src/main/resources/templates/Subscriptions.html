@@ -18,7 +18,7 @@
           </thead>
           <tbody>
             {{#listaSubs}}
-            <form action="/profile/subscriptions/{{id}}">
+            <form action="/profile/{{Myid}}/deleteSubscription/{{id}}">
             <tr>
               <td><a href="/gamePage/{{id}}"><image src="/gamePage/{{id}}/image" width="170" height="230" style="margin-left: 20px;"></image></a></td>
               <td>{{gameTitle}}</td>
