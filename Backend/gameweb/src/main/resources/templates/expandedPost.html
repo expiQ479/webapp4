@@ -14,7 +14,7 @@
   <script>
     $(document).ready(function(){
         $.ajax({
-        url:"/listPosts/"+parseInt("{{theID}}")
+        url:"/api/listPosts/"+parseInt("{{theID}}")
         }).done(function(data){
           console.log(data)
           $("#mainTitle").append(data.title)
@@ -23,6 +23,16 @@
           $("#date2").append(data.updateDate)
           $("#mainText").append(data.postText)
           //en cada elemento del post meter los datos
+        });
+        //DELETE da error 403 (????). Además algo ocurre con el atributo mustache myID
+        $("#deleteButton").click(function(){
+          $.ajax({
+            url:"/listPosts/"+parseInt("{{theID}}"),
+            type:'DELETE',
+            success:function(){
+              console.log("borrado con éxito");
+            }
+          });
         });
     });
   </script>
@@ -94,8 +104,11 @@
             <input type="hidden" name="_csrf" value="{{token}}"/>
             <button class="btn btn-secondary" style="background-color: rgb(0, 204, 255);" type='submit'  aria-haspopup="true" aria-expanded="false">
                 Editar post
-            </button>                            
+            </button>                                     
           </form>
+          <button class="btn btn-secondary" id="deleteButton" style="background-color: rgb(255, 0, 0);" type='submit'  aria-haspopup="true" aria-expanded="false">
+            Borrar post
+          </button>  
           {{/isAdmin}}
           <hr>
   

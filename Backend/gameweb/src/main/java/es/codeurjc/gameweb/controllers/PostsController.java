@@ -48,10 +48,7 @@ public class PostsController {
     @Autowired
     private PostRepository postRepo;
     
-    @RequestMapping("/posts")
-    public String getPostPage(){
-        return "posts";
-    }
+    
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -91,29 +88,33 @@ public class PostsController {
 
     @RequestMapping("/expandedPost/{id}")
     public String showExpandedPost(Model model, @PathVariable long id, HttpServletRequest request) {
-        
-        
         ArrayList<Object> gamesToShow;
         model.addAttribute("theID", id);
         gamesToShow=algorithm.setSomeList(request);
         model.addAttribute("selectedList",gamesToShow.get(1));
         if (gamesToShow.get(0).equals(0))
             model.addAttribute("whatList", "Recomendados");
-        else
+        else{
             model.addAttribute("whatList", "Mejor valorados");
-        try {
+        }       
+              
+        try {       
             Principal principal = request.getUserPrincipal();
             Optional<User> myUser= userService.findByName(principal.getName());
-            User user =myUser.get();
+            User user =myUser.get(); 
             if(user.getRoles().contains("ADMIN")){
                 model.addAttribute("isAdmin", true);
+
             }
             else{
                 model.addAttribute("isAdmin", false);
             }
+            model.addAttribute("Myid", user.getId());
         } catch (Exception e) {
             model.addAttribute("isAdmin", false);
+            model.addAttribute("Myid", null);
         }
+        
         return "expandedPost";
     }
 
@@ -128,10 +129,20 @@ public class PostsController {
         gamesToShow=algorithm.setSomeList(request);
         model.addAttribute("selectedList",gamesToShow.get(1));
         Principal principal = request.getUserPrincipal();
-        if(principal != null)
+        
+        
+        if(principal != null){
+            Optional<User> myUser= userService.findByName(principal.getName());
+            User user =myUser.get(); 
             model.addAttribute("whatList", "Recomendados");
+            model.addAttribute("Myid", user.getId());
+        }           
         else
+        {
             model.addAttribute("whatList", "Mejor valorados");
+            model.addAttribute("Myid", 0);
+        }
+            
         PostType ty=null;
         switch(theType){
             case "Guias":
@@ -169,15 +180,21 @@ public class PostsController {
     }
 
     @RequestMapping("/createPostPage/{id}")
-    public String showCreatePostPage(Model model, @PathVariable long id) {    
-        Optional<Game> game = gamePostService.findById(id);
-		if (game.isPresent()) {
-			model.addAttribute("game", game.get());
+    public String showCreatePostPage(Model model, @PathVariable long id,HttpServletRequest request) {    
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
+        User user =myUser.get(); 
+        model.addAttribute("Myid", user.getId());
+        model.addAttribute("gameID", id);
+        return "createPostPage";
+		/*if (game.isPresent()) {
+			model.addAttribute("gameID", id);
+            
 			return "createPostPage";
 		} else {
             model.addAttribute("whatList", "Recomendados");
 			return "index";
-		}
+		}*/
     }
 
     @GetMapping("/posts/{id}/image")
