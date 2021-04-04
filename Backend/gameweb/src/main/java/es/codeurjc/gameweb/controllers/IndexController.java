@@ -50,7 +50,6 @@ public class IndexController {
         Integer i = aux.get(0);
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
-        model.addAttribute("Myid", user.get().getId());
         if (i.equals(0))
             model.addAttribute("whatList", "Recomandados");
         else
@@ -70,7 +69,6 @@ public class IndexController {
         Principal principal = request.getUserPrincipal();
         if(principal !=null){
             Optional<User> user = userService.findByName(principal.getName());
-            model.addAttribute("Myid", user.get().getId());
         }
         if (i.equals(0))
             model.addAttribute("whatList", "Recomandados");

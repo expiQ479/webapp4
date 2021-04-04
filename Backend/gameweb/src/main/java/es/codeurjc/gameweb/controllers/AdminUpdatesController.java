@@ -151,7 +151,6 @@ public class AdminUpdatesController {
         game.addPost(thePost);
         pService.save(thePost);
         model.addAttribute("customMessage", "Post añadido con éxito");
-		model.addAttribute("Myid", user.getId());
         return "successPage";  
     }
 

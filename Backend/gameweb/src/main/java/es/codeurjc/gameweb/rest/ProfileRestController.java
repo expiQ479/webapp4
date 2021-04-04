@@ -3,6 +3,8 @@ package es.codeurjc.gameweb.rest;
 import java.net.URI;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.models.User.userBasico;
 import es.codeurjc.gameweb.services.UserService;
 
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/api")
 public class ProfileRestController {
 
     @Autowired
     private UserService userService;
 
+    @JsonView(userBasico.class)
     @GetMapping("/profile/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id){
 
@@ -37,6 +41,7 @@ public class ProfileRestController {
         }
     }
 
+    @JsonView(userBasico.class)
     @PostMapping("/register/")
     public ResponseEntity<User> createUser(@RequestBody User user){
         
@@ -61,7 +66,8 @@ public class ProfileRestController {
         }
     }*/
 
-    @PutMapping("/profile/{id}")
+    @JsonView(userBasico.class)
+    @PutMapping("/profile/subscriptions/{id}")
     public ResponseEntity<User> replaceUser(@PathVariable long id, @RequestBody User newUser){
         Optional<User> user = userService.findById(id);
 

@@ -27,21 +27,25 @@ import org.springframework.web.context.annotation.SessionScope;
 @Table(name="users")
 public class User {
 
+    public interface userBasico{}
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(userBasico.class)
     private Long id;
 
     @Lob
 	private Blob imageFile;
 
 	private boolean image;
-
+    @JsonView(userBasico.class)
     private String info;
     private String password;
     
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
     @Column(columnDefinition = "LONGBLOB")
+    @JsonView(userBasico.class)
     private ArrayList<Long> myGames;
 
     public User(){}

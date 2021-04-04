@@ -109,10 +109,8 @@ public class PostsController {
             else{
                 model.addAttribute("isAdmin", false);
             }
-            model.addAttribute("Myid", user.getId());
         } catch (Exception e) {
             model.addAttribute("isAdmin", false);
-            model.addAttribute("Myid", null);
         }
         
         return "expandedPost";
@@ -135,12 +133,10 @@ public class PostsController {
             Optional<User> myUser= userService.findByName(principal.getName());
             User user =myUser.get(); 
             model.addAttribute("whatList", "Recomendados");
-            model.addAttribute("Myid", user.getId());
         }           
         else
         {
             model.addAttribute("whatList", "Mejor valorados");
-            model.addAttribute("Myid", 0);
         }
             
         PostType ty=null;
@@ -184,7 +180,6 @@ public class PostsController {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get(); 
-        model.addAttribute("Myid", user.getId());
         model.addAttribute("gameID", id);
         return "createPostPage";
 		/*if (game.isPresent()) {

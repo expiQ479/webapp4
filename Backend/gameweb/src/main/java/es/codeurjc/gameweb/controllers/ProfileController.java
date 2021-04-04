@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,7 +64,7 @@ public class ProfileController {
 		}
 	}
 
-    @PostMapping("/profile/{id}/changeName")
+    @PostMapping("/profile/changeName")
     public String changeName(Model model, @RequestParam String name, HttpServletRequest request) throws ServletException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -81,27 +82,25 @@ public class ProfileController {
             model.addAttribute("user", user);
             request.logout();
             model.addAttribute("customMessage", "Se cerrará sesión para evitar errores");
-            model.addAttribute("Myid", user.getId());
             return "successPage";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
-        model.addAttribute("Myid", user.getId());
         return "successPage";
     }
 
-    @RequestMapping("/profile/{id}") 
+    @RequestMapping("/profile/") 
     public String showProfile(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
-        model.addAttribute("Myid", user.getId());
         model.addAttribute("user", user);
         return "Profile";
     }
 
-    @GetMapping("/profile/{id}/subscriptions/")
-    public String showSubscriptions(Model model, HttpServletRequest request, @PathVariable long id){
-        Optional<User> myUser= userService.findById(id);
+    @GetMapping("/profile/subscriptions/")
+    public String showSubscriptions(Model model, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get(); 
         ArrayList<Game> myGames = new ArrayList<>();
         if(user.getMyGames()==null){
@@ -119,11 +118,10 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        model.addAttribute("Myid", id);
         return "subscriptions";
     }
 
-    @PostMapping("/profile/{id}/changePass")
+    @PostMapping("/profile/changePass")
     public String changePass(Model model, @RequestParam String password, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -131,11 +129,10 @@ public class ProfileController {
         user.setPassword(passwordEncoder.encode(password));
         userService.save(user);
         model.addAttribute("user", user);
-        model.addAttribute("Myid", user.getId());
         return "profile";
     }
 
-    @PostMapping("/profile/{id}/changeProfilePhoto")
+    @PostMapping("/profile/changeProfilePhoto")
 	public String newFotoUser(Model model, MultipartFile image, HttpServletRequest request) throws IOException, SQLException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
@@ -143,13 +140,13 @@ public class ProfileController {
         updateImage(user, true, image);
         userService.save(user);
         model.addAttribute("user", user);
-        model.addAttribute("Myid", user.getId());	
 		return "profile";
 	}
 
-    @RequestMapping("/profile/{Myid}/subsciptions/{id}")
-    public String eliminarSubs(Model model, @PathVariable Long Myid, @PathVariable Long id,HttpServletRequest request){
-        Optional<User> myUser= userService.findById(Myid);
+    @RequestMapping("/profile/deleteSubscription/{id}")
+    public String eliminarSubs(Model model, @PathVariable Long id,HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
         ArrayList<Game> myGames = new ArrayList<>();
         for(int i=0; i<user.getMyGames().size(); i++){
@@ -168,9 +165,9 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        model.addAttribute("Myid", user.getId());
         return "subscriptions";
     } 
+
     @GetMapping("/profile/image")
 	public ResponseEntity<Object> downloadUserImage(HttpServletRequest request) throws SQLException {
         Principal principal = request.getUserPrincipal();
