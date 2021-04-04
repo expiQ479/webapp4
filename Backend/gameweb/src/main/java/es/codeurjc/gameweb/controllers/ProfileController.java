@@ -147,7 +147,7 @@ public class ProfileController {
 		return "profile";
 	}
 
-    @RequestMapping("/profile/{Myid}/deleteSubscription/{id}")
+    @RequestMapping("/profile/{Myid}/subsciptions/{id}")
     public String eliminarSubs(Model model, @PathVariable Long Myid, @PathVariable Long id,HttpServletRequest request){
         Optional<User> myUser= userService.findById(Myid);
         User user =myUser.get();
@@ -168,8 +168,7 @@ public class ProfileController {
         else{
             model.addAttribute("noSubs", "");
         }
-        model.addAttribute("Myid", Myid);
-        model.addAttribute("listSubs", user.getMyGames());
+        model.addAttribute("Myid", user.getId());
         return "subscriptions";
     } 
     @GetMapping("/profile/image")
