@@ -1,0 +1,5 @@
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+
+COPY Backend/ /var/www/html/
+
+EXPOSE 8443
