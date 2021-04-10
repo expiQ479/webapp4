@@ -67,8 +67,8 @@ public class ProfileRestController {
     }*/
 
     @JsonView(userBasico.class)
-    @PutMapping("/profile/subscriptions/{id}")
-    public ResponseEntity<User> replaceUser(@PathVariable long id, @RequestBody User newUser){
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<User> editUser(@PathVariable long id, @RequestBody User newUser){
         Optional<User> user = userService.findById(id);
 
         if( user.get() != null){
@@ -81,5 +81,19 @@ public class ProfileRestController {
         else{
             return ResponseEntity.notFound().build();
         }
-    } 
+    }
+    
+    @JsonView(userBasico.class)
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<User> getMyGames(@PathVariable long id){
+
+        Optional<User> user = userService.findById(id);
+
+        if(user.get() != null){
+            return ResponseEntity.ok(user.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
