@@ -9,12 +9,14 @@
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     }
   </script>
+  
+  </script>
   <!-- Page Content -->
   <div class="container container-white" style="padding-bottom: 20px;">
   {{#user}}
     <div class="row">
         <div class="col-lg-4" style="text-align: center;">
-          <form action="/profile/changeProfilePhoto" method="post" enctype="multipart/form-data">
+          <form action="/profile/{{id}}/changeProfilePhoto" method="post" enctype="multipart/form-data">
             <img src="/profile/image" width="350" height="350" style="padding-top: 20px; margin-top: 10px; border-radius: 200px;">
             <div style="margin-top: 50px;">
               <input type='file' name='image' accept=".jpg, .jpeg, .png"/>
@@ -30,10 +32,7 @@
           <div>
             <ul>
               <li>
-                Nombre de usuario: <span class="nombre_usuario">{{info}}</span>
-              </li>
-              <li>
-                Contraseña: <span class="contraseña">{{password}}</span>
+                Nombre de usuario: <span class="nombre_usuario" id="name">{{info}}</span>
               </li>
             </ul>
           </div>
@@ -57,7 +56,7 @@
           </div>
           <p></p>
           <div style="margin: 20px">
-            <form action="/profile/subscriptions">
+            <form action="/profile/subscriptions/">
               <input class="btn btn-info" type="submit" value="Suscripciones" style="margin-left: 105px;">
               <input type="hidden" name="_csrf" value="{{token}}"/>
             </form>

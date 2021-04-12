@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Component;
@@ -23,21 +26,26 @@ import org.springframework.web.context.annotation.SessionScope;
 @DynamicUpdate
 @Table(name="users")
 public class User {
+
+    public interface userBasico{}
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(userBasico.class)
     private Long id;
 
     @Lob
 	private Blob imageFile;
 
 	private boolean image;
-
+    @JsonView(userBasico.class)
     private String info;
     private String password;
     
     @ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
-
+    @Column(columnDefinition = "LONGBLOB")
+    @JsonView(userBasico.class)
     private ArrayList<Long> myGames;
 
     public User(){}

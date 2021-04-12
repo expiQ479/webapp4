@@ -2,6 +2,7 @@ package es.codeurjc.gameweb.controllers;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,14 +11,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.AlgorithmService;
 import es.codeurjc.gameweb.services.GameService;
+import es.codeurjc.gameweb.services.UserService;
 
 @Controller
 public class IndexController {
 
     @Autowired
     private GameService gamePostService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private AlgorithmService algorithm;
@@ -37,11 +43,13 @@ public class IndexController {
 	}
     @GetMapping("/index")
     public String showIndex(Model model, HttpServletRequest request) {  
-        model.addAttribute("games", gamePostService.findBestRatedGames());
+        model.addAttribute("games", gamePostService.findNumberOfGames(8));
         ArrayList<Object> gamesToShow;
         gamesToShow=algorithm.setSomeList(request);
         ArrayList<Integer> aux = (ArrayList<Integer>) gamesToShow.get(0);
         Integer i = aux.get(0);
+        Principal principal = request.getUserPrincipal();
+        Optional<User> user = userService.findByName(principal.getName());
         if (i.equals(0))
             model.addAttribute("whatList", "Recomandados");
         else
@@ -53,11 +61,15 @@ public class IndexController {
     }  
     @GetMapping("/")
     public String showindex2(Model model, HttpServletRequest request) {  
-        model.addAttribute("games", gamePostService.findBestRatedGames());
+        model.addAttribute("games", gamePostService.findNumberOfGames(8));
         ArrayList<Object> gamesToShow;
         gamesToShow=algorithm.setSomeList(request);
         ArrayList<Integer> aux = (ArrayList<Integer>) gamesToShow.get(0);
         Integer i = aux.get(0);
+        Principal principal = request.getUserPrincipal();
+        if(principal !=null){
+            Optional<User> user = userService.findByName(principal.getName());
+        }
         if (i.equals(0))
             model.addAttribute("whatList", "Recomandados");
         else

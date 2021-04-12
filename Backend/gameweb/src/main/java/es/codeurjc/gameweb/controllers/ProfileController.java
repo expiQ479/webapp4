@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,7 +65,7 @@ public class ProfileController {
 	}
 
     @PostMapping("/profile/changeName")
-    public String changeName(Model model, @RequestParam String name, HttpServletRequest request) {
+    public String changeName(Model model, @RequestParam String name, HttpServletRequest request) throws ServletException {
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
@@ -78,7 +80,9 @@ public class ProfileController {
             user.setInfo(name);
             userService.save(user);
             model.addAttribute("user", user);
-            return "login";
+            request.logout();
+            model.addAttribute("customMessage", "Se cerrará sesión para evitar errores");
+            return "successPage";
         }
         model.addAttribute("customMessage", "Ya existe ese nombre de usuario");
         return "successPage";
@@ -93,11 +97,11 @@ public class ProfileController {
         return "Profile";
     }
 
-    @RequestMapping("/profile/subscriptions")
+    @GetMapping("/profile/subscriptions/")
     public String showSubscriptions(Model model, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
-        User user =myUser.get();
+        User user =myUser.get(); 
         ArrayList<Game> myGames = new ArrayList<>();
         if(user.getMyGames()==null){
             myGames = null;
@@ -135,12 +139,12 @@ public class ProfileController {
         User user =myUser.get();
         updateImage(user, true, image);
         userService.save(user);
-        model.addAttribute("user", user);	
+        model.addAttribute("user", user);
 		return "profile";
 	}
 
-    @RequestMapping("/profile/subscriptions/{id}")
-    public String eliminarSubs(Model model, @PathVariable Long id, HttpServletRequest request){
+    @RequestMapping("/profile/deleteSubscription/{id}")
+    public String eliminarSubs(Model model, @PathVariable Long id,HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
@@ -163,6 +167,7 @@ public class ProfileController {
         }
         return "subscriptions";
     } 
+
     @GetMapping("/profile/image")
 	public ResponseEntity<Object> downloadUserImage(HttpServletRequest request) throws SQLException {
         Principal principal = request.getUserPrincipal();
@@ -178,11 +183,6 @@ public class ProfileController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-    @RequestMapping("/profile/{name}/suscriptions")
-    public String showSuscriptions(Model model, @PathVariable String name) {
-        model.addAttribute("name", name);
-        return "Suscripciones";
-    }
 
     private void updateImage(User user, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
 		if (!imageField.isEmpty()) {

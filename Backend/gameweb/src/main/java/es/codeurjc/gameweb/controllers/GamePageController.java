@@ -122,7 +122,7 @@ public class GamePageController {
                 userService.save(user);
             }
         }
-        model.addAttribute("customMessage", "Desuscripción realizada con éxito");        
+        model.addAttribute("customMessage", "Desuscripción realizada con éxito");      
         return "successPage";
     }
     @GetMapping("/gamePage/{id}/image")
@@ -175,7 +175,6 @@ public class GamePageController {
         game.setAverageScore(myAverage);
         gamePostService.save(game);
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
-
         return "successPage";
     }
     @PostMapping("/agregarChat/{id}")

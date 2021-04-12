@@ -39,54 +39,70 @@ https://trello.com/b/wcg6yyZU/daw-g4
 - An algorithm will determine which games should be recommended to the users. These will appear in a widget on some of the pages.
 
 # Phase 1
-![](Capturas%204DGames/Home.png)
-Homepage of our website (Logged in version). Includes an image caroussel of games, multiple posts below (randomized every time), and a recommended games tab on the right.
+### admin-updates.png
+![](Capturas%204DGames/admin-updates.png)
+This page is only available to administrators. It shows a list of all games in the database with their portrait, name, description, genre and three options: Edit game, Create post & Delete game
+There's also a button to create a game on the upper left corner.
 
-![](Capturas%204DGames/HomeNonLoged.png)
-Same page as before, but the unregistered version. It includes a "log in" and "register" buttons on the upper right corner.
+### add-game.png
+![](Capturas%204DGames/add-game.png)
+This page is only available to administrators. Here you can create a new game entity filling the fields. The new game will be visible in the admin-updates.html page.
 
-![](Capturas%204DGames/IniciarSesion.png)
-Sign in page. You need the user's ID or email and a password.
+### edit-game.png
+![](Capturas%204DGames/edit-game.png)
+This page is only available to administrators. It shows different fields of an existing game which allow for modifications. Any changes will be saved.
 
-![](Capturas%204DGames/JuegoPage.png)
-Single game page (Logged in version). Includes a photo caroussel, description, subscription button for notifications, chat, and buttons that link to a list of posts (guides, news, updates).
+### create-posts.png
+![](Capturas%204DGames/create-posts.png)
+This page is only available to administrators. It shows a box with different fields to fill(Image, title, text content, type), which are taken into a function to create a new Post entity.
 
-![](Capturas%204DGames/JuegoPageNonLoged.png)
-Single game page, unregistered version. It does not include the chat nor the subscribe button.
+### edit-posts.png
+![](Capturas%204DGames/edit-posts.png)
+This page is only available to administrators. It shows different fields of an existing post which allow for modifications. Any changes will be saved.
 
-![](Capturas%204DGames/Juegos.png)
-Game list page (Logged in version). You can search games by genre, and each one gives you a list of games on that genre. You can see the title and click on them to view the detailed single game page.
+### game-page.png
+![](Capturas%204DGames/game-page.png)
+This page is available to any type of user. It shows all the data from an individual game, and for registered users it includes a subscription/unsubscription button, chat and rate game button.
 
-![](Capturas%204DGames/JuegosNonLoged.png)
-Game list page, unsigned version
+### expanded-posts.png
+![](Capturas%204DGames/expanded-posts.png)
+This page is available to any type of user. This shows a post with all it's data, and a widget to the right with recommended games/best rated. Admins will be shown an Edit Post button.
 
-![](Capturas%204DGames/ListaPosts.png)
-Post list (Logged in version), this shows a list of posts of a certain type (depends on what button was pressed on single game page), related to the respective game. Each is a button with image, title and short description. Now there's a button to load more results, but it will generate dinamically more results with the infinite scrolling technique in the future.
+### index.png
+![](Capturas%204DGames/index.png)
+This page is available to any type of user. This is the main page for the app, showing an image carousel, some games and a widget with reccomended games/best rated.
 
-![](Capturas%204DGames/ListaPostsNonLoged.png)
-Post list, unsigned version
+### list-games.png
+![](Capturas%204DGames/list-posts.png)
+This page is available to any type of user. This page shows a grid with all existing games, and a widget on the right to filter depending on game genre.
 
-![](Capturas%204DGames/Perfil.png)
-Profile page, including user data and settings (change name, password, list of subscriptions and log out).
+### list-posts.png
+![](Capturas%204DGames/admin-updates.png)
+This page is available to any type of user. This page shows a list of a determined type of post, and at the right the recommended/best rated games widget. When clicking on the post image it redirects to expandedPost.png
 
-![](Capturas%204DGames/PostPage.png)
-Detailed post page (Logged in version), including title, author, posting date, image and body. Right widget shows more recommended games.
+### login.png
+![](Capturas%204DGames/login.png)
+This page is available when not logged in. This page shows a box with two fields, name and password. When introducing existing credentials it logs the determined user. 
 
-![](Capturas%204DGames/PostPageNonLoged.png)
-Detailed post page, unsigned version.
+### profile.png
+![](Capturas%204DGames/profile.png)
+This page is available to logged users. This page shows the user's profile, with their profile pic, name, password, button to user's subscriptions, log out button and options to edit your information (pic, username, password...)
 
-![](Capturas%204DGames/Registrarse.png)
-Register page. You must introduce an ID, email, password and a confirmation.
+### register.png
+![](Capturas%204DGames/register.png)
+This page is available when not logged in. This page shows a box with four fields. Introducing data will create a new account. Password must be confirmed before register.
 
-![](Capturas%204DGames/Suscripciones.png)
-Subscription list, accesible from the profile page. It shows a list with an image, title, description, genre and the option to unsubscribe.
+### statistics.png
+![](Capturas%204DGames/statistics.png)
+This page is available to any type of user. This page shows the average rate of a game & a chart showing how many people have voted a determined amount of stars (points)
 
-## Navigation Diagram
-![](Capturas%204DGames/Navegation%20diagram%20Phase%202.png)
-# Phase 2
+### subscriptions.png
+![](Capturas%204DGames/subscriptions.png)
+This page is available to logged users. This page shows a list of games subbed by the user, showcasing image, title, description and genre. You can unsub with a button at the right.
 
-## Class and template diagram
-![](Capturas%204DGames/diagramaClases.png)
+### success-page.png
+![](Capturas%204DGames/success-page.png)
+This page is available to logged users. This page shows when the user carries out a succesful operation (create post, edit game, subscribe...)
 
 ## Build instructions
 Disclaimer: The Project is running on version 11 of Java and Visual Studio Code.
@@ -139,7 +155,7 @@ The complete implementation of the stadistics in the app, catching the valoratio
  ## Carlos Javier Hervás Ledesma
 
 ### Completed tasks description
-Bulk of my work was the entity, upload, editing and showcase of the Post entity, creation of two algorithms, shape the basic models for the entities and some secondary functions, such as subscription/unsubscription to a Game entity.
+Bulk of my work was the entity, upload, editing and showcase of the Post entity, creation of two algorithms, shape the basic models for the entities and some secondary functions, such as subscription/unsubscription to a Game entity. Also I worked on Load More button (with AJAX implementation) & general bugfixing.
 
 ### Focussed files:
  | Number | Description | Focused on Files |
@@ -156,7 +172,7 @@ Bulk of my work was the entity, upload, editing and showcase of the Post entity,
  | #2 | Recommended algorithm. Depending on the user's subscriptions it recommends different games| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/377ad4a2f72284ea87b9bd7dfa56b0cb6f63ae82)|
  | #3 | Post creation function with image.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/b86744df818014da08c30496f5457e69bacdf34a)|
  | #4 | Edit posts function.| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/620570a8971a740e6072652ad3614cc3a8e7c0f7)|
- | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7bf44e378796ad2d6721bd65dc01e3031ceed127)|
+ | #5 | Custom error pages (recognizes error 404 & 500, else it returns generic error page)| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/52344ef7942789fac032b57741bdf3658e2b7e8a)|
  
  ## Enrique Carmona Blazquez
 

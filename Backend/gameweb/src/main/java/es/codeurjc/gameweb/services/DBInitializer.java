@@ -579,25 +579,11 @@ public class DBInitializer {
         setPostImage(p16_3_2, "/sample_images/post-image-16.jpg");
         g16.addPost(p16_3_2);
         postRepository.save(p16_3_2);
-        /*ArrayList<Long> suscriptions1 = new ArrayList<>();
-        suscriptions1.add(g2.getId());
-		User user1 = new User("Kike", "12345", suscriptions1);
-		user1.setAdmin(true);
-        user1.setRoles();
-        setUserImage(user1, "/sample_images/user-image-0.jpg");
-        userRepository.save(user1);
-        
-        ArrayList<Long> suscriptions2 = new ArrayList<>();
-		User user2 = new User("Pepe", "54321", suscriptions2);
-		user2.setAdmin(false);
-        user2.setRoles();
-        setUserImage(user2, "/sample_images/user-image-1.jpg");
-        userRepository.save(user2);*/
 
-        /*ArrayList<Long> suscriptions0 = new ArrayList<>();
-        User user0 = new User("admin",passwordEncoder.encode("admin"),suscriptions0, "USER", "ADMIN");
-        setUserImage(user0, "/sample_images/user-image-0.jpg");
-        userRepository.save(user0);*/
+        ArrayList<Long> suscriptions0 = new ArrayList<>();
+        User user0 = new User("Kike",passwordEncoder.encode("user"),suscriptions0, "USER");
+        setUserImage(user0, "/sample_images/user-image-1.jpg");
+        userRepository.save(user0);
 
         ArrayList<Long> suscriptions1 = new ArrayList<>();
         User user1 = new User("admin",passwordEncoder.encode("admin"),suscriptions1, "USER","ADMIN");

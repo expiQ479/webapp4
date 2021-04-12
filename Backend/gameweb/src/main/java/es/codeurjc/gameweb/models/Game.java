@@ -14,6 +14,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.sql.Blob;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -21,8 +23,12 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicUpdate
 public class Game {
+
+    public interface gameBasico{}
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(gameBasico.class)
     private Long id;
 
     @Lob
@@ -30,13 +36,17 @@ public class Game {
 
 	private boolean image;
 
+    @JsonView(gameBasico.class)
     private String gameTitle;
+    @JsonView(gameBasico.class)
     private Genres genre;
+    @Column(columnDefinition = "LONGBLOB")
     HashMap<Long, Integer> mapScores = new HashMap<Long, Integer>();
     
     private float averageScore;
     
     @Column(columnDefinition = "TEXT")
+    @JsonView(gameBasico.class)
     private String description;
     @OneToOne(cascade=CascadeType.ALL)
     private Chat chat;
