@@ -42,7 +42,7 @@ public class AdminRestController {
     }
 
     @JsonView(gameBasico.class)
-    @PostMapping("/addGame/")
+    @PostMapping("/adminUpdates/")
     public ResponseEntity<Game> createUser(@RequestBody Game game) {
 
         gameService.save(game);
