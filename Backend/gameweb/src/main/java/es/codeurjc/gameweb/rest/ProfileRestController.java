@@ -42,7 +42,7 @@ public class ProfileRestController {
     }
 
     @JsonView(userBasico.class)
-    @PostMapping("/register/")
+    @PostMapping("/profile/")
     public ResponseEntity<User> createUser(@RequestBody User user){
         
         userService.save(user);
@@ -82,18 +82,5 @@ public class ProfileRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
-    @JsonView(userBasico.class)
-    @GetMapping("/profile/{id}")
-    public ResponseEntity<User> getMyGames(@PathVariable long id){
 
-        Optional<User> user = userService.findById(id);
-
-        if(user.get() != null){
-            return ResponseEntity.ok(user.get());
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
-    }
 }

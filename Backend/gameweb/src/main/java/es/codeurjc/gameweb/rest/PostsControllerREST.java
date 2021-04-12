@@ -35,6 +35,7 @@ public class PostsControllerREST {
     public Collection<Post> getPosts(){
         return pService.findAll();
     }
+
     @GetMapping("/listPosts/{id}")
     public ResponseEntity<Post> getIndividualPost(@PathVariable long id){
         Post post=pService.findById(id).get();
@@ -45,6 +46,7 @@ public class PostsControllerREST {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping("/listPosts/{gameID}")
     public ResponseEntity<Post> createPost(@ModelAttribute Post post,@PathVariable long gameID){
         post.setFromGame(gamePostService.findById(gameID).get());
@@ -53,6 +55,7 @@ public class PostsControllerREST {
         URI location=fromCurrentRequest().path("/listPosts/{id}").buildAndExpand(post.getId()).toUri();
         return ResponseEntity.created(location).body(post);
     }
+    
     @DeleteMapping("/listPosts/{id}")
     public ResponseEntity<Post> deletePost(@PathVariable long id){
         Post post=pService.findById(id).get();
