@@ -1,0 +1,17 @@
+  web:
+    image: eduardosoy7/4dgames
+    #build: .
+    ports:
+      - "8443:8443"
+    links:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db/4dgames
+    #command:  ["/bin/bash","-c","wait 10;","java -jar gameweb-0.0.1-SNAPSHOT.jar"]
+      
+  db:
+    environment:
+      - MYSQL_DATABASE=4dgames
+      - MYSQL_ROOT_PASSWORD=Holamundo12
+    image: mysql
+
