@@ -39,7 +39,7 @@ public class PostsControllerREST {
     private PostRepository postRepo;
     @Autowired
     private ImageService imageService;
-    interface PostDetail extends Post.postBasico,Post.games,Game.gameBasico{}
+    interface PostDetail extends Post.postBasic,Post.games,Game.gameBasico{}
     @GetMapping("/")
     public Collection<Post> getPosts(){
         return pService.findAll();
