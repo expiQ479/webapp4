@@ -255,15 +255,14 @@ input[type="radio"] {
 label {
   color: grey;
 }
+label:hover,
+label:hover ~ label {
+  color: orange;
+}
 
 .clasificacion {
   direction: rtl;
   unicode-bidi: bidi-override;
-}
-
-label:hover,
-label:hover ~ label {
-  color: orange;
 }
 
 input[type="radio"]:checked ~ label {

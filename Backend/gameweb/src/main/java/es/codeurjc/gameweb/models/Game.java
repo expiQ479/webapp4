@@ -1,7 +1,8 @@
 package es.codeurjc.gameweb.models;
 
 import java.util.ArrayList;
-import java.lang.Math;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 import java.sql.Blob;
 
@@ -19,8 +23,12 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicUpdate
 public class Game {
+
+    public interface gameBasico{}
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(gameBasico.class)
     private Long id;
 
     @Lob
@@ -28,15 +36,24 @@ public class Game {
 
 	private boolean image;
 
+    @JsonView(gameBasico.class)
     private String gameTitle;
+    @JsonView(gameBasico.class)
     private Genres genre;
-    private ArrayList<Integer> listScores = new ArrayList<Integer>();
+    @Column(columnDefinition = "LONGBLOB")
+    HashMap<Long, Integer> mapScores = new HashMap<Long, Integer>();
+    
     private float averageScore;
     
     @Column(columnDefinition = "TEXT")
+    @JsonView(gameBasico.class)
     private String description;
     @OneToOne(cascade=CascadeType.ALL)
     private Chat chat;
+    @OneToMany(mappedBy = "fromGame",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Post> thePosts=new ArrayList<>();
+
+    
 
     public Game(){}
 
@@ -44,28 +61,22 @@ public class Game {
         super();
         this.gameTitle = gameTitle;
         this.genre = genre;
-        this.description = description; 
-        this.listScores.add(2);
-        this.listScores.add(2);
-        this.listScores.add(3);
-        this.listScores.add(4);
-        this.listScores.add(5);
-        this.listScores.add(5);
-        this.listScores.add(5);
-        this.averageScore=doAverageScore(listScores);
+        this.description = description;
+        this.mapScores.put((long) 0, 0);
     }
-    
-
-    public float doAverageScore(ArrayList<Integer> MyScores){
-        float aux = 0;
-        for(int i=0;i<=MyScores.size()-1;i++){
-            aux= aux + MyScores.get(i);
-        }
-        aux = aux/(MyScores.size());
-        aux = aux*10;
-        aux = Math.round(aux);
-        aux = aux/10;
-        return aux;
+    public List<Post> getThePosts() {
+        return this.thePosts;
+    }
+    public void addPost(Post p){
+        thePosts.add(p);
+        p.setFromGame(this);
+    }
+    public void removePost(Post p){
+        thePosts.remove(p);
+        p.setFromGame(null);
+    }
+    public void setThePosts(List<Post> thePosts) {
+        this.thePosts = thePosts;
     }
     public String getGameTitle() {
         return gameTitle;
@@ -75,13 +86,7 @@ public class Game {
         this.gameTitle = gameTitle;
     }
 
-    public ArrayList<Integer> getListScores() {
-        return listScores;
-    }
-
-    public void setListScores(ArrayList<Integer> listScores) {
-        this.listScores = listScores;
-    }
+    
     public String getDescription() {
         return description;
     }
@@ -90,8 +95,6 @@ public class Game {
         this.description = description;
     }
     
-    
-
     public Long getId() {
         return id;
     }
@@ -140,6 +143,12 @@ public class Game {
         this.image = image;
     }
 
-   
+    public HashMap<Long, Integer> getMapScores() {
+        return mapScores;
+    }
+
+    public void setMapScores(HashMap<Long, Integer> mapScores) {
+        this.mapScores = mapScores;
+    }
 
 }

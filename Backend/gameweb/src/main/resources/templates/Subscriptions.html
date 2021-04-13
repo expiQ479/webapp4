@@ -18,14 +18,15 @@
           </thead>
           <tbody>
             {{#listaSubs}}
-            <form action="/Subscriptions/{{gameTitle}}">
+            <form action="/profile/deleteSubscription/{{id}}">
             <tr>
-              <td><image src="/images/skyrimlogo.jpg" width="200" height="120" style="margin-left: 20px;"></image></td>
+              <td><a href="/gamePage/{{id}}"><image src="/gamePage/{{id}}/image" width="170" height="230" style="margin-left: 20px;"></image></a></td>
               <td>{{gameTitle}}</td>
               <td>{{description}}</td>
               <td>{{genre}}</td>
               <td>
                   <div class="btn-group-vertical">
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
                     <input type="submit" class="btn btn-danger" value="Eliminar">
                   </div>
               </td>
@@ -34,6 +35,7 @@
             {{/listaSubs}}
           </tbody>
         </table>
+        <h1 style="color: black;text-align: center;text-size-adjust: 20px; padding-top: 20px;">{{noSubs}}</h1>
       </div>
       <!-- /.col-lg-12 -->
       <!-- /.row -->

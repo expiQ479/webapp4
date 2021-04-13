@@ -1,18 +1,21 @@
 package es.codeurjc.gameweb.models;
 
-import java.sql.Date;
-
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.sql.Blob;
 
 @Entity
-
+@DynamicUpdate
 public class Post {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,21 +24,26 @@ public class Post {
     private String title;
     private String creationDate;
     private String updateDate;
-    //private Game fromGame;
+    @ManyToOne
+    @JsonIgnore
+    private Game fromGame;
+    @Column(columnDefinition = "TEXT")
     private String postText;
-    //private User author;
+    private String author;
     private PostType theType;
-
+    @Lob
+    @JsonIgnore
+	private Blob imageFile;
+    private boolean image;
     
     public Post(){}
-    public Post(String title, String creationDate, String updateDate,String postText,PostType theType){
+    public Post(String title, String creationDate, String updateDate,String author,String postText,PostType theType){
         super();
         this.title=title;
         this.creationDate=creationDate;
         this.updateDate=updateDate;
-        //this.fromGame=fromGame;
         this.postText=postText;
-        //this.author=author;
+        this.author=author;
         this.theType=theType;
     }
     public String getTitle() {
@@ -62,13 +70,13 @@ public class Post {
         this.updateDate = updateDate;
     }
 
-    /*public Game getFromGame() {
+    public Game getFromGame() {
         return this.fromGame;
     }
 
     public void setFromGame(Game fromGame) {
         this.fromGame = fromGame;
-    }*/
+    }
 
     public String getPostText() {
         return this.postText;
@@ -78,20 +86,34 @@ public class Post {
         this.postText = postText;
     }
 
-    /*public User getAuthor() {
+    public String getAuthor() {
         return this.author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
-    }*/
+    }
 
     public PostType getTheType() {
         return this.theType;
     }
-
     public void setTheType(PostType theType) {
         this.theType = theType;
+    }
+    public Blob getImageFile() {
+        return this.imageFile;
+    }
+
+    public void setImageFile(Blob imageFile) {
+        this.imageFile = imageFile;
+    }
+    
+    public boolean isImage() {
+        return this.image;
+    }
+
+    public void setImage(boolean image) {
+        this.image = image;
     }
     public long getId() {
 		return id;

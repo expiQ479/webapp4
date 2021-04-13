@@ -7,26 +7,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="google-signin-client_id" content="774083852848-4dopf21hopfbs79gre07buuju1c89jul.apps.googleusercontent.com">
 
-  <title>{{namepage}}</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <!-- Bootstrap core CSS -->
-  <link href="/bootstrap/startbootstrap-shop-homepage-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Bootstrap core CSS -->
-  <link href="/bootstrap/startbootstrap-shop-homepage-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>4DGames</title>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
+    
+    function increaseNumber(){
+      if( typeof increaseNumber.counter == 'undefined' ) {
+        increaseNumber.counter = 0;
+      }
+      increaseNumber.counter++;
+      return parseInt("{{numPage}}")+increaseNumber.counter
+    }
     $(document).ready(function(){
       $('#loadMore').click(function(){
+        var nextPage=increaseNumber();
+        var myID=parseInt("{{theGameID}}");
+        var myType="{{theType}}";
+        var max=parseInt("{{maximo}}");
         $.ajax({
-        url:"/morePosts"
-        }).done(function(data){
-          $("#loadZone").html(data);
+        url:"/listPosts/"+myID+"/"+myType+"/"+nextPage
+        }).done(function(data){  
+          var result=$(data).find("#postsZone");
+          $("#loadZone").append(result);        
+          if(nextPage>=max){
+            $("#loadMore").remove();
+          }
+          
         });
+        if(nextPage>=max){
+            $("#loadMore").remove();
+          }
       });
     });
   </script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  }
+  <!-- Bootstrap core CSS -->
+  <link href="/bootstrap/startbootstrap-shop-homepage-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Custom styles for this template -->
   <link href="/css/shop-homepage.css" rel="stylesheet">
   <link href="/css/csslogin.css" rel="stylesheet">
@@ -42,53 +63,74 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="/Juegos" class="btn" role="button">Juegos</a>
+            <a href="/gameList/0" class="btn" role="button">Juegos</a>
           </li>
           {{#logged}}
           {{#admin}}
           <li class="nav-item">
-            <a href="/adminUpdates" class="btn" role="button">Editar Juegos </a>
+            <a href="/adminUpdates/0" class="btn" role="button">Editar Juegos </a>
           </li>
           {{/admin}}
           <li class="nav-item">
-              <a href="/Profile"><image src="/images/icono_user.png" width="50" height="50" style="margin-left: 20px; border-radius: 150px;"></image></a>
+              <a href="/profile/"><image src="/profile/image" width="50" height="50" style="margin-left: 20px; border-radius: 150px;"></image></a>
           </li>
           {{/logged}}
           {{^logged}}
           <li class="nav-item">
-            <a class="nav-link" href="/LogInPage" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
+            <a class="nav-link" href="/login" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/RegisterPage" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
+            <a class="nav-link" href="/register" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
           </li>
           {{/logged}}
         </ul>
       </div>
     </div>
   </nav>
+
   <!-- Page Content -->
 
-  <div class="container">
-    <h1 class="my-4">{{name}}: lista {{tipoPost}}</h1> 
-    <a href="/listPosts/{{id}}/{{tipoPost}}/createPostPage" class="btn" role="button">Nuevo {{tipoPost}}</a>
+  <div class="container container-white">
+    <h1 class="my-4">{{name}}: lista {{postType}}</h1> 
     <div class="row">        
-      {{#lista}}
-      <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
-        <a href="/expandedPost/{{title}}"><img class="listImage" src="/images/sample1.jpg" width="384" height="216"></a>
-        <h5>{{title}}</h5>
-        <p class=listText>{{postText}}</p>
-      </div>
-      {{/lista}}
+      <div class="col-lg-8 col col-md-8 col-sm-8" id="postsZone">
+        {{#lista}}
+        <div class="col-lg-8 col-md-12 mb-4 btn-primary listElement">
+          <a href="/expandedPost/{{id}}"><img src="/posts/{{id}}/image" width="384" height="216"></a>
+          <h5>{{title}}</h5>
+        </div>
+        {{/lista}}
+        
+      <div id="loadZone"></div>
+      {{#canLoadMore}}
+       <button class="btn btn-info" id="loadMore">Mostrar Más</button>     
+      {{/canLoadMore}}
+      
     </div>
-    <div class="row" id="loadZone"> 
-      <div class="col-lg-12 col-md-12 mb-12" style="align-items: center;">
+    <div class="col-lg-3 col-md-4 col-sm-4">
+      <h2 class="my-4">{{whatList}}</h2>
+      
+      <div class="container" style="margin-right: 20px; margin-bottom: 20px;">
+      {{#selectedList}}
+      <div class="card h-100">
+        <a href="/gamePage/{{id}}"><img class="card-img-top" src="/gamePage/{{id}}/image" alt=""></a>
         <div class="card-body">
-          <div class="card h-100">
-              <button class="btn btn-info" id="loadMore">Mostrar Más</button>
-          </div>
+          <h4 class="card-title">
+            <a href="#" class="links"></a>
+          </h4>
+          <p class="card-text">{{gameTitle}}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{averageScore}} ★</small>
         </div>
       </div>
+      {{/selectedList}}
+      
     </div>
+      </div>
+        
+      
+    
   </div>
   <!-- /.container -->
   {{>footer}}

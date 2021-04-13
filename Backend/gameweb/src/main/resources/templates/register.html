@@ -1,0 +1,47 @@
+{{>header}}
+<!-- Page Content -->
+
+<div class="container" style="padding-bottom: 150px">
+  <div class="row">
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-6">
+      <div class="main-section">
+        <div class="content-section">
+          <div class="head-section">
+            <h3>Registrarse</h3>
+          </div>
+          <div class="body-section">
+            <form action="/signIn" method="post">
+              <div class="form-input">
+                <p style="color: rgb(255, 0, 0);text-align: center;">{{problem1}}</p>
+                <input type="text" name="name" placeholder="Nombre de usuario">
+              </div>
+              <div class="form-input">
+                <p></p>
+                <input type="text" name="Email" placeholder="Email">
+              </div>
+              <div class="form-input">
+                <p style="color: rgb(255, 0, 0);text-align: center;">{{problem2}}</p>
+                <input type="password" name="password" placeholder="Contraseña">
+              </div>
+              <div class="form-input">
+                <p></p>
+                <input type="password" name="password1" placeholder="Confirmar contraseña">
+              </div>
+              <div class="form-input">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+                <input type="submit" value="Registrarse">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+    </div>
+  </div>
+</div>
+<!-- /.container -->
+{{>footer}}

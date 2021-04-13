@@ -11,13 +11,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <a href="#"><h1 class="game_tittle links">Hollow Knight</h1><img class="d-block img-fluid" src="/images/hollow-knight.jpg" alt="First slide" width="900" height="350"></a>
+              <a href="/gamePage/26"><h1 class="game_tittle links">Hollow Knight</h1><img class="d-block img-fluid" src="/images/hollow-knight.jpg" alt="First slide" width="900" height="350"></a>
             </div>
             <div class="carousel-item">
-              <a href="#"><h1 class="game_tittle links">Stardew Valley</h1><img class="d-block img-fluid" src="/images/stardew-valley.jpg" alt="Second slide" width="900" height="350"></a>
+              <a href="/gamePage/1"><h1 class="game_tittle links">Stardew Valley</h1><img class="d-block img-fluid" src="/images/stardew-valley.jpg" alt="Second slide" width="900" height="350"></a>
             </div>
             <div class="carousel-item">
-              <a href="#"><h1 class="game_tittle links ">ARK</h1><img class="d-block img-fluid" src="/images/ARK.jpg" alt="Third slide" width="900" height="350"></a>
+              <a href="/gamePage/77"><h1 class="game_tittle links ">ARK</h1><img class="d-block img-fluid" src="/images/ARK.jpg" alt="Third slide" width="900" height="350"></a>
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -32,15 +32,14 @@
         <div class="row" style="background-color: rgb(209, 6, 6); color: white; border-radius: 5px; padding: 5px; margin: auto;">
           Posts Varios
         </div>
-        <p></p>
         <div class="row">
           {{#games}}
           <div class="col-lg-3 col-md-4 mb-4">
             <div class="card h-100">
-              <a href="/GamePage/{{id}}"><img class="card-img-top" src="/games/{{id}}/image" alt=""></a>
+              <a href="/gamePage/{{id}}"><img class="card-img-top" src="/gamePage/{{id}}/image" alt=""></a>
               <div class="card-body">
                 <h6 class="card-title">
-                  <a href="/GamePage/{{id}}" class="links" >{{gameTitle}}</a>
+                  <a href="/gamePage/{{id}}" class="links" >{{gameTitle}}</a>
                 </h6>
                 <!--<p class="card-text">descripcion del juego</p>-->
               </div>
@@ -50,70 +49,36 @@
             </div>
             
           </div>
-          
+        
           {{/games}}
-          
         </div>   
-        <div class="row" id="loadZone"> 
-          <div class="col-lg-12 col-md-12 mb-12" style="align-items: center;">
-            <div class="card-body">
-              <div class="card h-100">
-                  <button class="btn btn-info" id="loadMore">Mostrar Más</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <!-- /row -->
 
       </div>
        
       <!-- /.col-lg-9 -->
+      
       <div class="col-lg-3 col-md-4 col-sm-4">
-        <h2 class="my-4">  Recomendados</h2>
-        <div class="container " style="margin-right: 20px; margin-bottom: 20px;">
-          <div class="card h-100">
-            <a href="/GamePage/NuclearThrone"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#" class="links">Juego Recomendado 1</a>
-              </h4>
-              <p class="card-text">Descripcion juego</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-
+        <h2 class="my-4">{{whatList}}</h2>
+        
         <div class="container" style="margin-right: 20px; margin-bottom: 20px;">
-          <div class="card h-100">
-            <a href="/GamePage/Pathologic+2"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#" class="links">Juego Recomendado 1</a>
-              </h4>
-              <p class="card-text">Descripcion juego</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
+        {{#selectedList}}
+        <div class="card h-100">
+          <a href="/gamePage/{{id}}"><img class="card-img-top" src="/gamePage/{{id}}/image" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#" class="links"></a>
+            </h4>
+            <p class="card-text">{{gameTitle}}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">{{averageScore}} ★</small>
           </div>
         </div>
-
-        <div class="container" style="margin-right: 20px; margin-bottom: 20px;">
-          <div class="card h-100">
-            <a href="/GamePage/Little+Nightmare+2"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#" class="links">Juego Recomendado 1</a>
-              </h4>
-              <p class="card-text">Descripcion juego</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9734; &#9734;</small>
-            </div>
-          </div>
-        </div>
+        {{/selectedList}}
+        
+      </div>
       </div>
       <!-- /.col-lg-3 -->
     </div>
