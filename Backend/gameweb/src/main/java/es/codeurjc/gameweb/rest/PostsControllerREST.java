@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,7 +83,20 @@ public class PostsControllerREST {
  
         imageService.saveImage(POSTS_FOLDER, post.getId(), imageFile);
 	}
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> editPost(@PathVariable long id, @RequestBody Post newPost) {
+        Post p = pService.findById(id).get();
  
+        if (p != null) {
+ 
+            newPost.setId(id);
+            pService.save(newPost);
+ 
+            return ResponseEntity.ok(p);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 	@GetMapping("/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
