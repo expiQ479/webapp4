@@ -41,9 +41,17 @@ public class PostsControllerREST {
     @Autowired
     private ImageService imageService;
     interface PostDetail extends Post.postBasic,Post.games,Game.gameBasico{}
+    @JsonView(PostDetail.class)
     @GetMapping("/")
     public Collection<Post> getPosts(){
         return pService.findAll();
+    }
+    @JsonView(PostDetail.class)
+    @GetMapping("/")
+    public Collection<Post> getPostsOfGame(@RequestParam int gameID){
+        Game myGame=gamePostService.findById(gameID).get();
+        return pService.findPostOfGame(myGame);
+
     }
     @JsonView(PostDetail.class)
     @GetMapping("/{id}")
