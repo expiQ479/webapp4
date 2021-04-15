@@ -2,10 +2,10 @@ package es.codeurjc.gameweb.rest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
- 
+import java.util.ArrayList;
 import java.util.Collection;
- 
- 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,15 +42,38 @@ public class PostsControllerREST {
     private ImageService imageService;
     interface PostDetail extends Post.postBasic,Post.games,Game.gameBasico{}
     @JsonView(PostDetail.class)
-    @GetMapping("/")
+    @GetMapping("/all")
     public Collection<Post> getPosts(){
         return pService.findAll();
     }
     @JsonView(PostDetail.class)
-    @GetMapping("/")
+    @GetMapping("/game")
     public Collection<Post> getPostsOfGame(@RequestParam int gameID){
         Game myGame=gamePostService.findById(gameID).get();
         return pService.findPostOfGame(myGame);
+
+    }
+    @JsonView(PostDetail.class)
+    @GetMapping("/type")
+    public Collection<Post> getPostsOfType(@RequestParam String theType){
+        PostType type=null;
+        switch(theType){
+            case "News":
+                type=PostType.News;
+                break;
+            case "Updates":
+                type=PostType.Updates;
+                break;
+            case "Guides":
+                type=PostType.Guides;
+                break;
+        }
+        ArrayList<Post> aux=new ArrayList<Post>();
+        List<Post> thePosts=pService.findAll();
+        for(Post p : thePosts){
+            aux.add(p);
+        }
+        return pService.findPostOfType(aux,type);
 
     }
     @JsonView(PostDetail.class)
