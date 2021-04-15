@@ -42,7 +42,7 @@ public class PostsControllerREST {
     private ImageService imageService;
     interface PostDetail extends Post.postBasic,Post.games,Game.gameBasico{}
     @JsonView(PostDetail.class)
-    @GetMapping("/")
+    @GetMapping("/all")
     public Collection<Post> getPosts(){
         return pService.findAll();
     }
