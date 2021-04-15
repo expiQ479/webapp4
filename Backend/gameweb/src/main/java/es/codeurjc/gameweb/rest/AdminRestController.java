@@ -38,28 +38,28 @@ public class AdminRestController {
     }*/
     @JsonView(gameBasico.class)
     @GetMapping("/adminUpdate/genres")
-    public Collection<Game> getGamesByGenre(@RequestParam int num) {
+    public Collection<Game> getGamesByGenre(@RequestParam String genre) {
         Genres gameGenre;
-        switch(num){
-            case 1:
+        switch(genre){
+            case "Horror":
                 gameGenre=Genres.Horror;
                 break;
-            case 2:
+            case "Action":
                 gameGenre=Genres.Action;
                 break;
-            case 3:
+            case "Shooter":
                 gameGenre=Genres.Shooter;
                 break;
-            case 4:
+            case "Platformer":
                 gameGenre=Genres.Platformer;
                 break;
-            case 5:
+            case "Sports":
                 gameGenre=Genres.Sports;
                 break;
-            case 6:
+            case "Puzzles":
                 gameGenre=Genres.Puzzles;
                 break;
-            case 7:
+            case "RPG":
                 gameGenre=Genres.RPG;
                 break;
             default:
