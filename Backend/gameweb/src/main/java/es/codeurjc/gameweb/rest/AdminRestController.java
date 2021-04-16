@@ -7,6 +7,8 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonView;
  
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,6 +69,11 @@ public class AdminRestController {
                 break;
         }
         return gameService.findGamesOfGenre(gameGenre);
+    }
+    @JsonView(gameBasico.class)
+    @GetMapping("/adminUpdate/page")
+    private Collection<Game> getGamesPaginated(@RequestParam int numPage){
+        return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
     @JsonView(gameBasico.class)
     @GetMapping("/adminUpdate/{id}")
