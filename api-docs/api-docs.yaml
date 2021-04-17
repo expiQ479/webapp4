@@ -1,0 +1,709 @@
+openapi: 3.0.0
+info:
+ version: 1.0.0
+ title: Sample API
+ description: An OpenApi springdoc for define the api functions
+paths:
+    /api/profile:
+      get:
+        tags:
+        - profile
+        description: "Returns the data of the user that is already logged"
+        parameters:
+        - name: id
+          in: query
+          description: defines the id of the user
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      info:
+                        type: string
+                      password:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                            type: string
+                      mygames:
+                        type: array
+                        items:
+                            type: integer
+          '400':
+            description: "Profile not found"
+      post:
+        tags:
+        - profile
+        requestBody:
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      info:
+                        type: string
+                      password:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                            type: string
+                      mygames:
+                        type: array
+                        items:
+                            type: integer
+        description: "Returns the data with the new user created"
+        responses:
+          '200':
+            description: "Successful response"
+          '400':
+            description: "The user doesnt create propertly"
+      put:
+        tags:
+        - profile
+        requestBody:
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      info:
+                        type: string
+                      password:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                            type: string
+                      mygames:
+                        type: array
+                        items:
+                            type: integer
+        description: "Request the data for the new user"
+        parameters:
+        - name: id
+          in: query
+          description: defines the id of the user
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Succesful response"
+          '400':
+            description: "The user couldnt change his data correctly"
+    /api/adminupdates/genres:
+      get:
+        tags:
+        - adminUpdates
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - genre
+                    properties:
+                      gameTitle:
+                        type: string
+                      genre:
+                        type: object
+                      mapScores:
+                        type: object
+                      averageScore:
+                        type: number
+                      description:
+                        type: string
+                      chat:
+                        type: object
+                      listPosts:
+                        type: array
+                        items:
+                            type: object
+          '400':
+            description: "The list of games doesnt charge correctly"
+    /api/adminupdates/page:
+      get:
+        tags:
+        - adminUpdates
+        description: "Returns a list of games to show in the page, the games change when you select the button mostrar más"
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - genre
+                    properties:
+                      gameTitle:
+                        type: string
+                      genre:
+                        type: object
+                      mapScores:
+                        type: object
+                      averageScore:
+                        type: number
+                      description:
+                        type: string
+                      chat:
+                        type: object
+                      listPosts:
+                        type: array
+                        items:
+                            type: object
+          '400':
+            description: "The list of games doesnt charge correctly"
+    /api/adminupdates:
+      get:
+        tags:
+        - adminUpdates
+        description: "Returns the game selected"
+        parameters:
+        - name: id
+          in: query
+          description: defines the id of the game
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - genre
+                    properties:
+                      gameTitle:
+                        type: string
+                      genre:
+                        type: object
+                      mapScores:
+                        type: object
+                      averageScore:
+                        type: number
+                      description:
+                        type: string
+                      chat:
+                        type: object
+                      listPosts:
+                        type: array
+                        items:
+                            type: object
+          '400':
+            description: "The list of games doesnt charge correctly"
+      post:
+        tags:
+        - adminUpdates
+        requestBody:
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      gameTitle:
+                        type: string
+                      genre:
+                        type: object
+                      mapScores:
+                        type: object
+                      averageScore:
+                        type: number
+                      description:
+                        type: string
+                      chat:
+                        type: object
+                      listPosts:
+                        type: array
+                        items:
+                            type: object
+        description: "Returns the data with the new game create"
+        responses:
+          '200':
+            description: "Successful response"
+          '400':
+            description: "The game doesnt have create correctly"
+      put:
+        tags:
+        - adminUpdates
+        requestBody:
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      gameTitle:
+                        type: string
+                      genre:
+                        type: object
+                      mapScores:
+                        type: object
+                      averageScore:
+                        type: number
+                      description:
+                        type: string
+                      chat:
+                        type: object
+                      listPosts:
+                        type: array
+                        items:
+                            type: object
+        description: "the game have update correctly"
+        parameters:
+        - name: id
+          in: query
+          description: defines the id of the game
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Succesful response"
+          '400':
+            description: "The game doesnt have update"
+      delete:
+        tags:
+        - adminUpdates
+        description: "This method delete a game from the list if games"
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      gameTitle:
+                        type: string
+                      genre:
+                        type: object
+                      mapScores:
+                        type: object
+                      averageScore:
+                        type: number
+                      description:
+                        type: string
+                      chat:
+                        type: object
+                      listPosts:
+                        type: array
+                        items:
+                            type: object
+          '400':
+            description: "The game doesnt get delete"
+    /api/all:
+      get:
+        tags:
+        - chat
+        description: "Returns all the chats"
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      listMessages:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                              userId:
+                                type: string
+                              nameUser:
+                                type: string
+                              mgString:
+                                type: string
+                              isMessageWriter:
+                                type: boolean
+          '400':
+            description: "The chats doesnt charge successfully"
+    /api/chat:
+      get:
+        tags:
+        - chat
+        description: "Returns a certain chat"
+        parameters:
+        - name: userId
+          in: query
+          description: defines the id of the chat
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      listMessages:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                              userId:
+                                type: string
+                              nameUser:
+                                type: string
+                              mgString:
+                                type: string
+                              isMessageWriter:
+                                type: boolean
+          '400':
+            description: "The chat doesnt charge successfully"
+      post:
+        tags:
+        - chat
+        description: "Returns the data with the new chat create"
+        parameters:
+        - name: userId
+          in: query
+          description: defines the id of the game where you want to create the chat
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+          '400':
+            description: "The chat doesnt have create correctly"
+      put:
+        tags:
+        - chat
+        description: "This method is made for add messages to the chat"
+        parameters:
+        - name: userId
+          in: query
+          description: defines the id of the chat
+          schema:
+            type: integer
+        - name: message
+          in: query
+          description: its the message that you want to save in the chat
+          schema:
+            type: string
+        responses:
+          '200':
+            description: "Succesful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      listMessages:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                              userId:
+                                type: string
+                              nameUser:
+                                type: string
+                              mgString:
+                                type: string
+                              isMessageWriter:
+                                type: boolean
+          '400':
+            description: "The chat doesnt have update"
+      delete:
+        tags:
+        - chat
+        description: "This method delete a chat"
+        parameters:
+        - name: userId
+          in: query
+          description: defines the id of the game
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+          '400':
+            description: "The chat doesnt get delete"
+    /api/listPosts/all:
+      get:
+        tags:
+        - listPosts
+        description: "Returns all the posts"
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      title:
+                        type: string
+                      creationDate:
+                        type: string
+                      updateDate:
+                        type: string
+                      fromGame:
+                        type: object
+                      postText:
+                        type: string
+                      author:
+                        type: string
+                      theType:
+                        type: object
+          '400':
+            description: "The posts doesnt charge successfully"
+    /api/listPosts/game:
+      get:
+        tags:
+        - listPosts
+        description: "Returns the posts of the game selected"
+        parameters:
+        - name: id
+          in: query
+          description: defines the id of the game
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      title:
+                        type: string
+                      creationDate:
+                        type: string
+                      updateDate:
+                        type: string
+                      fromGame:
+                        type: object
+                      postText:
+                        type: string
+                      author:
+                        type: string
+                      theType:
+                        type: object
+          '400':
+            description: "The posts doesnt charge successfully"
+    /api/listPosts/type:
+      get:
+        tags:
+        - listPosts
+        description: "Returns the posts of the type selected"
+        parameters:
+        - name: theType
+          in: query
+          description: defines the type of the post (Noticias, Guias, etc)
+          schema:
+            type: string
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      title:
+                        type: string
+                      creationDate:
+                        type: string
+                      updateDate:
+                        type: string
+                      fromGame:
+                        type: object
+                      postText:
+                        type: string
+                      author:
+                        type: string
+                      theType:
+                        type: object
+          '400':
+            description: "The posts doesnt charge successfully"
+    /api/listPosts:
+      get:
+        tags:
+        - listPosts
+        description: "Returns the post selected"
+        parameters:
+        - name: id
+          in: query
+          description: defines the id of the post selected
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      title:
+                        type: string
+                      creationDate:
+                        type: string
+                      updateDate:
+                        type: string
+                      fromGame:
+                        type: object
+                      postText:
+                        type: string
+                      author:
+                        type: string
+                      theType:
+                        type: object
+          '400':
+            description: "The post doesnt charge successfully"
+      post:
+        tags:
+        - listPosts
+        requestBody:
+          content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      title:
+                        type: string
+                      creationDate:
+                        type: string
+                      updateDate:
+                        type: string
+                      fromGame:
+                        type: object
+                      postText:
+                        type: string
+                      author:
+                        type: string
+                      theType:
+                        type: object
+        description: "Returns the data with the new post create"
+        responses:
+          '200':
+            description: "Successful response"
+          '400':
+            description: "The post doesnt have create correctly"
+      delete:
+        tags:
+        - listPosts
+        description: "This method delete a post"
+        parameters:
+        - name: userId
+          in: query
+          description: defines the id of the post
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Successful response"
+          '400':
+            description: "The post doesnt get delete"
+      put:
+        tags:
+        - listPosts
+        description: "This method is for edit the data of the post"
+        parameters:
+        - name: userId
+          in: query
+          description: defines the id of the post
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: "Succesful response"
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      title:
+                        type: string
+                      creationDate:
+                        type: string
+                      updateDate:
+                        type: string
+                      fromGame:
+                        type: object
+                      postText:
+                        type: string
+                      author:
+                        type: string
+                      theType:
+                        type: object
+          '400':
+            description: "The post doesnt have update"
