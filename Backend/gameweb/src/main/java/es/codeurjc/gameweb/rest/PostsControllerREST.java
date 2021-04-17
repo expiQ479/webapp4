@@ -5,12 +5,11 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,7 +50,7 @@ public class PostsControllerREST {
     public Collection<Post> getPostsOfGame(@RequestParam int gameID){
         Game myGame=gamePostService.findById(gameID).get();
         return pService.findPostOfGame(myGame);
-
+ 
     }
     @JsonView(PostDetail.class)
     @GetMapping("/type")
@@ -74,7 +73,7 @@ public class PostsControllerREST {
             aux.add(p);
         }
         return pService.findPostOfType(aux,type);
-
+ 
     }
     @JsonView(PostDetail.class)
     @GetMapping("/{id}")
@@ -91,7 +90,7 @@ public class PostsControllerREST {
     public ResponseEntity<Post> createPost(@RequestBody Post post){
  
         pService.save(post);
-        URI location=fromCurrentRequest().path("/listPosts/{id}").buildAndExpand(post.getId()).toUri();
+        URI location=fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
         return ResponseEntity.created(location).body(post);
     }
     @DeleteMapping("/{id}")

@@ -49,14 +49,14 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
 		
 		// URLs that need authentication to access to it
-		/*http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/profile/**").hasAnyRole("USER","ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/profile/**").hasAnyRole("USER","ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/profile/**").hasAnyRole("USER","ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/adminUpdates/**").hasAnyRole("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/adminUpdates/**").hasAnyRole("USER","ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/adminUpdate/**").hasAnyRole("ADMIN");	
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/listPosts/**").hasAnyRole("ADMIN");	
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/listsPosts/**").hasAnyRole("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/listsPosts/**").hasAnyRole("ADMIN");*/
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/listsPosts/**").hasAnyRole("ADMIN");
 		
 		// Other URLs can be accessed without authentication
 		http.authorizeRequests().anyRequest().permitAll();
