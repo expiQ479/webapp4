@@ -43,11 +43,12 @@ public class GameControllerRest {
 
     private static final String POSTS_FOLDER = "gameImages";
  
-    /*@JsonView(gameBasico.class)
-    @GetMapping("/adminUpdate")
+    @JsonView(gameBasico.class)
+    @GetMapping("/game")
     public Collection<Game> getGames() {
         return gameService.findAll();
-    }*/
+    }
+
     @JsonView(gameBasico.class)
     @GetMapping("/game/genres")
     public Collection<Game> getGamesByGenre(@RequestParam String genre) {
