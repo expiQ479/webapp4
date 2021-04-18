@@ -1,4 +1,4 @@
-package es.codeurjc.gameweb.controllers.auth;
+package es.codeurjc.gameweb.rest.auth;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +19,7 @@ import es.codeurjc.gameweb.security.jwt.AuthResponse.Status;
 
 @RestController
 @RequestMapping("/api/auth")
-public class LoginController {
+public class LoginControllerRest {
 
 	@Autowired
 	private UserLoginService userService;

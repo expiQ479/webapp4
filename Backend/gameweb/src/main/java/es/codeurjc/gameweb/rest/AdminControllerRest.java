@@ -28,7 +28,7 @@ import es.codeurjc.gameweb.services.GameService;
  
 @RestController
 @RequestMapping("/api")
-public class AdminRestController {
+public class AdminControllerRest {
  
     @Autowired
     private GameService gameService;
@@ -39,7 +39,7 @@ public class AdminRestController {
         return gameService.findAll();
     }*/
     @JsonView(gameBasico.class)
-    @GetMapping("/adminUpdate/genres")
+    @GetMapping("/adminUpdates/genres")
     public Collection<Game> getGamesByGenre(@RequestParam String genre) {
         Genres gameGenre;
         switch(genre){
@@ -71,12 +71,12 @@ public class AdminRestController {
         return gameService.findGamesOfGenre(gameGenre);
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/adminUpdate/page")
+    @GetMapping("/adminUpdates/page")
     private Collection<Game> getGamesPaginated(@RequestParam int numPage){
         return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/adminUpdate/{id}")
+    @GetMapping("/adminUpdates/{id}")
     public ResponseEntity<Game> getGame(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -99,7 +99,7 @@ public class AdminRestController {
     }
  
     @JsonView(gameBasico.class)
-    @PutMapping("/adminUpdate/{id}")
+    @PutMapping("/adminUpdates/{id}")
     public ResponseEntity<Game> editGame(@PathVariable long id, @RequestBody Game newGame) {
         Optional<Game> game = gameService.findById(id);
  
@@ -114,7 +114,7 @@ public class AdminRestController {
         }
     }
  
-    @DeleteMapping("/adminUpdate//{id}")
+    @DeleteMapping("/adminUpdates//{id}")
     public ResponseEntity<Game> deleteGame(@PathVariable long id) {
         Optional<Game> game = gameService.findById(id);
         if (game.get() != null) {
