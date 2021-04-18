@@ -284,6 +284,30 @@ Creation and implementation of ChatControllerRest, fix errors all arround the ap
 
 Creation and implementation of AdminRestController, ProfileRestController, the security with Rest, OpeApi, and login and logout with Rest
 
+## Eduardo Sierra Martin
+
+### Completed tasks description
+Research on the use of docker, and all the related technology and its subsequent implementation and explanation to the rest of the team
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | file that contains the docker instructions| [Dockerfile](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/7de3201052e6bf84565e76f2a8b33ea62294bdac/Backend/gameweb/Dockerfile)|
+ | #2 | file that contains the docker-compose instructions | [docker-compose.yml](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/7de3201052e6bf84565e76f2a8b33ea62294bdac/Backend/gameweb/docker-compose.yml) |
+ | #3 | pom file of the aplication | [pom.xml](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/7de3201052e6bf84565e76f2a8b33ea62294bdac/Backend/gameweb/pom.xml) |
+ | #4 | script that contains the command to build an image with docker| [create_image.sh](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/d642b8b147504b4083d9447e2adf4d9bbbf9ff92/Backend/gameweb/create_image.sh) |
+ | #5 | added documentation about run the app with docker| [README.md](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/e98f6d558d6bbe47f995c912d9511f9b6169c99e/README.md) |
+
+ 
+
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | initialization of the rest api to be able to work the whole team| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/104c8505aae4a6494ffa5c7cba816f5461ba74c4)|
+ | #2 | first publication of docker functionality| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/f8a9b960b2a35b26792bb99779aa8026f1a74ef7)|
+ | #3 | mistake correction| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7b051f0a7dcc4312278450b5aab7e76dbf312d1c)|
+ | #4 | publishing the script that allows the creation of images | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/a7752d5bec1119d84839e79ae9bdc7e7ecb638e0)|
+ | #5 | actualitation of the readme with instructions to execute the app with docker | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/62beaac0e31fad4853cb62c5f677b4a7744161f8)|
 
 
 
