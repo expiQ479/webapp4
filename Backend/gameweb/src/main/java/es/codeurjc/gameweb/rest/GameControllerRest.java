@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
  
 import com.fasterxml.jackson.annotation.JsonView;
@@ -94,6 +95,18 @@ public class GameControllerRest {
  
         if (game.get() != null) {
             return ResponseEntity.ok(game.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @JsonView(gameBasico.class)
+    @GetMapping("/game/{id}/scores")
+    public ResponseEntity<HashMap<Long, Integer>> getScores(@PathVariable long id) {
+ 
+        Optional<Game> game = gameService.findById(id);
+ 
+        if (game.get() != null) {
+            return ResponseEntity.ok(game.get().getMapScores());
         } else {
             return ResponseEntity.notFound().build();
         }

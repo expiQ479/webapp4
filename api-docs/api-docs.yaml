@@ -584,6 +584,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
+  /api/game/{id}/scores:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: getScores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
   /api/game/page:
     get:
       tags:
