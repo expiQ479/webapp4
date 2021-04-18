@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
-@RequestMapping("/api/listPosts")
+@RequestMapping("/api/posts")
 public class PostsControllerREST {
     private static final String POSTS_FOLDER = "posts";
     @Autowired

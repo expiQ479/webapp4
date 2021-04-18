@@ -49,7 +49,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/listPosts/{id}:
+  /api/posts/{id}:
     get:
       tags:
       - posts-controller-rest
@@ -173,7 +173,7 @@ paths:
   /api/adminUpdates/{id}:
     get:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: getGame
       parameters:
       - name: id
@@ -191,7 +191,7 @@ paths:
                 $ref: '#/components/schemas/Game_gameBasico'
     put:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: editGame
       parameters:
       - name: id
@@ -215,7 +215,7 @@ paths:
                 $ref: '#/components/schemas/Game_gameBasico'
     delete:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: deleteGame
       parameters:
       - name: id
@@ -295,7 +295,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/listPosts/:
+  /api/posts/:
     post:
       tags:
       - posts-controller-rest
@@ -316,7 +316,7 @@ paths:
   /api/games/{id}/image:
     get:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: downloadImage_2
       parameters:
       - name: id
@@ -334,7 +334,7 @@ paths:
                 type: object
     post:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: uploadImage_1
       parameters:
       - name: id
@@ -440,7 +440,7 @@ paths:
   /api/adminUpdates/:
     post:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: createGame
       requestBody:
         content:
@@ -455,7 +455,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game_gameBasico'
-  /api/listPosts/{id}/image:
+  /api/posts/{id}/image:
     get:
       tags:
       - posts-controller-rest
@@ -474,7 +474,7 @@ paths:
             '*/*':
               schema:
                 type: object
-  /api/listPosts/type:
+  /api/posts/type:
     get:
       tags:
       - posts-controller-rest
@@ -494,7 +494,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/listPosts/game:
+  /api/posts/game:
     get:
       tags:
       - posts-controller-rest
@@ -515,7 +515,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/listPosts/all:
+  /api/posts/all:
     get:
       tags:
       - posts-controller-rest
@@ -546,7 +546,7 @@ paths:
   /api/adminUpdates/page:
     get:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: getGamesPaginated
       parameters:
       - name: numPage
@@ -567,7 +567,7 @@ paths:
   /api/adminUpdates/genres:
     get:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: getGamesByGenre
       parameters:
       - name: genre

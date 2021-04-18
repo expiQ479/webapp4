@@ -33,7 +33,7 @@ import es.codeurjc.gameweb.services.ImageService;
  
 @RestController
 @RequestMapping("/api")
-public class AdminControllerRest {
+public class GameControllerRest {
  
     @Autowired
     private GameService gameService;
