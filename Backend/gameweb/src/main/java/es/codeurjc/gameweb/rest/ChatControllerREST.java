@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
 @RequestMapping("/api/chat")
-public class ChatControllerREST {
+public class ChatControllerRest {
     @Autowired
     private GameService gamePostService;
     @Autowired

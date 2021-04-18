@@ -22,7 +22,7 @@ import es.codeurjc.gameweb.services.UserService;
 
 @RestController
 @RequestMapping("/api")
-public class ProfileRestController {
+public class ProfileControllerRest {
 
     @Autowired
     private UserService userService;

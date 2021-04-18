@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
 @RequestMapping("/api/listPosts")
-public class PostsControllerREST {
+public class PostsControllerRest {
     private static final String POSTS_FOLDER = "posts";
     @Autowired
     private PostService pService;    
