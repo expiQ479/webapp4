@@ -42,7 +42,7 @@ public class Game {
     private Genres genre;
     @Column(columnDefinition = "LONGBLOB")
     HashMap<Long, Integer> mapScores = new HashMap<Long, Integer>();
-    
+    @JsonView(gameBasico.class)
     private float averageScore;
     
     @Column(columnDefinition = "TEXT")
