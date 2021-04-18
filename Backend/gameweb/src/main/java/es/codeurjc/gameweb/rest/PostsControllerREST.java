@@ -105,15 +105,22 @@ public class PostsControllerREST {
         }
     }
     @PostMapping("/{id}/image")
-	public void uploadImage(Post post, @RequestParam MultipartFile imageFile) throws IOException {
+    public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        Post post=pService.findById(id).get();
+        if(post!=null){
+            URI location = fromCurrentRequest().build().toUri();
  
-        URI location = fromCurrentRequest().build().toUri();
+            post.setImagePath(location.toString());
+            pService.save(post);
  
-        post.setImagePath(location.toString()+"/image");
-        pService.save(post);
- 
-        imageService.saveImage(POSTS_FOLDER, post.getId(), imageFile);
-	}
+            imageService.saveImage(POSTS_FOLDER, post.getId(), imageFile);
+            return ResponseEntity.created(location).build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+        
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Post> editPost(@PathVariable long id, @RequestBody Post newPost) {
         Post p = pService.findById(id).get();
