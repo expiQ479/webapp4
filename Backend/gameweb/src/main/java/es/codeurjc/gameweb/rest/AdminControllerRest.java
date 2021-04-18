@@ -1,5 +1,7 @@
 package es.codeurjc.gameweb.rest;
  
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
@@ -19,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
  
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.Game.gameBasico;
 import es.codeurjc.gameweb.services.GameService;
+import es.codeurjc.gameweb.services.ImageService;
  
 @RestController
 @RequestMapping("/api")
@@ -32,6 +37,11 @@ public class AdminControllerRest {
  
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private ImageService imageService;
+
+    private static final String POSTS_FOLDER = "gameImages";
  
     /*@JsonView(gameBasico.class)
     @GetMapping("/adminUpdate")
@@ -124,5 +134,28 @@ public class AdminControllerRest {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/games/{id}/image")
+	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        Game game=gameService.findById(id).get();
+        if(game!=null){
+            URI location = fromCurrentRequest().build().toUri();
+ 
+            game.setImagePath(location.toString());
+            gameService.save(game);
+ 
+            imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);
+            return ResponseEntity.created(location).build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+ 
+	}
+    @GetMapping("/games/{id}/image")
+	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
+ 
+		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
+	}
  
 }

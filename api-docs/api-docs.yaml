@@ -231,6 +231,52 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game'
+  /api/profile/{id}/image:
+    get:
+      tags:
+      - profile-controller-rest
+      operationId: downloadImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - profile-controller-rest
+      operationId: uploadImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
   /api/profile/:
     post:
       tags:
@@ -267,6 +313,52 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
+  /api/games/{id}/image:
+    get:
+      tags:
+      - admin-controller-rest
+      operationId: downloadImage_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - admin-controller-rest
+      operationId: uploadImage_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
   /api/chat/:
     post:
       tags:
@@ -367,7 +459,7 @@ paths:
     get:
       tags:
       - posts-controller-rest
-      operationId: downloadImage
+      operationId: downloadImage_1
       parameters:
       - name: id
         in: path
@@ -515,6 +607,8 @@ components:
           items:
             type: integer
             format: int64
+        imagePath:
+          type: string
     Chat:
       type: object
       properties:
@@ -570,6 +664,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post'
+        imagePath:
+          type: string
     Message:
       type: object
       properties:
@@ -685,6 +781,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post_gameBasico'
+        imagePath:
+          type: string
     Post_gameBasico:
       type: object
       properties:
@@ -757,6 +855,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post_PostDetail'
+        imagePath:
+          type: string
     Post_PostDetail:
       type: object
       properties:
