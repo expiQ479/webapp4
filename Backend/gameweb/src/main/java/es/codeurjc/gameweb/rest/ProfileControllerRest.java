@@ -3,6 +3,7 @@ package es.codeurjc.gameweb.rest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.Collection;
 import java.util.Optional;
 
 import javax.imageio.IIOException;
@@ -43,6 +44,13 @@ public class ProfileControllerRest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @JsonView(userBasico.class)
+    @GetMapping("/profile/all")
+    public Collection<User> getAllUsers(@PathVariable long id){
+ 
+        return userService.findAll();
+    }
 
     @JsonView(userBasico.class)
     @GetMapping("/profile/{id}")

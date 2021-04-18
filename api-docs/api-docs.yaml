@@ -455,6 +455,27 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game_gameBasico'
+  /api/profile/all:
+    get:
+      tags:
+      - profile-controller-rest
+      operationId: getAllUsers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User_userBasico'
   /api/posts/{id}/image:
     get:
       tags:
