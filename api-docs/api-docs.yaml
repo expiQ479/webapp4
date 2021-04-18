@@ -1,709 +1,787 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
- version: 1.0.0
- title: Sample API
- description: An OpenApi springdoc for define the api functions
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: https://localhost:8443
+  description: Generated server url
 paths:
-    /api/profile:
-      get:
-        tags:
-        - profile
-        description: "Returns the data of the user that is already logged"
-        parameters:
-        - name: id
-          in: query
-          description: defines the id of the user
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      info:
-                        type: string
-                      password:
-                        type: string
-                      roles:
-                        type: array
-                        items:
-                            type: string
-                      mygames:
-                        type: array
-                        items:
-                            type: integer
-          '400':
-            description: "Profile not found"
-      post:
-        tags:
-        - profile
-        requestBody:
+  /api/profile/{id}:
+    get:
+      tags:
+      - profile-controller-rest
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
           content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      info:
-                        type: string
-                      password:
-                        type: string
-                      roles:
-                        type: array
-                        items:
-                            type: string
-                      mygames:
-                        type: array
-                        items:
-                            type: integer
-        description: "Returns the data with the new user created"
-        responses:
-          '200':
-            description: "Successful response"
-          '400':
-            description: "The user doesnt create propertly"
-      put:
-        tags:
-        - profile
-        requestBody:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User_userBasico'
+    put:
+      tags:
+      - profile-controller-rest
+      operationId: editUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User_userBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
           content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      info:
-                        type: string
-                      password:
-                        type: string
-                      roles:
-                        type: array
-                        items:
-                            type: string
-                      mygames:
-                        type: array
-                        items:
-                            type: integer
-        description: "Request the data for the new user"
-        parameters:
-        - name: id
-          in: query
-          description: defines the id of the user
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Succesful response"
-          '400':
-            description: "The user couldnt change his data correctly"
-    /api/adminupdates/genres:
-      get:
-        tags:
-        - adminUpdates
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - genre
-                    properties:
-                      gameTitle:
-                        type: string
-                      genre:
-                        type: object
-                      mapScores:
-                        type: object
-                      averageScore:
-                        type: number
-                      description:
-                        type: string
-                      chat:
-                        type: object
-                      listPosts:
-                        type: array
-                        items:
-                            type: object
-          '400':
-            description: "The list of games doesnt charge correctly"
-    /api/adminupdates/page:
-      get:
-        tags:
-        - adminUpdates
-        description: "Returns a list of games to show in the page, the games change when you select the button mostrar más"
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - genre
-                    properties:
-                      gameTitle:
-                        type: string
-                      genre:
-                        type: object
-                      mapScores:
-                        type: object
-                      averageScore:
-                        type: number
-                      description:
-                        type: string
-                      chat:
-                        type: object
-                      listPosts:
-                        type: array
-                        items:
-                            type: object
-          '400':
-            description: "The list of games doesnt charge correctly"
-    /api/adminupdates:
-      get:
-        tags:
-        - adminUpdates
-        description: "Returns the game selected"
-        parameters:
-        - name: id
-          in: query
-          description: defines the id of the game
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - genre
-                    properties:
-                      gameTitle:
-                        type: string
-                      genre:
-                        type: object
-                      mapScores:
-                        type: object
-                      averageScore:
-                        type: number
-                      description:
-                        type: string
-                      chat:
-                        type: object
-                      listPosts:
-                        type: array
-                        items:
-                            type: object
-          '400':
-            description: "The list of games doesnt charge correctly"
-      post:
-        tags:
-        - adminUpdates
-        requestBody:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User_userBasico'
+  /api/listPosts/{id}:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: getIndividualPost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
           content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      gameTitle:
-                        type: string
-                      genre:
-                        type: object
-                      mapScores:
-                        type: object
-                      averageScore:
-                        type: number
-                      description:
-                        type: string
-                      chat:
-                        type: object
-                      listPosts:
-                        type: array
-                        items:
-                            type: object
-        description: "Returns the data with the new game create"
-        responses:
-          '200':
-            description: "Successful response"
-          '400':
-            description: "The game doesnt have create correctly"
-      put:
-        tags:
-        - adminUpdates
-        requestBody:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post_PostDetail'
+    put:
+      tags:
+      - posts-controller-rest
+      operationId: editPost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      responses:
+        "200":
+          description: OK
           content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      gameTitle:
-                        type: string
-                      genre:
-                        type: object
-                      mapScores:
-                        type: object
-                      averageScore:
-                        type: number
-                      description:
-                        type: string
-                      chat:
-                        type: object
-                      listPosts:
-                        type: array
-                        items:
-                            type: object
-        description: "the game have update correctly"
-        parameters:
-        - name: id
-          in: query
-          description: defines the id of the game
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Succesful response"
-          '400':
-            description: "The game doesnt have update"
-      delete:
-        tags:
-        - adminUpdates
-        description: "This method delete a game from the list if games"
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      gameTitle:
-                        type: string
-                      genre:
-                        type: object
-                      mapScores:
-                        type: object
-                      averageScore:
-                        type: number
-                      description:
-                        type: string
-                      chat:
-                        type: object
-                      listPosts:
-                        type: array
-                        items:
-                            type: object
-          '400':
-            description: "The game doesnt get delete"
-    /api/all:
-      get:
-        tags:
-        - chat
-        description: "Returns all the chats"
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      listMessages:
-                        type: array
-                        items:
-                            type: object
-                            properties:
-                              userId:
-                                type: string
-                              nameUser:
-                                type: string
-                              mgString:
-                                type: string
-                              isMessageWriter:
-                                type: boolean
-          '400':
-            description: "The chats doesnt charge successfully"
-    /api/chat:
-      get:
-        tags:
-        - chat
-        description: "Returns a certain chat"
-        parameters:
-        - name: userId
-          in: query
-          description: defines the id of the chat
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      listMessages:
-                        type: array
-                        items:
-                            type: object
-                            properties:
-                              userId:
-                                type: string
-                              nameUser:
-                                type: string
-                              mgString:
-                                type: string
-                              isMessageWriter:
-                                type: boolean
-          '400':
-            description: "The chat doesnt charge successfully"
-      post:
-        tags:
-        - chat
-        description: "Returns the data with the new chat create"
-        parameters:
-        - name: userId
-          in: query
-          description: defines the id of the game where you want to create the chat
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Successful response"
-          '400':
-            description: "The chat doesnt have create correctly"
-      put:
-        tags:
-        - chat
-        description: "This method is made for add messages to the chat"
-        parameters:
-        - name: userId
-          in: query
-          description: defines the id of the chat
-          schema:
-            type: integer
-        - name: message
-          in: query
-          description: its the message that you want to save in the chat
-          schema:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+    delete:
+      tags:
+      - posts-controller-rest
+      operationId: deletePost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+  /api/chat/{id}:
+    get:
+      tags:
+      - chat-controller-rest
+      operationId: getIndividualChat
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
+    put:
+      tags:
+      - chat-controller-rest
+      operationId: addMessage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: message
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
+    delete:
+      tags:
+      - chat-controller-rest
+      operationId: deleteChat
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
+  /api/adminUpdates/{id}:
+    get:
+      tags:
+      - admin-controller-rest
+      operationId: getGame
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
+    put:
+      tags:
+      - admin-controller-rest
+      operationId: editGame
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game_gameBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
+    delete:
+      tags:
+      - admin-controller-rest
+      operationId: deleteGame
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game'
+  /api/profile/:
+    post:
+      tags:
+      - profile-controller-rest
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User_userBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User_userBasico'
+  /api/listPosts/:
+    post:
+      tags:
+      - posts-controller-rest
+      operationId: createPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+  /api/chat/:
+    post:
+      tags:
+      - chat-controller-rest
+      operationId: createChat
+      parameters:
+      - name: gameID
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
+  /api/auth/refresh:
+    post:
+      tags:
+      - login-controller-rest
+      operationId: refreshToken
+      parameters:
+      - name: refreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/auth/logout:
+    post:
+      tags:
+      - login-controller-rest
+      operationId: logOut
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/auth/login:
+    post:
+      tags:
+      - login-controller-rest
+      operationId: login
+      parameters:
+      - name: accessToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      - name: refreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/adminUpdates/:
+    post:
+      tags:
+      - admin-controller-rest
+      operationId: createGame
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game_gameBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
+  /api/listPosts/{id}/image:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: downloadImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/listPosts/type:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: getPostsOfType
+      parameters:
+      - name: theType
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post_PostDetail'
+  /api/listPosts/game:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: getPostsOfGame
+      parameters:
+      - name: gameID
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post_PostDetail'
+  /api/listPosts/all:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: getPosts
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post_PostDetail'
+  /api/chat/all:
+    get:
+      tags:
+      - chat-controller-rest
+      operationId: getAllChats
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat_ChatDetail'
+  /api/adminUpdates/page:
+    get:
+      tags:
+      - admin-controller-rest
+      operationId: getGamesPaginated
+      parameters:
+      - name: numPage
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game_gameBasico'
+  /api/adminUpdates/genres:
+    get:
+      tags:
+      - admin-controller-rest
+      operationId: getGamesByGenre
+      parameters:
+      - name: genre
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game_gameBasico'
+components:
+  schemas:
+    User_userBasico:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        image:
+          type: boolean
+        info:
+          type: string
+        password:
+          type: string
+        roles:
+          type: array
+          items:
             type: string
-        responses:
-          '200':
-            description: "Succesful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      listMessages:
-                        type: array
-                        items:
-                            type: object
-                            properties:
-                              userId:
-                                type: string
-                              nameUser:
-                                type: string
-                              mgString:
-                                type: string
-                              isMessageWriter:
-                                type: boolean
-          '400':
-            description: "The chat doesnt have update"
-      delete:
-        tags:
-        - chat
-        description: "This method delete a chat"
-        parameters:
-        - name: userId
-          in: query
-          description: defines the id of the game
-          schema:
+        myGames:
+          type: array
+          items:
             type: integer
-        responses:
-          '200':
-            description: "Successful response"
-          '400':
-            description: "The chat doesnt get delete"
-    /api/listPosts/all:
-      get:
-        tags:
-        - listPosts
-        description: "Returns all the posts"
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      title:
-                        type: string
-                      creationDate:
-                        type: string
-                      updateDate:
-                        type: string
-                      fromGame:
-                        type: object
-                      postText:
-                        type: string
-                      author:
-                        type: string
-                      theType:
-                        type: object
-          '400':
-            description: "The posts doesnt charge successfully"
-    /api/listPosts/game:
-      get:
-        tags:
-        - listPosts
-        description: "Returns the posts of the game selected"
-        parameters:
-        - name: id
-          in: query
-          description: defines the id of the game
-          schema:
+            format: int64
+    Chat:
+      type: object
+      properties:
+        listMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        ID:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        imageFile:
+          type: object
+          properties:
+            binaryStream:
+              type: object
+        image:
+          type: boolean
+        gameTitle:
+          type: string
+        genre:
+          type: string
+          enum:
+          - Horror
+          - Shooter
+          - Action
+          - Platformer
+          - Sports
+          - Puzzles
+          - Narrative
+          - RPG
+        mapScores:
+          type: object
+          additionalProperties:
             type: integer
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      title:
-                        type: string
-                      creationDate:
-                        type: string
-                      updateDate:
-                        type: string
-                      fromGame:
-                        type: object
-                      postText:
-                        type: string
-                      author:
-                        type: string
-                      theType:
-                        type: object
-          '400':
-            description: "The posts doesnt charge successfully"
-    /api/listPosts/type:
-      get:
-        tags:
-        - listPosts
-        description: "Returns the posts of the type selected"
-        parameters:
-        - name: theType
-          in: query
-          description: defines the type of the post (Noticias, Guias, etc)
-          schema:
-            type: string
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      title:
-                        type: string
-                      creationDate:
-                        type: string
-                      updateDate:
-                        type: string
-                      fromGame:
-                        type: object
-                      postText:
-                        type: string
-                      author:
-                        type: string
-                      theType:
-                        type: object
-          '400':
-            description: "The posts doesnt charge successfully"
-    /api/listPosts:
-      get:
-        tags:
-        - listPosts
-        description: "Returns the post selected"
-        parameters:
-        - name: id
-          in: query
-          description: defines the id of the post selected
-          schema:
+            format: int32
+        averageScore:
+          type: number
+          format: float
+        description:
+          type: string
+        chat:
+          $ref: '#/components/schemas/Chat'
+        thePosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+    Message:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        msgString:
+          type: string
+        id:
+          type: integer
+          format: int64
+          writeOnly: true
+        messageWriter:
+          type: boolean
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        creationDate:
+          type: string
+        updateDate:
+          type: string
+        fromGame:
+          $ref: '#/components/schemas/Game'
+        postText:
+          type: string
+        author:
+          type: string
+        theType:
+          type: string
+          enum:
+          - News
+          - Updates
+          - Guides
+        image:
+          type: boolean
+        imagePath:
+          type: string
+    Chat_ChatDetail:
+      type: object
+      properties:
+        listMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message_ChatDetail'
+        ID:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+    Message_ChatDetail:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        msgString:
+          type: string
+        id:
+          type: integer
+          format: int64
+          writeOnly: true
+        messageWriter:
+          type: boolean
+    Chat_gameBasico:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    Game_gameBasico:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        imageFile:
+          type: object
+          properties:
+            binaryStream:
+              type: object
+        image:
+          type: boolean
+        gameTitle:
+          type: string
+        genre:
+          type: string
+          enum:
+          - Horror
+          - Shooter
+          - Action
+          - Platformer
+          - Sports
+          - Puzzles
+          - Narrative
+          - RPG
+        mapScores:
+          type: object
+          additionalProperties:
             type: integer
-        responses:
-          '200':
-            description: "Successful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      title:
-                        type: string
-                      creationDate:
-                        type: string
-                      updateDate:
-                        type: string
-                      fromGame:
-                        type: object
-                      postText:
-                        type: string
-                      author:
-                        type: string
-                      theType:
-                        type: object
-          '400':
-            description: "The post doesnt charge successfully"
-      post:
-        tags:
-        - listPosts
-        requestBody:
-          content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      title:
-                        type: string
-                      creationDate:
-                        type: string
-                      updateDate:
-                        type: string
-                      fromGame:
-                        type: object
-                      postText:
-                        type: string
-                      author:
-                        type: string
-                      theType:
-                        type: object
-        description: "Returns the data with the new post create"
-        responses:
-          '200':
-            description: "Successful response"
-          '400':
-            description: "The post doesnt have create correctly"
-      delete:
-        tags:
-        - listPosts
-        description: "This method delete a post"
-        parameters:
-        - name: userId
-          in: query
-          description: defines the id of the post
-          schema:
+            format: int32
+        averageScore:
+          type: number
+          format: float
+        description:
+          type: string
+        chat:
+          $ref: '#/components/schemas/Chat_gameBasico'
+        thePosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post_gameBasico'
+    Post_gameBasico:
+      type: object
+      properties:
+        fromGame:
+          $ref: '#/components/schemas/Game_gameBasico'
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Chat_PostDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    Game_PostDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        imageFile:
+          type: object
+          properties:
+            binaryStream:
+              type: object
+        image:
+          type: boolean
+        gameTitle:
+          type: string
+        genre:
+          type: string
+          enum:
+          - Horror
+          - Shooter
+          - Action
+          - Platformer
+          - Sports
+          - Puzzles
+          - Narrative
+          - RPG
+        mapScores:
+          type: object
+          additionalProperties:
             type: integer
-        responses:
-          '200':
-            description: "Successful response"
-          '400':
-            description: "The post doesnt get delete"
-      put:
-        tags:
-        - listPosts
-        description: "This method is for edit the data of the post"
-        parameters:
-        - name: userId
-          in: query
-          description: defines the id of the post
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: "Succesful response"
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    required:
-                      - id
-                    properties:
-                      title:
-                        type: string
-                      creationDate:
-                        type: string
-                      updateDate:
-                        type: string
-                      fromGame:
-                        type: object
-                      postText:
-                        type: string
-                      author:
-                        type: string
-                      theType:
-                        type: object
-          '400':
-            description: "The post doesnt have update"
+            format: int32
+        averageScore:
+          type: number
+          format: float
+        description:
+          type: string
+        chat:
+          $ref: '#/components/schemas/Chat_PostDetail'
+        thePosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post_PostDetail'
+    Post_PostDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        creationDate:
+          type: string
+        updateDate:
+          type: string
+        fromGame:
+          $ref: '#/components/schemas/Game_PostDetail'
+        postText:
+          type: string
+        author:
+          type: string
+        theType:
+          type: string
+          enum:
+          - News
+          - Updates
+          - Guides
+        image:
+          type: boolean
+        imagePath:
+          type: string
