@@ -339,5 +339,5 @@ DISCLAIMER: Due to a bug with Github, I haven't been able to push anything to th
 
 # OpenApi
 
-## Enlace a los api-docs: https://raw.githack.com/CodeURJC-DAW-2020-21/webapp4/main/api-docs/api-docs.html
+## Enlace a la documentacion de la Api: https://raw.githack.com/CodeURJC-DAW-2020-21/webapp4/main/api-docs/api-docs.html
 
