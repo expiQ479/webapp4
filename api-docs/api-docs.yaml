@@ -49,7 +49,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/posts/{id}:
+  /api/post/{id}:
     get:
       tags:
       - posts-controller-rest
@@ -110,67 +110,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
-  /api/chat/{id}:
-    get:
-      tags:
-      - chat-controller-rest
-      operationId: getIndividualChat
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Chat_ChatDetail'
-    put:
-      tags:
-      - chat-controller-rest
-      operationId: addMessage
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: message
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Chat_ChatDetail'
-    delete:
-      tags:
-      - chat-controller-rest
-      operationId: deleteChat
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Chat_ChatDetail'
-  /api/adminUpdates/{id}:
+  /api/game/{id}:
     get:
       tags:
       - game-controller-rest
@@ -231,6 +171,66 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game'
+  /api/chat/{id}:
+    get:
+      tags:
+      - chat-controller-rest
+      operationId: getIndividualChat
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
+    put:
+      tags:
+      - chat-controller-rest
+      operationId: addMessage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: message
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
+    delete:
+      tags:
+      - chat-controller-rest
+      operationId: deleteChat
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Chat_ChatDetail'
   /api/profile/{id}/image:
     get:
       tags:
@@ -295,7 +295,44 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/posts/:
+  /api/post/{id}/image:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: downloadImage_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - posts-controller-rest
+      operationId: uploadImage_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post:
+                  $ref: '#/components/schemas/Post'
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+  /api/post/:
     post:
       tags:
       - posts-controller-rest
@@ -313,7 +350,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
-  /api/games/{id}/image:
+  /api/game/{id}/image:
     get:
       tags:
       - game-controller-rest
@@ -335,7 +372,7 @@ paths:
     post:
       tags:
       - game-controller-rest
-      operationId: uploadImage_1
+      operationId: uploadImage_2
       parameters:
       - name: id
         in: path
@@ -359,6 +396,24 @@ paths:
             '*/*':
               schema:
                 type: object
+  /api/game/:
+    post:
+      tags:
+      - game-controller-rest
+      operationId: createGame
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game_gameBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
   /api/chat/:
     post:
       tags:
@@ -437,24 +492,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AuthResponse'
-  /api/adminUpdates/:
-    post:
-      tags:
-      - game-controller-rest
-      operationId: createGame
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Game_gameBasico'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Game_gameBasico'
   /api/profile/all:
     get:
       tags:
@@ -476,26 +513,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User_userBasico'
-  /api/posts/{id}/image:
-    get:
-      tags:
-      - posts-controller-rest
-      operationId: downloadImage_1
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
-  /api/posts/type:
+  /api/post/type:
     get:
       tags:
       - posts-controller-rest
@@ -515,7 +533,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/posts/game:
+  /api/post/game:
     get:
       tags:
       - posts-controller-rest
@@ -536,7 +554,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/posts/all:
+  /api/post/all:
     get:
       tags:
       - posts-controller-rest
@@ -550,11 +568,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/chat/all:
+  /api/game:
     get:
       tags:
-      - chat-controller-rest
-      operationId: getAllChats
+      - game-controller-rest
+      operationId: getGames
       responses:
         "200":
           description: OK
@@ -563,8 +581,8 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Chat_ChatDetail'
-  /api/adminUpdates/page:
+                  $ref: '#/components/schemas/Game_gameBasico'
+  /api/game/page:
     get:
       tags:
       - game-controller-rest
@@ -585,7 +603,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
-  /api/adminUpdates/genres:
+  /api/game/genres:
     get:
       tags:
       - game-controller-rest
@@ -605,6 +623,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
+  /api/chat/all:
+    get:
+      tags:
+      - chat-controller-rest
+      operationId: getAllChats
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat_ChatDetail'
 components:
   schemas:
     User_userBasico:
@@ -728,32 +760,6 @@ components:
           type: boolean
         imagePath:
           type: string
-    Chat_ChatDetail:
-      type: object
-      properties:
-        listMessages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message_ChatDetail'
-        ID:
-          type: integer
-          format: int64
-        id:
-          type: integer
-          format: int64
-    Message_ChatDetail:
-      type: object
-      properties:
-        nameUser:
-          type: string
-        msgString:
-          type: string
-        id:
-          type: integer
-          format: int64
-          writeOnly: true
-        messageWriter:
-          type: boolean
     Chat_gameBasico:
       type: object
       properties:
@@ -809,6 +815,32 @@ components:
       properties:
         fromGame:
           $ref: '#/components/schemas/Game_gameBasico'
+    Chat_ChatDetail:
+      type: object
+      properties:
+        listMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message_ChatDetail'
+        ID:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+    Message_ChatDetail:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        msgString:
+          type: string
+        id:
+          type: integer
+          format: int64
+          writeOnly: true
+        messageWriter:
+          type: boolean
     AuthResponse:
       type: object
       properties:
