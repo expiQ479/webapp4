@@ -284,6 +284,26 @@ Creation and implementation of ChatControllerRest, fix errors all arround the ap
 
 Creation and implementation of AdminRestController, ProfileRestController, the security with Rest, OpeApi, and login and logout with Rest
 
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | REST controller for users(collaboration with Carlos Javier)| [ProfileControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ProfileControllerRest.java)|
+ | #2 | Its the security configuration for the Rest | [RestSecurityConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/security/RestSecurityConfig.java) |
+ | #3 | REST controller dor login and logout | [LoginControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/auth/LoginControllerRest.java) |
+ | #4 | REST controller for games (collaboration with Carlos Javier)| [GameControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/GameControllerRest.java) |
+ | #5 | Changes in the variables of the user| [User.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/User.java) |
+
+ 
+
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | The creation of the api-docs| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/54e725733a3a179667d01e3cec9cfbb3fcf0ea0e)|
+ | #2 | The first release of the ProfileRestController| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/a19ff193a99cc1f89fc17bf6c8feb169ccb857b7)|
+ | #3 | Implemenation of rest security| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/9660a9cff07180cb3270b355078e4fff8c5479bd)|
+ | #4 | Fixes and changes in the rests controllers | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/ced2a937129468a2109983974c98d57af70b681e)|
+ | #5 | Update of ProfileRestController and creation of AdminRestController(the name changed to GameRestController) | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/e92ea3ee1df95076220aa5b9307bd12b1935e7b6)|
+
 ## Eduardo Sierra Martin
 
 ### Completed tasks description
@@ -308,8 +328,36 @@ Research on the use of docker, and all the related technology and its subsequent
  | #3 | mistake correction| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/7b051f0a7dcc4312278450b5aab7e76dbf312d1c)|
  | #4 | publishing the script that allows the creation of images | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/a7752d5bec1119d84839e79ae9bdc7e7ecb638e0)|
  | #5 | actualitation of the readme with instructions to execute the app with docker | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/62beaac0e31fad4853cb62c5f677b4a7744161f8)|
+ 
+ ## Carlos Javier HervÃ¡s Ledesma
+
+### Completed tasks description
+Implementation of REST controllers, changes in entities for REST API, Postman collection file, ImageService for REST images, and help with REST security & a bit of docker.
+DISCLAIMER: Due to a bug with Github, I haven't been able to push anything to the project in the last week & half. As such other colleagues had to upload my work for me, which I sent by other methods.
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | REST controller for users (collaboration with Enrique Carmona)| [ProfileControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ProfileControllerRest.java)|
+ | #2 | REST controller for chats (collaboration with Gabriel Fuentes) | [ChatControllerREST.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ChatControllerREST.java) |
+ | #3 | REST controller for posts | [PostsControllerREST.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/PostsControllerREST.java) |
+ | #4 | REST controller for games (collaboration with Enrique Carmona)| [GameControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/GameControllerRest.java) |
+ | #5 | Image service to upload and get images for REST| [ImageService.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/ImageService.java) |
+
+ 
+
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | First steps in post REST controller| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/23f6f425d190c1b57ab385b44d41b8c30c6eb964)|
+ | #2 | More functions to post REST controller| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/8e6f7c542e5710aae7e9787eeda2811a5083b886)|
+ | #3 | interfaces for JSON view| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/a3fb3403ec9eec993e6152e4ccc4498c3b74bf33)|
+ | #4 | Filtration by parameter | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/288f86482f7b77ecce99ce26d7307979ef14fb5c)|
+ | #5 | Fixes to some requests | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/f36c4e31bea5c75912f72f3f21f7b935420b20e5)|
 
 
 
+# OpenApi
 
+## Enlace a la especificación OpenApi: https://raw.githack.com/CodeURJC-DAW-2020-21/webapp4/main/api-docs/api-docs.html
 
