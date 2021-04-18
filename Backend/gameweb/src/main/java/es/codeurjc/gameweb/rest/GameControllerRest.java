@@ -49,7 +49,7 @@ public class GameControllerRest {
         return gameService.findAll();
     }*/
     @JsonView(gameBasico.class)
-    @GetMapping("/adminUpdates/genres")
+    @GetMapping("/game/genres")
     public Collection<Game> getGamesByGenre(@RequestParam String genre) {
         Genres gameGenre;
         switch(genre){
@@ -81,12 +81,12 @@ public class GameControllerRest {
         return gameService.findGamesOfGenre(gameGenre);
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/adminUpdates/page")
+    @GetMapping("/game/page")
     private Collection<Game> getGamesPaginated(@RequestParam int numPage){
         return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/adminUpdates/{id}")
+    @GetMapping("/game/{id}")
     public ResponseEntity<Game> getGame(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -98,7 +98,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PostMapping("/adminUpdates/")
+    @PostMapping("/game/")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
  
         gameService.save(game);
@@ -109,7 +109,7 @@ public class GameControllerRest {
     }
  
     @JsonView(gameBasico.class)
-    @PutMapping("/adminUpdates/{id}")
+    @PutMapping("/game/{id}")
     public ResponseEntity<Game> editGame(@PathVariable long id, @RequestBody Game newGame) {
         Optional<Game> game = gameService.findById(id);
  
@@ -124,7 +124,7 @@ public class GameControllerRest {
         }
     }
  
-    @DeleteMapping("/adminUpdates//{id}")
+    @DeleteMapping("/game/{id}")
     public ResponseEntity<Game> deleteGame(@PathVariable long id) {
         Optional<Game> game = gameService.findById(id);
         if (game.get() != null) {
@@ -135,7 +135,7 @@ public class GameControllerRest {
         }
     }
 
-    @PostMapping("/games/{id}/image")
+    @PostMapping("/game/{id}/image")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
         Game game=gameService.findById(id).get();
         if(game!=null){
@@ -152,7 +152,7 @@ public class GameControllerRest {
         }
  
 	}
-    @GetMapping("/games/{id}/image")
+    @GetMapping("/game/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
