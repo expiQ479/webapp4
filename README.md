@@ -104,6 +104,7 @@ This page is available to logged users. This page shows a list of games subbed b
 ![](Capturas%204DGames/success-page.png)
 This page is available to logged users. This page shows when the user carries out a succesful operation (create post, edit game, subscribe...)
 
+
 ## Build instructions
 Disclaimer: The Project is running on version 11 of Java and Visual Studio Code.
 ---
@@ -123,6 +124,8 @@ java –jar {your_jar_filename_here.jar}
 ```
 You can include options such as --server.port to indicate which port the app will use (this overwrites the application.properties settings)
 If everything is correct, it will compile and allow for execution.
+
+# Phase 2
 
 ## Data base diagram
 ![](Capturas%204DGames/DBDiagram.PNG)
@@ -238,6 +241,16 @@ java –jar {your_jar_filename_here.jar}
 ```
 You can include options such as --server.port to indicate which port the app will use (this overwrites the application.properties settings)
 If everything is correct, it will compile and allow for execution.
+
+# Phase 3
+
+## Build instructions
+In a Ubuntu system With docker installed and cloned this repository, execute the following commands:
+1. docker run --rm -v "$PWD":/data -w /data maven mvn package 
+2. docker-compose build
+3. docker-compose up
+
+To construct a new image it´s can use the script with name "create_image.sh"
 
 
 
