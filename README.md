@@ -284,6 +284,26 @@ Creation and implementation of ChatControllerRest, fix errors all arround the ap
 
 Creation and implementation of AdminRestController, ProfileRestController, the security with Rest, OpeApi, and login and logout with Rest
 
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | REST controller for users(collaboration with Carlos Javier)| [ProfileControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ProfileControllerRest.java)|
+ | #2 | Its the security configuration for the Rest | [RestSecurityConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/security/RestSecurityConfig.java) |
+ | #3 | REST controller dor login and logout | [LoginControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/auth/LoginControllerRest.java) |
+ | #4 | REST controller for games (collaboration with Carlos Javier)| [GameControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/GameControllerRest.java) |
+ | #5 | Changes in the variables of the user| [User.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/models/User.java) |
+
+ 
+
+### Relevenats commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | The creation of the api-docs| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/54e725733a3a179667d01e3cec9cfbb3fcf0ea0e)|
+ | #2 | The first release of the ProfileRestController| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/a19ff193a99cc1f89fc17bf6c8feb169ccb857b7)|
+ | #3 | Implemenation of rest security| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/9660a9cff07180cb3270b355078e4fff8c5479bd)|
+ | #4 | Fixes and changes in the rests controllers | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/ced2a937129468a2109983974c98d57af70b681e)|
+ | #5 | Update of ProfileRestController and creation of AdminRestController(the name changed to GameRestController) | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/e92ea3ee1df95076220aa5b9307bd12b1935e7b6)|
+
 ## Eduardo Sierra Martin
 
 ### Completed tasks description
@@ -318,10 +338,10 @@ DISCLAIMER: Due to a bug with Github, I haven't been able to push anything to th
 ### Focussed files:
  | Number | Description | Focused on Files |
  | ------ | ------------| -----------------|
- | #1 | REST controller for users| [ProfileControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ProfileControllerRest.java)|
+ | #1 | REST controller for users (collaboration with Enrique Carmona)| [ProfileControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ProfileControllerRest.java)|
  | #2 | REST controller for chats (collaboration with Gabriel Fuentes) | [ChatControllerREST.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ChatControllerREST.java) |
  | #3 | REST controller for posts | [PostsControllerREST.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/PostsControllerREST.java) |
- | #4 | REST controller for games| [GameControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/GameControllerRest.java) |
+ | #4 | REST controller for games (collaboration with Enrique Carmona)| [GameControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/GameControllerRest.java) |
  | #5 | Image service to upload and get images for REST| [ImageService.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/main/Backend/gameweb/src/main/java/es/codeurjc/gameweb/services/ImageService.java) |
 
  
