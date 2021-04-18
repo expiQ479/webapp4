@@ -47,7 +47,7 @@ public class ProfileControllerRest {
 
     @JsonView(userBasico.class)
     @GetMapping("/profile/all")
-    public Collection<User> getAllUsers(@PathVariable long id){
+    public Collection<User> getAllUsers(){
  
         return userService.findAll();
     }
