@@ -49,7 +49,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/listPosts/{id}:
+  /api/post/{id}:
     get:
       tags:
       - posts-controller-rest
@@ -110,6 +110,67 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
+  /api/game/{id}:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: getGame
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
+    put:
+      tags:
+      - game-controller-rest
+      operationId: editGame
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game_gameBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
+    delete:
+      tags:
+      - game-controller-rest
+      operationId: deleteGame
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game'
   /api/chat/{id}:
     get:
       tags:
@@ -170,11 +231,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Chat_ChatDetail'
-  /api/adminUpdates/{id}:
+  /api/profile/{id}/image:
     get:
       tags:
-      - admin-controller-rest
-      operationId: getGame
+      - profile-controller-rest
+      operationId: downloadImage
       parameters:
       - name: id
         in: path
@@ -188,11 +249,11 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Game_gameBasico'
-    put:
+                type: object
+    post:
       tags:
-      - admin-controller-rest
-      operationId: editGame
+      - profile-controller-rest
+      operationId: uploadImage
       parameters:
       - name: id
         in: path
@@ -204,33 +265,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Game_gameBasico'
-        required: true
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
       responses:
         "200":
           description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Game_gameBasico'
-    delete:
-      tags:
-      - admin-controller-rest
-      operationId: deleteGame
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Game'
+                type: object
   /api/profile/:
     post:
       tags:
@@ -249,7 +295,44 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/listPosts/:
+  /api/post/{id}/image:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: downloadImage_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - posts-controller-rest
+      operationId: uploadImage_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post:
+                  $ref: '#/components/schemas/Post'
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+  /api/post/:
     post:
       tags:
       - posts-controller-rest
@@ -267,6 +350,70 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
+  /api/game/{id}/image:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: downloadImage_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - game-controller-rest
+      operationId: uploadImage_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/game/:
+    post:
+      tags:
+      - game-controller-rest
+      operationId: createGame
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game_gameBasico'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game_gameBasico'
   /api/chat/:
     post:
       tags:
@@ -345,29 +492,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AuthResponse'
-  /api/adminUpdates/:
-    post:
-      tags:
-      - admin-controller-rest
-      operationId: createGame
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Game_gameBasico'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Game_gameBasico'
-  /api/listPosts/{id}/image:
+  /api/profile/all:
     get:
       tags:
-      - posts-controller-rest
-      operationId: downloadImage
+      - profile-controller-rest
+      operationId: getAllUsers
       parameters:
       - name: id
         in: path
@@ -381,8 +510,10 @@ paths:
           content:
             '*/*':
               schema:
-                type: object
-  /api/listPosts/type:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User_userBasico'
+  /api/post/type:
     get:
       tags:
       - posts-controller-rest
@@ -402,7 +533,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/listPosts/game:
+  /api/post/game:
     get:
       tags:
       - posts-controller-rest
@@ -423,7 +554,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/listPosts/all:
+  /api/post/all:
     get:
       tags:
       - posts-controller-rest
@@ -437,11 +568,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/chat/all:
+  /api/game:
     get:
       tags:
-      - chat-controller-rest
-      operationId: getAllChats
+      - game-controller-rest
+      operationId: getGames
       responses:
         "200":
           description: OK
@@ -450,11 +581,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Chat_ChatDetail'
-  /api/adminUpdates/page:
+                  $ref: '#/components/schemas/Game_gameBasico'
+  /api/game/page:
     get:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: getGamesPaginated
       parameters:
       - name: numPage
@@ -472,10 +603,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
-  /api/adminUpdates/genres:
+  /api/game/genres:
     get:
       tags:
-      - admin-controller-rest
+      - game-controller-rest
       operationId: getGamesByGenre
       parameters:
       - name: genre
@@ -492,6 +623,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
+  /api/chat/all:
+    get:
+      tags:
+      - chat-controller-rest
+      operationId: getAllChats
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat_ChatDetail'
 components:
   schemas:
     User_userBasico:
@@ -515,6 +660,8 @@ components:
           items:
             type: integer
             format: int64
+        imagePath:
+          type: string
     Chat:
       type: object
       properties:
@@ -570,6 +717,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post'
+        imagePath:
+          type: string
     Message:
       type: object
       properties:
@@ -611,32 +760,6 @@ components:
           type: boolean
         imagePath:
           type: string
-    Chat_ChatDetail:
-      type: object
-      properties:
-        listMessages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message_ChatDetail'
-        ID:
-          type: integer
-          format: int64
-        id:
-          type: integer
-          format: int64
-    Message_ChatDetail:
-      type: object
-      properties:
-        nameUser:
-          type: string
-        msgString:
-          type: string
-        id:
-          type: integer
-          format: int64
-          writeOnly: true
-        messageWriter:
-          type: boolean
     Chat_gameBasico:
       type: object
       properties:
@@ -685,11 +808,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post_gameBasico'
+        imagePath:
+          type: string
     Post_gameBasico:
       type: object
       properties:
         fromGame:
           $ref: '#/components/schemas/Game_gameBasico'
+    Chat_ChatDetail:
+      type: object
+      properties:
+        listMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message_ChatDetail'
+        ID:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+    Message_ChatDetail:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        msgString:
+          type: string
+        id:
+          type: integer
+          format: int64
+          writeOnly: true
+        messageWriter:
+          type: boolean
     AuthResponse:
       type: object
       properties:
@@ -757,6 +908,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Post_PostDetail'
+        imagePath:
+          type: string
     Post_PostDetail:
       type: object
       properties:

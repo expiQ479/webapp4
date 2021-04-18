@@ -130,6 +130,8 @@ If everything is correct, it will compile and allow for execution.
 ## Data base diagram
 ![](Capturas%204DGames/DBDiagram.PNG)
 
+# Phase 2
+
 # Team participation
 ## Gabriel Fuentes Villasevil
 
@@ -251,6 +253,36 @@ In a Ubuntu system With docker installed and cloned this repository, execute the
 3. docker-compose up
 
 To construct a new image it´s can use the script with name "create_image.sh"
+
+# Team participation
+## Gabriel Fuentes Villasevil
+
+### Completed tasks description
+
+Creation and implementation of ChatControllerRest, fix errors all arround the application rests, show of the stadistics on Json, Update of class Diagram and help the other team mates. 
+
+### Focussed files:
+ | Number | Description | Focused on Files |
+ | ------ | ------------| -----------------|
+ | #1 | Creation and implementation of ChatControllerRest | [ChatControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/c9399cff7872065c791b071a52b52ee7ec4c3575/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/ChatControllerREST.java)|
+ | #2 | Error fixes and help other team mates | [AdminControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/c9399cff7872065c791b071a52b52ee7ec4c3575/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/AdminControllerRest.java) |
+ | #3 | Error fixes and help other team mates | [PostControllerRest.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/c9399cff7872065c791b071a52b52ee7ec4c3575/Backend/gameweb/src/main/java/es/codeurjc/gameweb/rest/PostsControllerREST.java) |
+ | #4 | Error fixes and help other team mates | [RestSecurityConfig.java](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/c9399cff7872065c791b071a52b52ee7ec4c3575/Backend/gameweb/src/main/java/es/codeurjc/gameweb/security/RestSecurityConfig.java) |
+ | #5 | Update of ClassDiagram | [Readme.md](https://github.com/CodeURJC-DAW-2020-21/webapp4/blob/c9399cff7872065c791b071a52b52ee7ec4c3575/README.md) |
+
+### Relevants commits:
+ | Number | Description | Commit |
+ | ------ | ----------- | ------ |
+ | #1 | Creation of ChatControllerRest | [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/1a6a594eb22d459c87fec53312e067a4b9e9dac6)|
+ | #2 | Implementation of ChatControllerRest and fix of errors| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/1a6a594eb22d459c87fec53312e067a4b9e9dac6)|
+ | #3 | Fix of errors arround Rests| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/9bc91dc84fb825acc088d5fc0c3378c3945c53b2)|
+ | #4 | Make that the application show the stadistics on Rest| [commit](https://github.com/CodeURJC-DAW-2020-21/webapp4/commit/44799b4ea28d074dcd92ff6bae56b18ca3327a3b)|
+ 
+ ## Enrique Carmona Blázquez
+
+### Completed tasks description
+
+Creation and implementation of AdminRestController, ProfileRestController, the security with Rest, OpeApi, and login and logout with Rest
 
 
 

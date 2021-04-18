@@ -52,6 +52,17 @@ public class User {
     @JsonView(userBasico.class)
     private ArrayList<Long> myGames;
 
+    @JsonView(userBasico.class)
+    private String imagePath;
+ 
+    public String getImagePath() {
+        return this.imagePath;
+    }
+ 
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public User(){}
 
     public User(String info, String password, ArrayList<Long> myGames,String... roles) {

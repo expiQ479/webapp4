@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
-@RequestMapping("/api/listPosts")
+@RequestMapping("/api/post")
 public class PostsControllerREST {
     private static final String POSTS_FOLDER = "posts";
     @Autowired
@@ -104,6 +104,7 @@ public class PostsControllerREST {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/{id}/image")
 	public void uploadImage(Post post, @RequestParam MultipartFile imageFile) throws IOException {
  
         URI location = fromCurrentRequest().build().toUri();

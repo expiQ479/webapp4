@@ -53,7 +53,16 @@ public class Game {
     @OneToMany(mappedBy = "fromGame",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Post> thePosts=new ArrayList<>();
 
-    
+    @JsonView(gameBasico.class)
+    private String imagePath;
+ 
+    public String getImagePath() {
+        return this.imagePath;
+    }
+ 
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     public Game(){}
 
