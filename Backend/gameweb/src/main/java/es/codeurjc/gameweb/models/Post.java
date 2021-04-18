@@ -44,7 +44,7 @@ public class Post {
     @Lob
     @JsonIgnore
 	private Blob imageFile;
-    @JsonView(postBasic.class)
+    @JsonIgnore
     private boolean image;
     @JsonView(postBasic.class)
     private String imagePath;

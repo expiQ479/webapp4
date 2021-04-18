@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.sql.Blob;
@@ -32,8 +33,9 @@ public class Game {
     private Long id;
 
     @Lob
+    @JsonIgnore
 	private Blob imageFile;
-
+    @JsonIgnore
 	private boolean image;
 
     @JsonView(gameBasico.class)
