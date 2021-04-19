@@ -1,15 +1,16 @@
 package es.codeurjc.gameweb.rest;
-
+ 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-
+ 
 import javax.imageio.IIOException;
-
+ 
 import com.fasterxml.jackson.annotation.JsonView;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,42 +23,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+ 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
-
+ 
 import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.models.User.userBasico;
 import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.UserService;
-
+ 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/profiles")
 public class ProfileControllerRest {
-
+ 
     @Autowired
     private UserService userService;
-
+ 
     @Autowired
     private ImageService imageService;
-
+ 
     private static final String POSTS_FOLDER = "usersPics";
-
+ 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+ 
     @JsonView(userBasico.class)
-    @GetMapping("/profile/all")
-    public Collection<User> getAllUsers(@PathVariable long id){
+    @GetMapping("/")
+    public Collection<User> getAllUsers(){
  
         return userService.findAll();
     }
-
+ 
     @JsonView(userBasico.class)
-    @GetMapping("/profile/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id){
-
+ 
         Optional<User> user = userService.findById(id);
-
+ 
         if(user.get() != null){
             return ResponseEntity.ok(user.get());
         }
@@ -65,9 +66,9 @@ public class ProfileControllerRest {
             return ResponseEntity.notFound().build();
         }
     }
-
+ 
     @JsonView(userBasico.class)
-    @PostMapping("/profile/")
+    @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
@@ -76,23 +77,9 @@ public class ProfileControllerRest {
  
         return ResponseEntity.created(location).body(user);
     }
-
-    /*@DeleteMapping("/profile/{id}/subscriptions/")
-    public ResponseEntity<User> deleteUser(@PathVariable long id){
-
-        Optional<User> user = userService.findById(id);
-
-        if(user.get() != null){
-            userService.delete(id);
-            return ResponseEntity.ok(user.get());
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
-    }*/
-
+ 
     @JsonView(userBasico.class)
-    @PutMapping("/profile/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> editUser(@PathVariable long id, @RequestBody User newUser){
         Optional<User> user = userService.findById(id);
  
@@ -108,8 +95,8 @@ public class ProfileControllerRest {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping("/profile/{id}/image")
+ 
+    @PostMapping("/{id}/image")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
         User u=userService.findById(id).get();
         if(u!=null){
@@ -126,11 +113,24 @@ public class ProfileControllerRest {
         }
  
 	}
-    @GetMapping("/profile/{id}/image")
+    @GetMapping("/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
-	}
-
-
+    }
+ 
+    @JsonView(userBasico.class)
+    @GetMapping("/{id}/subscriptions")
+    public ResponseEntity<ArrayList<Long>> getSubscriptions(@PathVariable long id){
+ 
+        Optional<User> user = userService.findById(id);
+ 
+        if(user.get() != null){
+            return ResponseEntity.ok(user.get().getMyGames());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+ 
 }

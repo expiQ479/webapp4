@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
-@RequestMapping("/api/chat")
+@RequestMapping("/api/chats")
 public class ChatControllerREST {
     @Autowired
     private GameService gamePostService;
@@ -40,7 +40,7 @@ public class ChatControllerREST {
     private UserService userService;
     interface ChatDetail extends Chat.chatBasic,Game.gameBasico{}
     @JsonView(ChatDetail.class)
-    @GetMapping("/all")
+    @GetMapping("/")
     private Collection<Chat> getAllChats(){
         return chatService.findAll();
     }

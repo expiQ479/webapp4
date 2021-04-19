@@ -318,20 +318,29 @@ paths:
       tags:
       - posts-controller-rest
       operationId: uploadImage_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                post:
-                  $ref: '#/components/schemas/Post'
                 imageFile:
                   type: string
                   format: binary
       responses:
         "200":
           description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
   /api/post/:
     post:
       tags:
@@ -497,13 +506,6 @@ paths:
       tags:
       - profile-controller-rest
       operationId: getAllUsers
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
       responses:
         "200":
           description: OK
@@ -582,6 +584,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
+  /api/game/{id}/scores:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: getScores
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
   /api/game/page:
     get:
       tags:
@@ -645,8 +669,6 @@ components:
         id:
           type: integer
           format: int64
-        image:
-          type: boolean
         info:
           type: string
         password:
@@ -681,13 +703,6 @@ components:
         id:
           type: integer
           format: int64
-        imageFile:
-          type: object
-          properties:
-            binaryStream:
-              type: object
-        image:
-          type: boolean
         gameTitle:
           type: string
         genre:
@@ -756,8 +771,6 @@ components:
           - News
           - Updates
           - Guides
-        image:
-          type: boolean
         imagePath:
           type: string
     Chat_gameBasico:
@@ -772,13 +785,6 @@ components:
         id:
           type: integer
           format: int64
-        imageFile:
-          type: object
-          properties:
-            binaryStream:
-              type: object
-        image:
-          type: boolean
         gameTitle:
           type: string
         genre:
@@ -872,13 +878,6 @@ components:
         id:
           type: integer
           format: int64
-        imageFile:
-          type: object
-          properties:
-            binaryStream:
-              type: object
-        image:
-          type: boolean
         gameTitle:
           type: string
         genre:
@@ -934,7 +933,5 @@ components:
           - News
           - Updates
           - Guides
-        image:
-          type: boolean
         imagePath:
           type: string

@@ -49,14 +49,17 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
 		
 		// URLs that need authentication to access to it
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/profile/**").hasAnyRole("USER","ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/profile/**").hasAnyRole("USER","ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/game/**").hasAnyRole("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/game/**").hasAnyRole("USER","ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/profiles/**").hasAnyRole("USER","ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/profiles/**").hasAnyRole("USER","ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/games/").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/games/{id}/image").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/games/{id}").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/games/**").hasAnyRole("USER","ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/games/{id}/score").hasAnyRole("USER","ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/game/**").hasAnyRole("ADMIN");	
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/post/**").hasAnyRole("ADMIN");	
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/post/**").hasAnyRole("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/post/**").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole("ADMIN");	
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/posts/**").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole("ADMIN");
 		
 		// Other URLs can be accessed without authentication
 		http.authorizeRequests().anyRequest().permitAll();

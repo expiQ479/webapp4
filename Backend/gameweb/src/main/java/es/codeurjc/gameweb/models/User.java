@@ -38,11 +38,11 @@ public class User {
     @Lob
     @JsonIgnore
 	private Blob imageFile;
-    @JsonView(userBasico.class)
+    @JsonIgnore
 	private boolean image;
     @JsonView(userBasico.class)
     private String info;
-    @JsonView(userBasico.class)
+    @JsonIgnore
     private String password;
     
     @ElementCollection(fetch = FetchType.EAGER)

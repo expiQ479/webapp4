@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+ 
 import javax.servlet.http.HttpServletRequest;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+ 
 import es.codeurjc.gameweb.models.*;
-
-
+ 
+ 
 @Service
 public class AlgorithmService {
     @Autowired
     private GameService gamePostService;
     @Autowired
 	private UserService userService;
-
+ 
     public Map.Entry<Genres,Integer> recommendedAlgorithm(User user){
         HashMap<Genres,Integer> amountOfGamesWithGenre=new HashMap<Genres,Integer>();
         for(Genres g : Genres.values()){
@@ -29,13 +29,25 @@ public class AlgorithmService {
         for (Long game : user.getMyGames()) {
             amountOfGamesWithGenre.put(gamePostService.findById(game).get().getGenre(),amountOfGamesWithGenre.get(gamePostService.findById(game).get().getGenre())+1);
         }
-        
+ 
         for(Map.Entry<Genres,Integer> entry : amountOfGamesWithGenre.entrySet()){
             if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0){
                 maxEntry=entry;
             }           
         }
         return maxEntry;
+    }
+    public float doAverageScore(HashMap<Long, Integer> MyScores){
+        float aux = 0;
+        for (Integer value : MyScores.values()) {
+            aux= aux + value;
+        }
+ 
+        aux = aux/(MyScores.size());
+        aux = aux*10;
+        aux = Math.round(aux);
+        aux = aux/10;
+        return aux;
     }
     public ArrayList<Object> setSomeList(HttpServletRequest request){
         ArrayList<Object> toShow = new ArrayList<>();
@@ -59,5 +71,5 @@ public class AlgorithmService {
             return(toShow);
         }
     }
-    
+ 
 }

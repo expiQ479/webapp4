@@ -3,11 +3,17 @@ package es.codeurjc.gameweb.rest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.http.HttpRequest;
+import java.security.Principal;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
+ 
+import javax.servlet.http.HttpServletRequest;
  
 import com.fasterxml.jackson.annotation.JsonView;
  
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,35 +28,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+ 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
  
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.models.Game.gameBasico;
+import es.codeurjc.gameweb.services.AlgorithmService;
 import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.ImageService;
+import es.codeurjc.gameweb.services.ScoresService;
+import es.codeurjc.gameweb.services.SubscriptionsService;
+import es.codeurjc.gameweb.services.UserService;
  
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/games")
 public class GameControllerRest {
  
     @Autowired
     private GameService gameService;
-
+ 
     @Autowired
     private ImageService imageService;
-
+ 
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ScoresService scoresService;
+    @Autowired
+    private AlgorithmService algorithmService;
+    @Autowired
+    private SubscriptionsService subService;
+ 
     private static final String POSTS_FOLDER = "gameImages";
  
     @JsonView(gameBasico.class)
-    @GetMapping("/game")
+    @GetMapping("/")
     public Collection<Game> getGames() {
         return gameService.findAll();
     }
-
+ 
     @JsonView(gameBasico.class)
-    @GetMapping("/game/genres")
+    @GetMapping("/genres")
     public Collection<Game> getGamesByGenre(@RequestParam String genre) {
         Genres gameGenre;
         switch(genre){
@@ -82,12 +102,12 @@ public class GameControllerRest {
         return gameService.findGamesOfGenre(gameGenre);
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/game/page")
+    @GetMapping("/page")
     private Collection<Game> getGamesPaginated(@RequestParam int numPage){
         return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/game/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Game> getGame(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -99,7 +119,37 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PostMapping("/game/")
+    @GetMapping("/{id}/recommendations")
+    public Collection<Game> getRecommendedGames(@PathVariable long id,HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        User user = userService.findByName(principal.getName()).get();
+        if(user!=null){
+            return gameService.findGamesOfGenre(algorithmService.recommendedAlgorithm(user).getKey());
+        }
+        else{
+            return null;
+        }
+    }
+    @JsonView(gameBasico.class)
+    @GetMapping("/bestRated")
+    public Collection<Game> getBestRatedGames(){
+        return gameService.findBestRatedGames();
+ 
+    }
+    @JsonView(gameBasico.class)
+    @GetMapping("/{id}/scores")
+    public ResponseEntity<HashMap<Long, Integer>> getScores(@PathVariable long id) {
+ 
+        Optional<Game> game = gameService.findById(id);
+ 
+        if (game.get() != null) {
+            return ResponseEntity.ok(game.get().getMapScores());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @JsonView(gameBasico.class)
+    @PostMapping("/")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
  
         gameService.save(game);
@@ -110,7 +160,7 @@ public class GameControllerRest {
     }
  
     @JsonView(gameBasico.class)
-    @PutMapping("/game/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Game> editGame(@PathVariable long id, @RequestBody Game newGame) {
         Optional<Game> game = gameService.findById(id);
  
@@ -124,8 +174,19 @@ public class GameControllerRest {
             return ResponseEntity.notFound().build();
         }
     }
- 
-    @DeleteMapping("/game/{id}")
+    @JsonView(gameBasico.class)
+    @PostMapping("/{id}/score")
+    public ResponseEntity<Game> setScore(@PathVariable long id,@RequestParam Integer stars,HttpServletRequest request){
+        Game game = gameService.findById(id).get();
+        if(game!=null){
+            gameService.save(scoresService.putScore(request, id, stars));
+            return ResponseEntity.ok(game);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
     public ResponseEntity<Game> deleteGame(@PathVariable long id) {
         Optional<Game> game = gameService.findById(id);
         if (game.get() != null) {
@@ -135,8 +196,8 @@ public class GameControllerRest {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping("/game/{id}/image")
+ 
+    @PostMapping("/{id}/image")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
         Game game=gameService.findById(id).get();
         if(game!=null){
@@ -153,10 +214,41 @@ public class GameControllerRest {
         }
  
 	}
-    @GetMapping("/game/{id}/image")
+    @GetMapping("/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
 	}
+    @JsonView(gameBasico.class)
+    @PutMapping("/{gameId}/submits")
+    public ResponseEntity<User> uploadSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> user = userService.findByName(principal.getName());
+ 
+        if( user.get() != null){
+ 
+            userService.save(subService.subscriptionFunction(gameId, user.get()));
+ 
+            return ResponseEntity.ok(user.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @JsonView(gameBasico.class)
+    @PutMapping("/{gameId}")
+    public ResponseEntity<User> removeSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> user = userService.findByName(principal.getName());
+ 
+        if( user.get() != null){
+            userService.save(subService.unsubscriptionFunction(gameId ,user.get()));
+ 
+            return ResponseEntity.ok(user.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
  
 }

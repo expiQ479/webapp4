@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api/posts")
 public class PostsControllerREST {
     private static final String POSTS_FOLDER = "posts";
     @Autowired
@@ -41,7 +41,7 @@ public class PostsControllerREST {
     private ImageService imageService;
     interface PostDetail extends Post.postBasic,Post.games,Game.gameBasico{}
     @JsonView(PostDetail.class)
-    @GetMapping("/all")
+    @GetMapping("/")
     public Collection<Post> getPosts(){
         return pService.findAll();
     }
@@ -87,11 +87,18 @@ public class PostsControllerREST {
         }
     }
     @PostMapping("/")
-    public ResponseEntity<Post> createPost(@RequestBody Post post){
+    public ResponseEntity<Post> createPost(@RequestBody Post post,@RequestParam long fromGame){
+        Game game=gamePostService.findById(fromGame).get();
+        if(game!=null){
+            post.setFromGame(game);
+            pService.save(post);
+            URI location=fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
+            return ResponseEntity.created(location).body(post);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
  
-        pService.save(post);
-        URI location=fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
-        return ResponseEntity.created(location).body(post);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> deletePost(@PathVariable long id){
@@ -105,15 +112,22 @@ public class PostsControllerREST {
         }
     }
     @PostMapping("/{id}/image")
-	public void uploadImage(Post post, @RequestParam MultipartFile imageFile) throws IOException {
+    public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+        Post post=pService.findById(id).get();
+        if(post!=null){
+            URI location = fromCurrentRequest().build().toUri();
  
-        URI location = fromCurrentRequest().build().toUri();
+            post.setImagePath(location.toString());
+            pService.save(post);
  
-        post.setImagePath(location.toString()+"/image");
-        pService.save(post);
+            imageService.saveImage(POSTS_FOLDER, post.getId(), imageFile);
+            return ResponseEntity.created(location).build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
  
-        imageService.saveImage(POSTS_FOLDER, post.getId(), imageFile);
-	}
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Post> editPost(@PathVariable long id, @RequestBody Post newPost) {
         Post p = pService.findById(id).get();
