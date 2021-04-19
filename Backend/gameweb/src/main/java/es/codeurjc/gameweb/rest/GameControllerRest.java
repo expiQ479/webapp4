@@ -181,7 +181,8 @@ public class GameControllerRest {
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
 	}
 
-    @PostMapping("/games/{gameId}/subscribe")
+    @JsonView(gameBasico.class)
+    @PostMapping("/games/{gameId}/subscription")
     public ResponseEntity<User> uploadSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
@@ -190,6 +191,26 @@ public class GameControllerRest {
  
             user.get().addElementToGameList(gameId);
             userService.save(user.get());
+ 
+            return ResponseEntity.ok(user.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/games/{gameId}/subscription")
+    public ResponseEntity<User> removeSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> user = userService.findByName(principal.getName());
+ 
+        if( user.get() != null){
+            for(int i = 0; i < user.get().getMyGames().size(); i++){
+                if(user.get().getMyGames().get(i)==gameId){
+                    user.get().getMyGames().remove(i);
+                    userService.save(user.get());
+                }
+            }
  
             return ResponseEntity.ok(user.get());
         }
