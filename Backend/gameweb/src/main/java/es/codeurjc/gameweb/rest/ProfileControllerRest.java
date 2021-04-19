@@ -130,7 +130,6 @@ public class ProfileControllerRest {
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
-	}
-
+    }
 
 }

@@ -28,9 +28,11 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
  
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
+import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.models.Game.gameBasico;
 import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.ImageService;
+import es.codeurjc.gameweb.services.UserService;
  
 @RestController
 @RequestMapping("/api")
@@ -41,6 +43,9 @@ public class GameControllerRest {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private UserService userService;
 
     private static final String POSTS_FOLDER = "gameImages";
  
@@ -171,5 +176,21 @@ public class GameControllerRest {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
 	}
+
+    @PostMapping("/games/{gameId}/subscribe")
+    public ResponseEntity<User> uploadSubscriptions(@PathVariable long id, @PathVariable long gameId) throws IOException {
+        Optional<User> user = userService.findById(id);
+ 
+        if( user.get() != null){
+ 
+            user.get().addElementToGameList(gameId);
+            userService.save(user.get());
+ 
+            return ResponseEntity.ok(user.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
  
 }
