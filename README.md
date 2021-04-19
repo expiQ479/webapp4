@@ -131,7 +131,7 @@ If everything is correct, it will compile and allow for execution.
 ![](Capturas%204DGames/DBDiagram.PNG)
 
 ## Data class diagram
-![](Capturas 4DGames/Diagrama de clases DAW.png)
+![](Capturas%204DGames/Diagrama%20de%20clases%20DAW.png)
 
 # Phase 2
 
