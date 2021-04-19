@@ -1,11 +1,11 @@
 package es.codeurjc.gameweb.controllers;
-
+ 
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Optional;
-
+ 
 import javax.servlet.http.HttpServletRequest;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,33 +19,35 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-
+ 
 import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Message;
 import es.codeurjc.gameweb.models.User;
+import es.codeurjc.gameweb.services.AlgorithmService;
 import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.UserService;
-
+ 
 import java.sql.SQLException;
-
+ 
 @Controller
 public class GamePageController {  
     @Autowired
 	private GameService gamePostService;
     @Autowired
     private ChatService chatService;
-    
+ 
     @Autowired
 	private UserService userService;
-
-
+    @Autowired
+    private AlgorithmService algoService;
+ 
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
 		if (principal != null) {
-
+ 
 			model.addAttribute("logged", true);
 			model.addAttribute("userName", principal.getName());
 			model.addAttribute("admin", request.isUserInRole("ADMIN"));
@@ -77,7 +79,7 @@ public class GamePageController {
             } catch (Exception e) {
                 model.addAttribute("canSub", true);
             }
-            
+ 
             model.addAttribute("Messages", chat.getListMessages());
         }
         return "gamePage"; 
@@ -88,7 +90,7 @@ public class GamePageController {
             return "gamePage";
         }  
     }
-
+ 
     @RequestMapping("/gamePage/{id}/subButton")
     public String subButton(Model model,@PathVariable Long id, HttpServletRequest request){  
         Principal principal = request.getUserPrincipal();
@@ -127,41 +129,30 @@ public class GamePageController {
     }
     @GetMapping("/gamePage/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
-
+ 
         Optional<Game> game = gamePostService.findById(id);
         if (game.isPresent() && game.get().getImageFile() != null) {
-
+ 
             Resource file = new InputStreamResource(game.get().getImageFile().getBinaryStream());
-
+ 
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
                     .contentLength(game.get().getImageFile().length()).body(file);
-
+ 
         } else {
             return ResponseEntity.notFound().build();
         }
     } 
-    public float doAverageScore(HashMap<Long, Integer> MyScores){
-        float aux = 0;
-        for (Integer value : MyScores.values()) {
-            aux= aux + value;
-        }
-        
-        aux = aux/(MyScores.size());
-        aux = aux*10;
-        aux = Math.round(aux);
-        aux = aux/10;
-        return aux;
-    }
-
+ 
+ 
     @RequestMapping("/rate/{id}")
     public String ValorarGame(Model model, @PathVariable Long id, @RequestParam Integer stars,HttpServletRequest request) {
-
+ 
         Optional<Game> myGame = gamePostService.findById(id);
         Game game = myGame.get();
         Principal principal = request.getUserPrincipal();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
-        
+ 
         //we check if the array have the initialized value to change it in case it have it or just add the new one in other case
         if (game.getMapScores().containsValue(0)){
             game.getMapScores().clear();
@@ -169,9 +160,9 @@ public class GamePageController {
         }
         else 
             game.getMapScores().put(user.getId(), stars);
-
+ 
         //call to the method to do the average and set it on the game parameters
-        float myAverage= doAverageScore(game.getMapScores());
+        float myAverage= algoService.doAverageScore(game.getMapScores());
         game.setAverageScore(myAverage);
         gamePostService.save(game);
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
@@ -193,7 +184,7 @@ public class GamePageController {
             myGame.getChat().getListMessages().get(i).setMessageWriter(false);
         }
         model.addAttribute("Messages", myGame.getChat().getListMessages());
-        
+ 
         //Create the message and add it to the chat of the game
         Message MyMessage = new Message(user.getInfo(), sentChat,true);
         myGame.getChat().getListMessages().add(MyMessage);
@@ -207,9 +198,9 @@ public class GamePageController {
     }
     @RequestMapping("/statistics/{id}")
     public String showGameStats(Model model, @PathVariable Long id) {
-
+ 
         Optional<Game> myGame = gamePostService.findById(id);
-        
+ 
         Game game = myGame.get();
         model.addAttribute("game", game);
         Integer int1=doAverageRatio(game.getMapScores(),1);
@@ -222,7 +213,7 @@ public class GamePageController {
         model.addAttribute("gamestars3", int3);
         model.addAttribute("gamestars4", int4);
         model.addAttribute("gamestars5", int5);
-
+ 
         return "gameStadistics";
     }
     private Integer doAverageRatio(HashMap<Long,Integer> MyScores, Integer index){
@@ -235,7 +226,7 @@ public class GamePageController {
         aux = (numberofindexinthearray*100)/(MyScores.size());
         return aux;
     }
-
-    
-    
+ 
+ 
+ 
 }
