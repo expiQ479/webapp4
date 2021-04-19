@@ -45,13 +45,13 @@ public class GameControllerRest {
     private static final String POSTS_FOLDER = "gameImages";
  
     @JsonView(gameBasico.class)
-    @GetMapping("/game")
+    @GetMapping("/games")
     public Collection<Game> getGames() {
         return gameService.findAll();
     }
 
     @JsonView(gameBasico.class)
-    @GetMapping("/game/genres")
+    @GetMapping("/games/genres")
     public Collection<Game> getGamesByGenre(@RequestParam String genre) {
         Genres gameGenre;
         switch(genre){
@@ -83,12 +83,12 @@ public class GameControllerRest {
         return gameService.findGamesOfGenre(gameGenre);
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/game/page")
+    @GetMapping("/games/page")
     private Collection<Game> getGamesPaginated(@RequestParam int numPage){
         return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/game/{id}")
+    @GetMapping("/games/{id}")
     public ResponseEntity<Game> getGame(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -100,7 +100,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/game/{id}/scores")
+    @GetMapping("/games/{id}/scores")
     public ResponseEntity<HashMap<Long, Integer>> getScores(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -112,7 +112,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PostMapping("/game/")
+    @PostMapping("/games/")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
  
         gameService.save(game);
@@ -123,7 +123,7 @@ public class GameControllerRest {
     }
  
     @JsonView(gameBasico.class)
-    @PutMapping("/game/{id}")
+    @PutMapping("/games/{id}")
     public ResponseEntity<Game> editGame(@PathVariable long id, @RequestBody Game newGame) {
         Optional<Game> game = gameService.findById(id);
  
@@ -138,7 +138,7 @@ public class GameControllerRest {
         }
     }
  
-    @DeleteMapping("/game/{id}")
+    @DeleteMapping("/games/{id}")
     public ResponseEntity<Game> deleteGame(@PathVariable long id) {
         Optional<Game> game = gameService.findById(id);
         if (game.get() != null) {
@@ -149,7 +149,7 @@ public class GameControllerRest {
         }
     }
 
-    @PostMapping("/game/{id}/image")
+    @PostMapping("/games/{id}/image")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
         Game game=gameService.findById(id).get();
         if(game!=null){
@@ -166,7 +166,7 @@ public class GameControllerRest {
         }
  
 	}
-    @GetMapping("/game/{id}/image")
+    @GetMapping("/games/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);

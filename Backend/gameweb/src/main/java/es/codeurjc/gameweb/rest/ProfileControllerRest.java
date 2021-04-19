@@ -46,14 +46,14 @@ public class ProfileControllerRest {
     private PasswordEncoder passwordEncoder;
 
     @JsonView(userBasico.class)
-    @GetMapping("/profile/all")
+    @GetMapping("/profiles/all")
     public Collection<User> getAllUsers(){
  
         return userService.findAll();
     }
 
     @JsonView(userBasico.class)
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profiles/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id){
 
         Optional<User> user = userService.findById(id);
@@ -67,7 +67,7 @@ public class ProfileControllerRest {
     }
 
     @JsonView(userBasico.class)
-    @PostMapping("/profile/")
+    @PostMapping("/profiles/")
     public ResponseEntity<User> createUser(@RequestBody User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
@@ -92,7 +92,7 @@ public class ProfileControllerRest {
     }*/
 
     @JsonView(userBasico.class)
-    @PutMapping("/profile/{id}")
+    @PutMapping("/profiles/{id}")
     public ResponseEntity<User> editUser(@PathVariable long id, @RequestBody User newUser){
         Optional<User> user = userService.findById(id);
  
@@ -109,7 +109,7 @@ public class ProfileControllerRest {
         }
     }
 
-    @PostMapping("/profile/{id}/image")
+    @PostMapping("/profiles/{id}/image")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
         User u=userService.findById(id).get();
         if(u!=null){
@@ -126,7 +126,7 @@ public class ProfileControllerRest {
         }
  
 	}
-    @GetMapping("/profile/{id}/image")
+    @GetMapping("/profiles/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);

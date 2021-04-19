@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  
 import com.fasterxml.jackson.annotation.JsonView;
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api/posts")
 public class PostsControllerREST {
     private static final String POSTS_FOLDER = "posts";
     @Autowired
@@ -41,7 +41,7 @@ public class PostsControllerREST {
     private ImageService imageService;
     interface PostDetail extends Post.postBasic,Post.games,Game.gameBasico{}
     @JsonView(PostDetail.class)
-    @GetMapping("/all")
+    @GetMapping("/")
     public Collection<Post> getPosts(){
         return pService.findAll();
     }
