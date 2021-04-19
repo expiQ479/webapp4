@@ -3,10 +3,14 @@ package es.codeurjc.gameweb.rest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.http.HttpRequest;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Optional;
- 
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.fasterxml.jackson.annotation.JsonView;
  
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,8 +182,9 @@ public class GameControllerRest {
 	}
 
     @PostMapping("/games/{gameId}/subscribe")
-    public ResponseEntity<User> uploadSubscriptions(@PathVariable long id, @PathVariable long gameId) throws IOException {
-        Optional<User> user = userService.findById(id);
+    public ResponseEntity<User> uploadSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
+        Principal principal = request.getUserPrincipal();
+        Optional<User> user = userService.findByName(principal.getName());
  
         if( user.get() != null){
  
