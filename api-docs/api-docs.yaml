@@ -6,32 +6,38 @@ servers:
 - url: https://localhost:8443
   description: Generated server url
 paths:
-  /api/profile/{id}:
+  /api/profiles/{id}:
     get:
       tags:
       - profile-controller-rest
       operationId: getUser
+      description: "This method gives you the info of a certain user, more specifictlly the one with the same id determinate in the URL"
       parameters:
       - name: id
         in: path
+        description: "this is the id of the user you want to get the info of"
         required: true
         schema:
           type: integer
           format: int64
       responses:
         "200":
-          description: OK
+          description: OK "The user has been found successfully"
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
+        "404":
+          description: "The user doesnt exist"
     put:
       tags:
       - profile-controller-rest
       operationId: editUser
+      description: "This method let the user change his data"
       parameters:
       - name: id
         in: path
+        description: "This is the id of your user, the user you want to change"
         required: true
         schema:
           type: integer
@@ -49,14 +55,20 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User_userBasico'
-  /api/post/{id}:
+        "404":
+          description: "The user doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/posts/{id}:
     get:
       tags:
       - posts-controller-rest
       operationId: getIndividualPost
+      description: "This method let you get a certain post"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the post you want to get"
         required: true
         schema:
           type: integer
@@ -68,13 +80,17 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post_PostDetail'
+        "404":
+          description: "The post doesnt exist"
     put:
       tags:
       - posts-controller-rest
       operationId: editPost
+      description: "This method let you edit the post determinates with id in the URL"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the post you want to edit"
         required: true
         schema:
           type: integer
@@ -92,13 +108,19 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
+        "404":
+          description: "The post doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
     delete:
       tags:
       - posts-controller-rest
       operationId: deletePost
+      description: "This method let you remove a certain post"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the post you want to remove"
         required: true
         schema:
           type: integer
@@ -110,14 +132,20 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Post'
-  /api/game/{id}:
+        "404":
+          description: "The post doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
+  /api/games/{id}:
     get:
       tags:
       - game-controller-rest
       operationId: getGame
+      description: "This method let you get the info of a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game"
         required: true
         schema:
           type: integer
@@ -129,13 +157,17 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game_gameBasico'
+        "404":
+          description: "The game doesnt exist"
     put:
       tags:
       - game-controller-rest
       operationId: editGame
+      description: "This method let you change the info a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game you want to edit"
         required: true
         schema:
           type: integer
@@ -153,13 +185,19 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game_gameBasico'
+        "404":
+          description: "The game doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
     delete:
       tags:
       - game-controller-rest
       operationId: deleteGame
+      description: "This method let you remove a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game you want to remove"
         required: true
         schema:
           type: integer
@@ -171,14 +209,70 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game'
-  /api/chat/{id}:
+        "404":
+          description: "The game doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
+  /api/games/{gameId}/unsubmits:
+    put:
+      tags:
+      - game-controller-rest
+      operationId: removeSubscriptions
+      description: "This method let you to unsubscribe to da certain game"
+      parameters:
+      - name: gameId
+        in: path
+        description: "This is the id of the method you want to get unsubscribe"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User_gameBasico'
+        "404":
+          description: "The game doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/games/{gameId}/submits:
+    put:
+      tags:
+      - game-controller-rest
+      operationId: uploadSubscriptions
+      description: "This method let you subscribe to a certain game"
+      parameters:
+      - name: gameId
+        in: path
+        description: "This is the id of the game you want to get subscribe"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User_gameBasico'
+        "404":
+          description: "The game doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/chats/{id}:
     get:
       tags:
       - chat-controller-rest
       operationId: getIndividualChat
+      description: "This method let you get the chat of a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game you want to get the chat of"
         required: true
         schema:
           type: integer
@@ -190,13 +284,17 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Chat_ChatDetail'
+        "404":
+          description: "The chat doesnt exist"
     put:
       tags:
       - chat-controller-rest
       operationId: addMessage
+      description: "This method let you put a message in the chat of a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game where the chat is place"
         required: true
         schema:
           type: integer
@@ -213,13 +311,212 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Chat_ChatDetail'
-    delete:
+        "404":
+          description: "The game with that id doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/profiles/{id}/image:
+    get:
       tags:
-      - chat-controller-rest
-      operationId: deleteChat
+      - profile-controller-rest
+      operationId: downloadImage
+      description: "This method let you get the image of a certain user"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the user you want to get the image of"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "The user doesnt exist"
+    post:
+      tags:
+      - profile-controller-rest
+      operationId: uploadImage
+      description: "This is the method that let you upload a image to a certain user"
+      parameters:
+      - name: id
+        in: path
+        description: "This is the id of the user you want to change the image of"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "The user doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/profiles/:
+    get:
+      tags:
+      - profile-controller-rest
+      operationId: getAllUsers
+      description: "This method gives you all the users"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User_userBasico'
+    post:
+      tags:
+      - profile-controller-rest
+      operationId: createUser
+      description: "This method let you register/create a new user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User_userBasico'
+        required: true
+        description: "This is the info of the new user"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User_userBasico'
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/posts/{id}/image:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: downloadImage_1
+      description: "This method let you get the image of a certain post"
+      parameters:
+      - name: id
+        in: path
+        description: "This is the id of the post you want to get the image of"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "The post doesnt exist"
+    post:
+      tags:
+      - posts-controller-rest
+      operationId: uploadImage_1
+      description: "This method let you change the image of a certain post"
+      parameters:
+      - name: id
+        in: path
+        description: "This is the id of the post wich you want to chage the image of"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+        description: "This is the info of the image that you want to upload"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: "The post doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
+  /api/posts/:
+    get:
+      tags:
+      - posts-controller-rest
+      operationId: getPosts
+      description: "This method gives you all the posts"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post_PostDetail'
+    post:
+      tags:
+      - posts-controller-rest
+      operationId: createPost
+      description: "This method let you create a new post"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+        description: "This is the data of the new post you want to create"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
+  /api/games/{id}/score:
+    post:
+      tags:
+      - game-controller-rest
+      operationId: setScore
+      description: "This method lets you set a score for a certain game"
+      parameters:
+      - name: id
+        in: path
+        description: "This is the id of the game you want to rate"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: stars
+        in: query
+        description: "This is the score you give to the game, that is betwen 1-5"
         required: true
         schema:
           type: integer
@@ -230,143 +527,21 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Chat_ChatDetail'
-  /api/profile/{id}/image:
-    get:
-      tags:
-      - profile-controller-rest
-      operationId: downloadImage
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
-    post:
-      tags:
-      - profile-controller-rest
-      operationId: uploadImage
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                imageFile:
-                  type: string
-                  format: binary
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
-  /api/profile/:
-    post:
-      tags:
-      - profile-controller-rest
-      operationId: createUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User_userBasico'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/User_userBasico'
-  /api/post/{id}/image:
-    get:
-      tags:
-      - posts-controller-rest
-      operationId: downloadImage_1
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
-    post:
-      tags:
-      - posts-controller-rest
-      operationId: uploadImage_1
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                imageFile:
-                  type: string
-                  format: binary
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
-  /api/post/:
-    post:
-      tags:
-      - posts-controller-rest
-      operationId: createPost
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Post'
-        required: true
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Post'
-  /api/game/{id}/image:
+                $ref: '#/components/schemas/Game_gameBasico'
+        "404":
+          description: "The game doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/games/{id}/image:
     get:
       tags:
       - game-controller-rest
       operationId: downloadImage_2
+      description: "This method let you get the image of a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game you want to get the id of"
         required: true
         schema:
           type: integer
@@ -378,13 +553,17 @@ paths:
             '*/*':
               schema:
                 type: object
+        "404":
+          description: "The game doesnt exist"
     post:
       tags:
       - game-controller-rest
       operationId: uploadImage_2
+      description: "This method let you change the image of a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the id of the game wich you what to change the image of"
         required: true
         schema:
           type: integer
@@ -398,6 +577,7 @@ paths:
                 imageFile:
                   type: string
                   format: binary
+        description: "This is the data of the image you want to upload"
       responses:
         "200":
           description: OK
@@ -405,16 +585,36 @@ paths:
             '*/*':
               schema:
                 type: object
-  /api/game/:
+        "404":
+          description: "The game doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
+  /api/games/:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: getGames
+      description: "This method gives you all the games that exist in the app"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game_gameBasico'
     post:
       tags:
       - game-controller-rest
       operationId: createGame
+      description: "This method let you create a new game"
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Game_gameBasico'
+        description: "This is the info of the new game you want to create"
         required: true
       responses:
         "200":
@@ -423,25 +623,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Game_gameBasico'
-  /api/chat/:
-    post:
-      tags:
-      - chat-controller-rest
-      operationId: createChat
-      parameters:
-      - name: gameID
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Chat_ChatDetail'
+        "403":
+          description: "You aren't authorized to make this request, for make this request you need to be an admin"
   /api/auth/refresh:
     post:
       tags:
@@ -472,11 +655,14 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AuthResponse'
+        "404":
+          description: "The user doesnt exist"
   /api/auth/login:
     post:
       tags:
       - login-controller-rest
       operationId: login
+      description: "This method let you login the page"
       parameters:
       - name: accessToken
         in: cookie
@@ -494,6 +680,7 @@ paths:
             schema:
               $ref: '#/components/schemas/LoginRequest'
         required: true
+        description: "This is the info of the user with wich you want to login"
       responses:
         "200":
           description: OK
@@ -501,11 +688,22 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/AuthResponse'
-  /api/profile/all:
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/profiles/{id}/subscriptions:
     get:
       tags:
       - profile-controller-rest
-      operationId: getAllUsers
+      operationId: getSubscriptions
+      description: "This method gives you the list of game you are subscribe at"
+      parameters:
+      - name: id
+        in: path
+        description: "This is the id of the user you want to get the list of subscriptions of"
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "200":
           description: OK
@@ -514,15 +712,22 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User_userBasico'
-  /api/post/type:
+                  type: integer
+                  format: int64
+        "404":
+          description: "The user doesnt exist"
+        "403":
+          description: "You aren't authorized to make this request, you must be login for make it"
+  /api/posts/type:
     get:
       tags:
       - posts-controller-rest
       operationId: getPostsOfType
+      description: "This method gives you the list of games define by a certain type, this method filter the games and gives you the ones that haves the same type you choose"
       parameters:
       - name: theType
         in: query
+        description: "This is the type of you want to get"
         required: true
         schema:
           type: string
@@ -535,14 +740,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/post/game:
+  /api/posts/game:
     get:
       tags:
       - posts-controller-rest
       operationId: getPostsOfGame
+      description: "This method gives you posts of a certain game"
       parameters:
       - name: gameID
         in: query
+        description: "This is the id of the game of wich you want to get the posts of"
         required: true
         schema:
           type: integer
@@ -556,42 +763,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post_PostDetail'
-  /api/post/all:
-    get:
-      tags:
-      - posts-controller-rest
-      operationId: getPosts
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Post_PostDetail'
-  /api/game:
-    get:
-      tags:
-      - game-controller-rest
-      operationId: getGames
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Game_gameBasico'
-  /api/game/{id}/scores:
+  /api/games/{id}/scores:
     get:
       tags:
       - game-controller-rest
       operationId: getScores
+      description: "This method gives you the scores of a certain game"
       parameters:
       - name: id
         in: path
+        description: "This is the of the game you want to get scores of"
         required: true
         schema:
           type: integer
@@ -606,14 +787,40 @@ paths:
                 additionalProperties:
                   type: integer
                   format: int32
-  /api/game/page:
+        "404":
+          description: "The game doesnt exist"
+  /api/games/{id}/recommendations:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: getRecommendedGames
+      description: "This method gives you some recomendations depends of your subscriptions" 
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game_gameBasico'
+  /api/games/page:
     get:
       tags:
       - game-controller-rest
       operationId: getGamesPaginated
+      description: "This method is for the pagination of the app web"
       parameters:
       - name: numPage
         in: query
+        description: "This is the number of the game page you want"
         required: true
         schema:
           type: integer
@@ -627,14 +834,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
-  /api/game/genres:
+  /api/games/genres:
     get:
       tags:
       - game-controller-rest
       operationId: getGamesByGenre
+      description: "This method gives you the games filter depends of the genre you select"
       parameters:
       - name: genre
         in: query
+        description: "This is the genre of the games you want to get"
         required: true
         schema:
           type: string
@@ -647,11 +856,50 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Game_gameBasico'
-  /api/chat/all:
+  /api/games/bestRated:
+    get:
+      tags:
+      - game-controller-rest
+      operationId: getBestRatedGames
+      description: "This method gives you the best rated games in the app web"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game_gameBasico'
+  /api/chats/{id}/messages:
+    get:
+      tags:
+      - chat-controller-rest
+      operationId: getAllMessages
+      description: "This method gives you all the messages of a certain chat"
+      parameters:
+      - name: id
+        in: path
+        description: "This is the id of the chat you want to get the message of"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+  /api/chats/:
     get:
       tags:
       - chat-controller-rest
       operationId: getAllChats
+      description: "This method gives you all the chats in the app"
       responses:
         "200":
           description: OK
@@ -682,6 +930,155 @@ components:
           items:
             type: integer
             format: int64
+        imagePath:
+          type: string
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        creationDate:
+          type: string
+        updateDate:
+          type: string
+        fromGameID:
+          type: integer
+          format: int64
+        postText:
+          type: string
+        author:
+          type: string
+        theType:
+          type: string
+          enum:
+          - News
+          - Updates
+          - Guides
+        imagePath:
+          type: string
+    Chat_gameBasico:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    Game_gameBasico:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        gameTitle:
+          type: string
+        genre:
+          type: string
+          enum:
+          - Horror
+          - Shooter
+          - Action
+          - Platformer
+          - Sports
+          - Puzzles
+          - Narrative
+          - RPG
+        mapScores:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+        averageScore:
+          type: number
+          format: float
+        description:
+          type: string
+        chat:
+          $ref: '#/components/schemas/Chat_gameBasico'
+        thePosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post_gameBasico'
+        imagePath:
+          type: string
+    Post_gameBasico:
+      type: object
+    User_gameBasico:
+      type: object
+      properties:
+        password:
+          type: string
+    Chat_ChatDetail:
+      type: object
+      properties:
+        listMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message_ChatDetail'
+        ID:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+    Message_ChatDetail:
+      type: object
+      properties:
+        nameUser:
+          type: string
+        msgString:
+          type: string
+        id:
+          type: integer
+          format: int64
+          writeOnly: true
+        messageWriter:
+          type: boolean
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Post_PostDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        creationDate:
+          type: string
+        updateDate:
+          type: string
+        fromGameID:
+          type: integer
+          format: int64
+        postText:
+          type: string
+        author:
+          type: string
+        theType:
+          type: string
+          enum:
+          - News
+          - Updates
+          - Guides
         imagePath:
           type: string
     Chat:
@@ -747,191 +1144,3 @@ components:
           writeOnly: true
         messageWriter:
           type: boolean
-    Post:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        title:
-          type: string
-        creationDate:
-          type: string
-        updateDate:
-          type: string
-        fromGame:
-          $ref: '#/components/schemas/Game'
-        postText:
-          type: string
-        author:
-          type: string
-        theType:
-          type: string
-          enum:
-          - News
-          - Updates
-          - Guides
-        imagePath:
-          type: string
-    Chat_gameBasico:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-    Game_gameBasico:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        gameTitle:
-          type: string
-        genre:
-          type: string
-          enum:
-          - Horror
-          - Shooter
-          - Action
-          - Platformer
-          - Sports
-          - Puzzles
-          - Narrative
-          - RPG
-        mapScores:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
-        averageScore:
-          type: number
-          format: float
-        description:
-          type: string
-        chat:
-          $ref: '#/components/schemas/Chat_gameBasico'
-        thePosts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Post_gameBasico'
-        imagePath:
-          type: string
-    Post_gameBasico:
-      type: object
-      properties:
-        fromGame:
-          $ref: '#/components/schemas/Game_gameBasico'
-    Chat_ChatDetail:
-      type: object
-      properties:
-        listMessages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message_ChatDetail'
-        ID:
-          type: integer
-          format: int64
-        id:
-          type: integer
-          format: int64
-    Message_ChatDetail:
-      type: object
-      properties:
-        nameUser:
-          type: string
-        msgString:
-          type: string
-        id:
-          type: integer
-          format: int64
-          writeOnly: true
-        messageWriter:
-          type: boolean
-    AuthResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILURE
-        message:
-          type: string
-        error:
-          type: string
-    LoginRequest:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-    Chat_PostDetail:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-    Game_PostDetail:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        gameTitle:
-          type: string
-        genre:
-          type: string
-          enum:
-          - Horror
-          - Shooter
-          - Action
-          - Platformer
-          - Sports
-          - Puzzles
-          - Narrative
-          - RPG
-        mapScores:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
-        averageScore:
-          type: number
-          format: float
-        description:
-          type: string
-        chat:
-          $ref: '#/components/schemas/Chat_PostDetail'
-        thePosts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Post_PostDetail'
-        imagePath:
-          type: string
-    Post_PostDetail:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        title:
-          type: string
-        creationDate:
-          type: string
-        updateDate:
-          type: string
-        fromGame:
-          $ref: '#/components/schemas/Game_PostDetail'
-        postText:
-          type: string
-        author:
-          type: string
-        theType:
-          type: string
-          enum:
-          - News
-          - Updates
-          - Guides
-        imagePath:
-          type: string
