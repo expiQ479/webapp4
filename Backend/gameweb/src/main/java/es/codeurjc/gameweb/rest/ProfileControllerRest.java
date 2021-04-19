@@ -46,7 +46,7 @@ public class ProfileControllerRest {
     private PasswordEncoder passwordEncoder;
 
     @JsonView(userBasico.class)
-    @GetMapping("/profiles/all")
+    @GetMapping("/profiles/")
     public Collection<User> getAllUsers(){
  
         return userService.findAll();
