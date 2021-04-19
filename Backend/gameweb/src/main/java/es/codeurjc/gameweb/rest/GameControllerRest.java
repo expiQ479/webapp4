@@ -191,6 +191,7 @@ public class GameControllerRest {
         }
  
 	}
+
     @GetMapping("/games/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  

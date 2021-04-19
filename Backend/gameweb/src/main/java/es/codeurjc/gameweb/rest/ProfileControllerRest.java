@@ -3,6 +3,7 @@ package es.codeurjc.gameweb.rest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -77,20 +78,6 @@ public class ProfileControllerRest {
         return ResponseEntity.created(location).body(user);
     }
 
-    /*@DeleteMapping("/profile/{id}/subscriptions/")
-    public ResponseEntity<User> deleteUser(@PathVariable long id){
-
-        Optional<User> user = userService.findById(id);
-
-        if(user.get() != null){
-            userService.delete(id);
-            return ResponseEntity.ok(user.get());
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
-    }*/
-
     @JsonView(userBasico.class)
     @PutMapping("/profiles/{id}")
     public ResponseEntity<User> editUser(@PathVariable long id, @RequestBody User newUser){
@@ -130,6 +117,20 @@ public class ProfileControllerRest {
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
+    }
+
+    @JsonView(userBasico.class)
+    @GetMapping("/profiles/{id}/subscriptions")
+    public ResponseEntity<ArrayList<Long>> getSubscriptions(@PathVariable long id){
+
+        Optional<User> user = userService.findById(id);
+
+        if(user.get() != null){
+            return ResponseEntity.ok(user.get().getMyGames());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
