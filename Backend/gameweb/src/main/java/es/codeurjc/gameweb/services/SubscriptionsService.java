@@ -8,8 +8,7 @@ import es.codeurjc.gameweb.models.User;
  
 @Service
 public class SubscriptionsService {
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private GameService gameService;
     public User subscriptionFunction(long gameID,User user){
