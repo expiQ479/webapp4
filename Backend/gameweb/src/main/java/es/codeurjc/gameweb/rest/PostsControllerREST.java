@@ -87,11 +87,18 @@ public class PostsControllerREST {
         }
     }
     @PostMapping("/")
-    public ResponseEntity<Post> createPost(@RequestBody Post post){
+    public ResponseEntity<Post> createPost(@RequestBody Post post,@RequestParam long fromGame){
+        Game game=gamePostService.findById(fromGame).get();
+        if(game!=null){
+            post.setFromGame(game);
+            pService.save(post);
+            URI location=fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
+            return ResponseEntity.created(location).body(post);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
  
-        pService.save(post);
-        URI location=fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
-        return ResponseEntity.created(location).body(post);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> deletePost(@PathVariable long id){
@@ -119,7 +126,7 @@ public class PostsControllerREST {
         else{
             return ResponseEntity.notFound().build();
         }
-        
+ 
     }
     @PutMapping("/{id}")
     public ResponseEntity<Post> editPost(@PathVariable long id, @RequestBody Post newPost) {

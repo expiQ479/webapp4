@@ -38,10 +38,12 @@ import es.codeurjc.gameweb.models.Game.gameBasico;
 import es.codeurjc.gameweb.services.AlgorithmService;
 import es.codeurjc.gameweb.services.GameService;
 import es.codeurjc.gameweb.services.ImageService;
+import es.codeurjc.gameweb.services.ScoresService;
+import es.codeurjc.gameweb.services.SubscriptionsService;
 import es.codeurjc.gameweb.services.UserService;
  
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/games")
 public class GameControllerRest {
  
     @Autowired
@@ -53,18 +55,22 @@ public class GameControllerRest {
     @Autowired
     private UserService userService;
     @Autowired
-    private AlgorithmService algoService;
+    private ScoresService scoresService;
+    @Autowired
+    private AlgorithmService algorithmService;
+    @Autowired
+    private SubscriptionsService subService;
  
     private static final String POSTS_FOLDER = "gameImages";
  
     @JsonView(gameBasico.class)
-    @GetMapping("/games")
+    @GetMapping("/")
     public Collection<Game> getGames() {
         return gameService.findAll();
     }
  
     @JsonView(gameBasico.class)
-    @GetMapping("/games/genres")
+    @GetMapping("/genres")
     public Collection<Game> getGamesByGenre(@RequestParam String genre) {
         Genres gameGenre;
         switch(genre){
@@ -96,12 +102,12 @@ public class GameControllerRest {
         return gameService.findGamesOfGenre(gameGenre);
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/games/page")
+    @GetMapping("/page")
     private Collection<Game> getGamesPaginated(@RequestParam int numPage){
         return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/games/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Game> getGame(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -113,7 +119,25 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/games/{id}/scores")
+    @GetMapping("/{id}/recommendations")
+    public Collection<Game> getRecommendedGames(@PathVariable long id,HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        User user = userService.findByName(principal.getName()).get();
+        if(user!=null){
+            return gameService.findGamesOfGenre(algorithmService.recommendedAlgorithm(user).getKey());
+        }
+        else{
+            return null;
+        }
+    }
+    @JsonView(gameBasico.class)
+    @GetMapping("/bestRated")
+    public Collection<Game> getBestRatedGames(){
+        return gameService.findBestRatedGames();
+ 
+    }
+    @JsonView(gameBasico.class)
+    @GetMapping("/{id}/scores")
     public ResponseEntity<HashMap<Long, Integer>> getScores(@PathVariable long id) {
  
         Optional<Game> game = gameService.findById(id);
@@ -125,7 +149,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PostMapping("/games/")
+    @PostMapping("/")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
  
         gameService.save(game);
@@ -136,7 +160,7 @@ public class GameControllerRest {
     }
  
     @JsonView(gameBasico.class)
-    @PutMapping("/games/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Game> editGame(@PathVariable long id, @RequestBody Game newGame) {
         Optional<Game> game = gameService.findById(id);
  
@@ -151,19 +175,18 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PostMapping("/games/{id}")
-    public ResponseEntity<Game> setScore(@PathVariable long id,@RequestParam float score){
+    @PostMapping("/{id}/score")
+    public ResponseEntity<Game> setScore(@PathVariable long id,@RequestParam Integer stars,HttpServletRequest request){
         Game game = gameService.findById(id).get();
         if(game!=null){
-            game.setAverageScore(score);
-            gameService.save(game);
+            gameService.save(scoresService.putScore(request, id, stars));
             return ResponseEntity.ok(game);
         }
         else{
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping("/games/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Game> deleteGame(@PathVariable long id) {
         Optional<Game> game = gameService.findById(id);
         if (game.get() != null) {
@@ -174,7 +197,7 @@ public class GameControllerRest {
         }
     }
  
-    @PostMapping("/games/{id}/image")
+    @PostMapping("/{id}/image")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
         Game game=gameService.findById(id).get();
         if(game!=null){
@@ -191,22 +214,20 @@ public class GameControllerRest {
         }
  
 	}
-
-    @GetMapping("/games/{id}/image")
+    @GetMapping("/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  
 		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
 	}
- 
-    @PostMapping("/games/{gameId}/subscribe")
+    @JsonView(gameBasico.class)
+    @PutMapping("/{gameId}/submits")
     public ResponseEntity<User> uploadSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
  
         if( user.get() != null){
  
-            user.get().addElementToGameList(gameId);
-            userService.save(user.get());
+            userService.save(subService.subscriptionFunction(gameId, user.get()));
  
             return ResponseEntity.ok(user.get());
         }
@@ -214,19 +235,14 @@ public class GameControllerRest {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping("/games/{gameId}/subscription")
+    @JsonView(gameBasico.class)
+    @PutMapping("/{gameId}")
     public ResponseEntity<User> removeSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
  
         if( user.get() != null){
-            for(int i = 0; i < user.get().getMyGames().size(); i++){
-                if(user.get().getMyGames().get(i)==gameId){
-                    user.get().getMyGames().remove(i);
-                    userService.save(user.get());
-                }
-            }
+            userService.save(subService.unsubscriptionFunction(gameId ,user.get()));
  
             return ResponseEntity.ok(user.get());
         }

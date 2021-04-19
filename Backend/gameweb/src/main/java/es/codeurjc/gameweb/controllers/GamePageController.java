@@ -27,6 +27,8 @@ import es.codeurjc.gameweb.models.User;
 import es.codeurjc.gameweb.services.AlgorithmService;
 import es.codeurjc.gameweb.services.ChatService;
 import es.codeurjc.gameweb.services.GameService;
+import es.codeurjc.gameweb.services.ScoresService;
+import es.codeurjc.gameweb.services.SubscriptionsService;
 import es.codeurjc.gameweb.services.UserService;
  
 import java.sql.SQLException;
@@ -41,8 +43,9 @@ public class GamePageController {
     @Autowired
 	private UserService userService;
     @Autowired
-    private AlgorithmService algoService;
- 
+    private ScoresService scoresService;
+    @Autowired
+    private SubscriptionsService subService;
     @ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
@@ -98,10 +101,8 @@ public class GamePageController {
         Game game=myGame.get();
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
-        if(!user.getMyGames().contains(id)){
-            user.addElementToGameList(game.getId());
-            myGame = gamePostService.findById(id);
-            userService.save(user);
+        if(!user.getMyGames().contains(id)){     
+            userService.save(subService.subscriptionFunction(id, user));               
             model.addAttribute("game", myGame);
             model.addAttribute("customMessage", "Suscripción realizada con éxito");
             return "successPage";
@@ -118,12 +119,7 @@ public class GamePageController {
         Optional<User> myUser= userService.findByName(principal.getName());
         User user =myUser.get();
         String gameTitle=gamePostService.findById(id).get().getGameTitle();
-        for(int i=0; i<user.getMyGames().size(); i++){
-            if(gamePostService.findById(user.getMyGames().get(i)).get().getGameTitle().equals(gameTitle)){
-                user.getMyGames().remove(user.getMyGames().get(i));
-                userService.save(user);
-            }
-        }
+        userService.save(subService.unsubscriptionFunction(id, user));
         model.addAttribute("customMessage", "Desuscripción realizada con éxito");      
         return "successPage";
     }
@@ -147,24 +143,8 @@ public class GamePageController {
     @RequestMapping("/rate/{id}")
     public String ValorarGame(Model model, @PathVariable Long id, @RequestParam Integer stars,HttpServletRequest request) {
  
-        Optional<Game> myGame = gamePostService.findById(id);
-        Game game = myGame.get();
-        Principal principal = request.getUserPrincipal();
-        Optional<User> myUser= userService.findByName(principal.getName());
-        User user =myUser.get();
  
-        //we check if the array have the initialized value to change it in case it have it or just add the new one in other case
-        if (game.getMapScores().containsValue(0)){
-            game.getMapScores().clear();
-            game.getMapScores().put(user.getId(), stars);
-        }
-        else 
-            game.getMapScores().put(user.getId(), stars);
- 
-        //call to the method to do the average and set it on the game parameters
-        float myAverage= algoService.doAverageScore(game.getMapScores());
-        game.setAverageScore(myAverage);
-        gamePostService.save(game);
+        gamePostService.save(scoresService.putScore(request, id, stars));
         model.addAttribute("customMessage", "Juego valorado con un " + stars + " con éxito");
         return "successPage";
     }
@@ -203,11 +183,11 @@ public class GamePageController {
  
         Game game = myGame.get();
         model.addAttribute("game", game);
-        Integer int1=doAverageRatio(game.getMapScores(),1);
-        Integer int2=doAverageRatio(game.getMapScores(),2);
-        Integer int3=doAverageRatio(game.getMapScores(),3);
-        Integer int4=doAverageRatio(game.getMapScores(),4);
-        Integer int5=doAverageRatio(game.getMapScores(),5);
+        Integer int1=scoresService.doAverageRatio(game.getMapScores(),1);
+        Integer int2=scoresService.doAverageRatio(game.getMapScores(),2);
+        Integer int3=scoresService.doAverageRatio(game.getMapScores(),3);
+        Integer int4=scoresService.doAverageRatio(game.getMapScores(),4);
+        Integer int5=scoresService.doAverageRatio(game.getMapScores(),5);
         model.addAttribute("gamestars1", int1);
         model.addAttribute("gamestars2", int2);
         model.addAttribute("gamestars3", int3);
@@ -216,17 +196,4 @@ public class GamePageController {
  
         return "gameStadistics";
     }
-    private Integer doAverageRatio(HashMap<Long,Integer> MyScores, Integer index){
-        Integer aux = 0;
-        Integer numberofindexinthearray = 0;
-        for (Integer value : MyScores.values()) {
-            if (value.equals(index))
-            numberofindexinthearray++;
-        }
-        aux = (numberofindexinthearray*100)/(MyScores.size());
-        return aux;
-    }
- 
- 
- 
 }
