@@ -3,6 +3,7 @@ package es.codeurjc.gameweb.rest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -10,8 +11,12 @@ import java.util.Optional;
 import javax.imageio.IIOException;
  
 import com.fasterxml.jackson.annotation.JsonView;
- 
+
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,15 +102,16 @@ public class ProfileControllerRest {
     }
  
     @PostMapping("/{id}/image")
-	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
-        User u=userService.findById(id).get();
-        if(u!=null){
+	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException, SQLException {
+        User user=userService.findById(id).get();
+        if(user!=null){
             URI location = fromCurrentRequest().build().toUri();
  
-            u.setImagePath(location.toString());
-            userService.save(u);
+            user.setImagePath(location.toString());
+            user.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), user.getImageFile().length()));
+            userService.save(user);
  
-            imageService.saveImage(POSTS_FOLDER, u.getId(), imageFile);
+            //imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);
             return ResponseEntity.created(location).build();
         }
         else{
@@ -114,10 +120,16 @@ public class ProfileControllerRest {
  
 	}
     @GetMapping("/{id}/image")
-	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
- 
-		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
-    }
+	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException, SQLException {
+        User user=userService.findById(id).get();
+        if(user!=null){
+            Resource file=new InputStreamResource(user.getImageFile().getBinaryStream());
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").contentLength(user.getImageFile().length()).body(file);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+	}
  
     @JsonView(userBasico.class)
     @GetMapping("/{id}/subscriptions")

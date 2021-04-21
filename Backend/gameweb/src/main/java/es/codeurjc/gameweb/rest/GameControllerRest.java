@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Optional;
@@ -14,9 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.annotation.JsonView;
  
 import org.apache.catalina.connector.Response;
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +47,7 @@ import es.codeurjc.gameweb.services.ImageService;
 import es.codeurjc.gameweb.services.ScoresService;
 import es.codeurjc.gameweb.services.SubscriptionsService;
 import es.codeurjc.gameweb.services.UserService;
- 
+
 @RestController
 @RequestMapping("/api/games")
 public class GameControllerRest {
@@ -199,15 +204,16 @@ public class GameControllerRest {
     }
  
     @PostMapping("/{id}/image")
-	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException, SQLException {
         Game game=gameService.findById(id).get();
         if(game!=null){
             URI location = fromCurrentRequest().build().toUri();
  
             game.setImagePath(location.toString());
+            game.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), game.getImageFile().length()));
             gameService.save(game);
  
-            imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);
+            //imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);
             return ResponseEntity.created(location).build();
         }
         else{
@@ -216,9 +222,15 @@ public class GameControllerRest {
  
 	}
     @GetMapping("/{id}/image")
-	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
- 
-		return this.imageService.createResponseFromImage(POSTS_FOLDER, id);
+	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException, SQLException {
+        Game game=gameService.findById(id).get();
+        if(game!=null){
+            Resource file=new InputStreamResource(game.getImageFile().getBinaryStream());
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").contentLength(game.getImageFile().length()).body(file);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
 	}
     @JsonView(gameBasico.class)
     @PutMapping("/{gameId}/submits")

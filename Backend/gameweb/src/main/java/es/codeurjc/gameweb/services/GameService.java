@@ -101,6 +101,11 @@ public class GameService {
 		}
 		return aux;
     }
+	public void setAllImagePaths(){
+        for(Game g : repository.findAll()){
+            g.setImagePath("https://localhost:8443/api/games/"+g.getId()+"/image");
+			repository.save(g);
+        }
+    }
 
 }
-

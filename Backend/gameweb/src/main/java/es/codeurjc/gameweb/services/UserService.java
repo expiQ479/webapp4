@@ -35,4 +35,10 @@ public class UserService{
     public void delete(long id) {
         users.deleteById(id);
     }
+    public void setAllImagePaths(){
+        for(User u : users.findAll()){
+            u.setImagePath("https://localhost:8443/api/games/"+u.getId()+"/image");
+            users.save(u);
+        }
+    }
 }

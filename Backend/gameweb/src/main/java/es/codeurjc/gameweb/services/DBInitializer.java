@@ -26,11 +26,11 @@ import es.codeurjc.gameweb.repositories.UserRepository;
 @Service
 public class DBInitializer {
     @Autowired
-    private GameRepository gameRepository;
+    private GameService gameRepository;
     @Autowired
-    private PostRepository postRepository;
+    private PostService postRepository;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userRepository;
     @Autowired
 	private PasswordEncoder passwordEncoder;
     @PostConstruct
@@ -590,6 +590,14 @@ public class DBInitializer {
         setUserImage(user1, "/sample_images/user-image-0.jpg");
         userRepository.save(user1);
 
+        gameRepository.setAllImagePaths();
+
+        postRepository.setAllImagePaths();
+
+        userRepository.setAllImagePaths();
+
+        postRepository.setAllfromGameID();
+        
     }
 
     public void setGameImage(Game game, String classpathResource) throws IOException {

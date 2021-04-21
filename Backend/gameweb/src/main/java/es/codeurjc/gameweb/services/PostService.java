@@ -72,4 +72,16 @@ public class PostService {
 		
 		posts.deleteById(id);		
 	}
+	public void setAllImagePaths(){
+        for(Post p : posts.findAll()){
+            p.setImagePath("https://localhost:8443/api/games/"+p.getId()+"/image");
+			posts.save(p);
+        }
+    }
+	public void setAllfromGameID(){
+		for(Post p: posts.findAll()){
+			p.setFromGameID(p.getFromGame().getId());
+			posts.save(p);
+		}
+	}
 }
