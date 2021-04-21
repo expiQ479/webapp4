@@ -195,24 +195,28 @@
   <div class="method-summary"></div>
   <h4><a href="#ChatControllerRest">ChatControllerRest</a></h4>
   <ul>
-  <li><a href="#addMessage"><code><span class="http-method">put</span> /api/chat/{id}</code></a></li>
-  <li><a href="#createChat"><code><span class="http-method">post</span> /api/chat/</code></a></li>
-  <li><a href="#deleteChat"><code><span class="http-method">delete</span> /api/chat/{id}</code></a></li>
-  <li><a href="#getAllChats"><code><span class="http-method">get</span> /api/chat/all</code></a></li>
-  <li><a href="#getIndividualChat"><code><span class="http-method">get</span> /api/chat/{id}</code></a></li>
+  <li><a href="#addMessage"><code><span class="http-method">put</span> /api/chats/{id}</code></a></li>
+  <li><a href="#getAllChats"><code><span class="http-method">get</span> /api/chats/</code></a></li>
+  <li><a href="#getAllMessages"><code><span class="http-method">get</span> /api/chats/{id}/messages</code></a></li>
+  <li><a href="#getIndividualChat"><code><span class="http-method">get</span> /api/chats/{id}</code></a></li>
   </ul>
   <h4><a href="#GameControllerRest">GameControllerRest</a></h4>
   <ul>
-  <li><a href="#createGame"><code><span class="http-method">post</span> /api/game/</code></a></li>
-  <li><a href="#deleteGame"><code><span class="http-method">delete</span> /api/game/{id}</code></a></li>
-  <li><a href="#downloadImage2"><code><span class="http-method">get</span> /api/game/{id}/image</code></a></li>
-  <li><a href="#editGame"><code><span class="http-method">put</span> /api/game/{id}</code></a></li>
-  <li><a href="#getGame"><code><span class="http-method">get</span> /api/game/{id}</code></a></li>
-  <li><a href="#getGames"><code><span class="http-method">get</span> /api/game</code></a></li>
-  <li><a href="#getGamesByGenre"><code><span class="http-method">get</span> /api/game/genres</code></a></li>
-  <li><a href="#getGamesPaginated"><code><span class="http-method">get</span> /api/game/page</code></a></li>
-  <li><a href="#getScores"><code><span class="http-method">get</span> /api/game/{id}/scores</code></a></li>
-  <li><a href="#uploadImage2"><code><span class="http-method">post</span> /api/game/{id}/image</code></a></li>
+  <li><a href="#createGame"><code><span class="http-method">post</span> /api/games/</code></a></li>
+  <li><a href="#deleteGame"><code><span class="http-method">delete</span> /api/games/{id}</code></a></li>
+  <li><a href="#downloadImage2"><code><span class="http-method">get</span> /api/games/{id}/image</code></a></li>
+  <li><a href="#editGame"><code><span class="http-method">put</span> /api/games/{id}</code></a></li>
+  <li><a href="#getBestRatedGames"><code><span class="http-method">get</span> /api/games/bestRated</code></a></li>
+  <li><a href="#getGame"><code><span class="http-method">get</span> /api/games/{id}</code></a></li>
+  <li><a href="#getGames"><code><span class="http-method">get</span> /api/games/</code></a></li>
+  <li><a href="#getGamesByGenre"><code><span class="http-method">get</span> /api/games/genres</code></a></li>
+  <li><a href="#getGamesPaginated"><code><span class="http-method">get</span> /api/games/page</code></a></li>
+  <li><a href="#getRecommendedGames"><code><span class="http-method">get</span> /api/games/{id}/recommendations</code></a></li>
+  <li><a href="#getScores"><code><span class="http-method">get</span> /api/games/{id}/scores</code></a></li>
+  <li><a href="#removeSubscriptions"><code><span class="http-method">put</span> /api/games/{gameId}/unsubmits</code></a></li>
+  <li><a href="#setScore"><code><span class="http-method">post</span> /api/games/{id}/score</code></a></li>
+  <li><a href="#uploadImage2"><code><span class="http-method">post</span> /api/games/{id}/image</code></a></li>
+  <li><a href="#uploadSubscriptions"><code><span class="http-method">put</span> /api/games/{gameId}/submits</code></a></li>
   </ul>
   <h4><a href="#LoginControllerRest">LoginControllerRest</a></h4>
   <ul>
@@ -222,39 +226,40 @@
   </ul>
   <h4><a href="#PostsControllerRest">PostsControllerRest</a></h4>
   <ul>
-  <li><a href="#createPost"><code><span class="http-method">post</span> /api/post/</code></a></li>
-  <li><a href="#deletePost"><code><span class="http-method">delete</span> /api/post/{id}</code></a></li>
-  <li><a href="#downloadImage1"><code><span class="http-method">get</span> /api/post/{id}/image</code></a></li>
-  <li><a href="#editPost"><code><span class="http-method">put</span> /api/post/{id}</code></a></li>
-  <li><a href="#getIndividualPost"><code><span class="http-method">get</span> /api/post/{id}</code></a></li>
-  <li><a href="#getPosts"><code><span class="http-method">get</span> /api/post/all</code></a></li>
-  <li><a href="#getPostsOfGame"><code><span class="http-method">get</span> /api/post/game</code></a></li>
-  <li><a href="#getPostsOfType"><code><span class="http-method">get</span> /api/post/type</code></a></li>
-  <li><a href="#uploadImage1"><code><span class="http-method">post</span> /api/post/{id}/image</code></a></li>
+  <li><a href="#createPost"><code><span class="http-method">post</span> /api/posts/</code></a></li>
+  <li><a href="#deletePost"><code><span class="http-method">delete</span> /api/posts/{id}</code></a></li>
+  <li><a href="#downloadImage1"><code><span class="http-method">get</span> /api/posts/{id}/image</code></a></li>
+  <li><a href="#editPost"><code><span class="http-method">put</span> /api/posts/{id}</code></a></li>
+  <li><a href="#getIndividualPost"><code><span class="http-method">get</span> /api/posts/{id}</code></a></li>
+  <li><a href="#getPosts"><code><span class="http-method">get</span> /api/posts/</code></a></li>
+  <li><a href="#getPostsOfGame"><code><span class="http-method">get</span> /api/posts/game</code></a></li>
+  <li><a href="#getPostsOfType"><code><span class="http-method">get</span> /api/posts/type</code></a></li>
+  <li><a href="#uploadImage1"><code><span class="http-method">post</span> /api/posts/{id}/image</code></a></li>
   </ul>
   <h4><a href="#ProfileControllerRest">ProfileControllerRest</a></h4>
   <ul>
-  <li><a href="#createUser"><code><span class="http-method">post</span> /api/profile/</code></a></li>
-  <li><a href="#downloadImage"><code><span class="http-method">get</span> /api/profile/{id}/image</code></a></li>
-  <li><a href="#editUser"><code><span class="http-method">put</span> /api/profile/{id}</code></a></li>
-  <li><a href="#getAllUsers"><code><span class="http-method">get</span> /api/profile/all</code></a></li>
-  <li><a href="#getUser"><code><span class="http-method">get</span> /api/profile/{id}</code></a></li>
-  <li><a href="#uploadImage"><code><span class="http-method">post</span> /api/profile/{id}/image</code></a></li>
+  <li><a href="#createUser"><code><span class="http-method">post</span> /api/profiles/</code></a></li>
+  <li><a href="#downloadImage"><code><span class="http-method">get</span> /api/profiles/{id}/image</code></a></li>
+  <li><a href="#editUser"><code><span class="http-method">put</span> /api/profiles/{id}</code></a></li>
+  <li><a href="#getAllUsers"><code><span class="http-method">get</span> /api/profiles/</code></a></li>
+  <li><a href="#getSubscriptions"><code><span class="http-method">get</span> /api/profiles/{id}/subscriptions</code></a></li>
+  <li><a href="#getUser"><code><span class="http-method">get</span> /api/profiles/{id}</code></a></li>
+  <li><a href="#uploadImage"><code><span class="http-method">post</span> /api/profiles/{id}/image</code></a></li>
   </ul>
 
   <h1><a name="ChatControllerRest">ChatControllerRest</a></h1>
   <div class="method"><a name="addMessage"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/chat/{id}</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/chats/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">addMessage</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you put a message in the chat of a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game where the chat is place format: int32</div>    </div>  <!-- field-items -->
 
 
 
@@ -303,128 +308,20 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Chat_ChatDetail">Chat_ChatDetail</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="createChat"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/chat/</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">createChat</span>)</div>
-    <div class="method-notes"></div>
-
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">gameID (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Chat_ChatDetail">Chat_ChatDetail</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "listMessages" : [ {
-    "nameUser" : "nameUser",
-    "msgString" : "msgString",
-    "id" : 0,
-    "messageWriter" : true
-  }, {
-    "nameUser" : "nameUser",
-    "msgString" : "msgString",
-    "id" : 0,
-    "messageWriter" : true
-  } ],
-  "ID" : 6,
-  "id" : 1
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>*/*</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    OK
-        <a href="#Chat_ChatDetail">Chat_ChatDetail</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="deleteChat"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /api/chat/{id}</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">deleteChat</span>)</div>
-    <div class="method-notes"></div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">id (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Chat_ChatDetail">Chat_ChatDetail</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "listMessages" : [ {
-    "nameUser" : "nameUser",
-    "msgString" : "msgString",
-    "id" : 0,
-    "messageWriter" : true
-  }, {
-    "nameUser" : "nameUser",
-    "msgString" : "msgString",
-    "id" : 0,
-    "messageWriter" : true
-  } ],
-  "ID" : 6,
-  "id" : 1
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>*/*</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    OK
-        <a href="#Chat_ChatDetail">Chat_ChatDetail</a>
+    <h4 class="field-label">404</h4>
+    The game with that id doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getAllChats"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/chat/all</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/chats/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getAllChats</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you all the chats in the app</div>
 
 
 
@@ -485,18 +382,61 @@
         
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getIndividualChat"></a>
+  <div class="method"><a name="getAllMessages"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/chat/{id}</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">getIndividualChat</span>)</div>
-    <div class="method-notes"></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/chats/{id}/messages</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getAllMessages</span>)</div>
+    <div class="method-notes">This method gives you all the messages of a certain chat</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the chat you want to get the message of format: int64</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      array[String]
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ "", "" ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getIndividualChat"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/chats/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getIndividualChat</span>)</div>
+    <div class="method-notes">This method let you get the chat of a certain game</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game you want to get the chat of format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -540,15 +480,18 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Chat_ChatDetail">Chat_ChatDetail</a>
+    <h4 class="field-label">404</h4>
+    The chat doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="GameControllerRest">GameControllerRest</a></h1>
   <div class="method"><a name="createGame"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/game/</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/games/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">createGame</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you create a new game</div>
 
 
     <h3 class="field-label">Consumes</h3>
@@ -561,7 +504,7 @@
     <div class="field-items">
       <div class="param">body <a href="#Game_gameBasico">Game_gameBasico</a> (required)</div>
       
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; This is the info of the new game you want to create </div>
                 </div>  <!-- field-items -->
 
 
@@ -604,20 +547,23 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Game_gameBasico">Game_gameBasico</a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="deleteGame"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /api/game/{id}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /api/games/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">deleteGame</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you remove a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game you want to remove format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -636,7 +582,7 @@
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
   "mapScores" : {
-    "key" : 1
+    "key" : 6
   },
   "chat" : {
     "listMessages" : [ {
@@ -650,16 +596,36 @@
       "id" : 5,
       "messageWriter" : true
     } ],
-    "ID" : 2,
-    "id" : 7
+    "ID" : 5,
+    "id" : 2
   },
   "imagePath" : "imagePath",
-  "thePosts" : [ null, null ],
+  "thePosts" : [ {
+    "updateDate" : "updateDate",
+    "postText" : "postText",
+    "author" : "author",
+    "imagePath" : "imagePath",
+    "theType" : "News",
+    "id" : 0,
+    "title" : "title",
+    "creationDate" : "creationDate",
+    "fromGameID" : 6
+  }, {
+    "updateDate" : "updateDate",
+    "postText" : "postText",
+    "author" : "author",
+    "imagePath" : "imagePath",
+    "theType" : "News",
+    "id" : 0,
+    "title" : "title",
+    "creationDate" : "creationDate",
+    "fromGameID" : 6
+  } ],
   "genre" : "Horror",
   "description" : "description",
   "gameTitle" : "gameTitle",
-  "id" : 6,
-  "averageScore" : 5.962134
+  "id" : 0,
+  "averageScore" : 1.4658129
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -673,20 +639,26 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Game">Game</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="downloadImage2"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/game/{id}/image</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/{id}/image</code></pre></div>
     <div class="method-summary"> (<span class="nickname">downloadImage2</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you get the image of a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game you want to get the id of format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -716,20 +688,23 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Object">Object</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="editGame"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/game/{id}</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/games/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">editGame</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you change the info a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game you want to edit format: int64</div>    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -784,20 +759,92 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Game_gameBasico">Game_gameBasico</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getBestRatedGames"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/bestRated</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getBestRatedGames</span>)</div>
+    <div class="method-notes">This method gives you the best rated games in the app web</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Game_gameBasico">Game_gameBasico</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "mapScores" : {
+    "key" : 6
+  },
+  "chat" : {
+    "id" : 5
+  },
+  "imagePath" : "imagePath",
+  "thePosts" : [ { }, { } ],
+  "genre" : "Horror",
+  "description" : "description",
+  "gameTitle" : "gameTitle",
+  "id" : 0,
+  "averageScore" : 1.4658129
+}, {
+  "mapScores" : {
+    "key" : 6
+  },
+  "chat" : {
+    "id" : 5
+  },
+  "imagePath" : "imagePath",
+  "thePosts" : [ { }, { } ],
+  "genre" : "Horror",
+  "description" : "description",
+  "gameTitle" : "gameTitle",
+  "id" : 0,
+  "averageScore" : 1.4658129
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getGame"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/game/{id}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getGame</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you get the info of a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -841,14 +888,17 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Game_gameBasico">Game_gameBasico</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getGames"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/game</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getGames</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you all the games that exist in the app</div>
 
 
 
@@ -912,9 +962,9 @@
   <div class="method"><a name="getGamesByGenre"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/game/genres</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/genres</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getGamesByGenre</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you the games filter depends of the genre you select</div>
 
 
 
@@ -924,7 +974,7 @@
     <div class="field-items">
       <div class="param">genre (required)</div>
       
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; This is the genre of the games you want to get </div>    </div>  <!-- field-items -->
 
 
     <h3 class="field-label">Return type</h3>
@@ -983,9 +1033,9 @@
   <div class="method"><a name="getGamesPaginated"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/game/page</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/page</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getGamesPaginated</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method is for the pagination of the app web</div>
 
 
 
@@ -995,7 +1045,78 @@
     <div class="field-items">
       <div class="param">numPage (required)</div>
       
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; This is the number of the game page you want format: int32</div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Game_gameBasico">Game_gameBasico</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "mapScores" : {
+    "key" : 6
+  },
+  "chat" : {
+    "id" : 5
+  },
+  "imagePath" : "imagePath",
+  "thePosts" : [ { }, { } ],
+  "genre" : "Horror",
+  "description" : "description",
+  "gameTitle" : "gameTitle",
+  "id" : 0,
+  "averageScore" : 1.4658129
+}, {
+  "mapScores" : {
+    "key" : 6
+  },
+  "chat" : {
+    "id" : 5
+  },
+  "imagePath" : "imagePath",
+  "thePosts" : [ { }, { } ],
+  "genre" : "Horror",
+  "description" : "description",
+  "gameTitle" : "gameTitle",
+  "id" : 0,
+  "averageScore" : 1.4658129
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getRecommendedGames"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/{id}/recommendations</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getRecommendedGames</span>)</div>
+    <div class="method-notes">This method gives you some recomendations depends of your subscriptions</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+
+
+
+
 
 
     <h3 class="field-label">Return type</h3>
@@ -1054,15 +1175,15 @@
   <div class="method"><a name="getScores"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/game/{id}/scores</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/games/{id}/scores</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getScores</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you the scores of a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the of the game you want to get scores of format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -1094,20 +1215,142 @@
     <h4 class="field-label">200</h4>
     OK
         
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="uploadImage2"></a>
+  <div class="method"><a name="removeSubscriptions"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/game/{id}/image</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">uploadImage2</span>)</div>
-    <div class="method-notes"></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/games/{gameId}/unsubmits</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">removeSubscriptions</span>)</div>
+    <div class="method-notes">This method let you to unsubscribe to da certain game</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">gameId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the method you want to get unsubscribe format: int64</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User_gameBasico">User_gameBasico</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "password" : "password"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#User_gameBasico">User_gameBasico</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="setScore"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/games/{id}/score</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">setScore</span>)</div>
+    <div class="method-notes">This method lets you set a score for a certain game</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game you want to rate format: int64</div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">stars (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; This is the score you give to the game, that is betwen 1-5 format: int32</div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Game_gameBasico">Game_gameBasico</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mapScores" : {
+    "key" : 6
+  },
+  "chat" : {
+    "id" : 5
+  },
+  "imagePath" : "imagePath",
+  "thePosts" : [ { }, { } ],
+  "genre" : "Horror",
+  "description" : "description",
+  "gameTitle" : "gameTitle",
+  "id" : 0,
+  "averageScore" : 1.4658129
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Game_gameBasico">Game_gameBasico</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="uploadImage2"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/games/{id}/image</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">uploadImage2</span>)</div>
+    <div class="method-notes">This method let you change the image of a certain game</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game wich you what to change the image of format: int64</div>    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -1119,7 +1362,7 @@
     <div class="field-items">
       <div class="param">body <a href="#body_2">body_2</a> (optional)</div>
       
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; This is the data of the image you want to upload </div>
                 </div>  <!-- field-items -->
 
 
@@ -1148,6 +1391,63 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Object">Object</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="uploadSubscriptions"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/games/{gameId}/submits</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">uploadSubscriptions</span>)</div>
+    <div class="method-notes">This method let you subscribe to a certain game</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">gameId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the game you want to get subscribe format: int64</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#User_gameBasico">User_gameBasico</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "password" : "password"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#User_gameBasico">User_gameBasico</a>
+    <h4 class="field-label">404</h4>
+    The game doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="LoginControllerRest">LoginControllerRest</a></h1>
@@ -1191,6 +1491,9 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#AuthResponse">AuthResponse</a>
+    <h4 class="field-label">404</h4>
+    The user doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="login"></a>
@@ -1198,7 +1501,7 @@
     <a class="up" href="#__Methods">Up</a>
     <pre class="post"><code class="huge"><span class="http-method">post</span> /api/auth/login</code></pre></div>
     <div class="method-summary"> (<span class="nickname">login</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you login the page</div>
 
 
     <h3 class="field-label">Consumes</h3>
@@ -1211,7 +1514,7 @@
     <div class="field-items">
       <div class="param">body <a href="#LoginRequest">LoginRequest</a> (required)</div>
       
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; This is the info of the user with wich you want to login </div>
                 </div>  <!-- field-items -->
 
 
@@ -1244,6 +1547,9 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#AuthResponse">AuthResponse</a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="refreshToken"></a>
@@ -1292,9 +1598,9 @@
   <div class="method"><a name="createPost"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/post/</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/posts/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">createPost</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you create a new post</div>
 
 
     <h3 class="field-label">Consumes</h3>
@@ -1307,7 +1613,7 @@
     <div class="field-items">
       <div class="param">body <a href="#Post">Post</a> (required)</div>
       
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; This is the data of the new post you want to create </div>
                 </div>  <!-- field-items -->
 
 
@@ -1326,39 +1632,13 @@
     <pre class="example"><code>{
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "listMessages" : [ {
-        "nameUser" : "nameUser",
-        "msgString" : "msgString",
-        "id" : 5,
-        "messageWriter" : true
-      }, {
-        "nameUser" : "nameUser",
-        "msgString" : "msgString",
-        "id" : 5,
-        "messageWriter" : true
-      } ],
-      "ID" : 2,
-      "id" : 7
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1372,20 +1652,23 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Post">Post</a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="deletePost"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /api/post/{id}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /api/posts/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">deletePost</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you remove a certain post</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the post you want to remove format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -1405,39 +1688,13 @@
     <pre class="example"><code>{
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "listMessages" : [ {
-        "nameUser" : "nameUser",
-        "msgString" : "msgString",
-        "id" : 5,
-        "messageWriter" : true
-      }, {
-        "nameUser" : "nameUser",
-        "msgString" : "msgString",
-        "id" : 5,
-        "messageWriter" : true
-      } ],
-      "ID" : 2,
-      "id" : 7
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1451,20 +1708,26 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Post">Post</a>
+    <h4 class="field-label">404</h4>
+    The post doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="downloadImage1"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/post/{id}/image</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/posts/{id}/image</code></pre></div>
     <div class="method-summary"> (<span class="nickname">downloadImage1</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you get the image of a certain post</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the post you want to get the image of format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -1494,20 +1757,23 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Object">Object</a>
+    <h4 class="field-label">404</h4>
+    The post doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="editPost"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/post/{id}</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/posts/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">editPost</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you edit the post determinates with id in the URL</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the post you want to edit format: int64</div>    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -1538,39 +1804,13 @@
     <pre class="example"><code>{
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "listMessages" : [ {
-        "nameUser" : "nameUser",
-        "msgString" : "msgString",
-        "id" : 5,
-        "messageWriter" : true
-      }, {
-        "nameUser" : "nameUser",
-        "msgString" : "msgString",
-        "id" : 5,
-        "messageWriter" : true
-      } ],
-      "ID" : 2,
-      "id" : 7
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1584,20 +1824,26 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Post">Post</a>
+    <h4 class="field-label">404</h4>
+    The post doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getIndividualPost"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/post/{id}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/posts/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getIndividualPost</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you get a certain post</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the post you want to get format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -1617,27 +1863,13 @@
     <pre class="example"><code>{
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1651,14 +1883,17 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Post_PostDetail">Post_PostDetail</a>
+    <h4 class="field-label">404</h4>
+    The post doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getPosts"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/post/all</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/posts/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getPosts</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you all the posts</div>
 
 
 
@@ -1679,51 +1914,23 @@
     <pre class="example"><code>[ {
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }, {
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 } ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1742,9 +1949,9 @@
   <div class="method"><a name="getPostsOfGame"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/post/game</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/posts/game</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getPostsOfGame</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you posts of a certain game</div>
 
 
 
@@ -1754,7 +1961,7 @@
     <div class="field-items">
       <div class="param">gameID (required)</div>
       
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; This is the id of the game of wich you want to get the posts of format: int32</div>    </div>  <!-- field-items -->
 
 
     <h3 class="field-label">Return type</h3>
@@ -1770,51 +1977,23 @@
     <pre class="example"><code>[ {
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }, {
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 } ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1833,9 +2012,9 @@
   <div class="method"><a name="getPostsOfType"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/post/type</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/posts/type</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getPostsOfType</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you the list of games define by a certain type, this method filter the games and gives you the ones that haves the same type you choose</div>
 
 
 
@@ -1845,7 +2024,7 @@
     <div class="field-items">
       <div class="param">theType (required)</div>
       
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; This is the type of you want to get </div>    </div>  <!-- field-items -->
 
 
     <h3 class="field-label">Return type</h3>
@@ -1861,51 +2040,23 @@
     <pre class="example"><code>[ {
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 }, {
   "updateDate" : "updateDate",
   "postText" : "postText",
-  "fromGame" : {
-    "mapScores" : {
-      "key" : 1
-    },
-    "chat" : {
-      "id" : 5
-    },
-    "imagePath" : "imagePath",
-    "thePosts" : [ null, null ],
-    "genre" : "Horror",
-    "description" : "description",
-    "gameTitle" : "gameTitle",
-    "id" : 6,
-    "averageScore" : 5.962134
-  },
   "author" : "author",
   "imagePath" : "imagePath",
   "theType" : "News",
   "id" : 0,
   "title" : "title",
-  "creationDate" : "creationDate"
+  "creationDate" : "creationDate",
+  "fromGameID" : 6
 } ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -1924,15 +2075,15 @@
   <div class="method"><a name="uploadImage1"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/post/{id}/image</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/posts/{id}/image</code></pre></div>
     <div class="method-summary"> (<span class="nickname">uploadImage1</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you change the image of a certain post</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the post wich you want to chage the image of format: int64</div>    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -1944,7 +2095,7 @@
     <div class="field-items">
       <div class="param">body <a href="#body_1">body_1</a> (optional)</div>
       
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; This is the info of the image that you want to upload </div>
                 </div>  <!-- field-items -->
 
 
@@ -1973,15 +2124,21 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Object">Object</a>
+    <h4 class="field-label">404</h4>
+    The post doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, for make this request you need to be an admin
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <h1><a name="ProfileControllerRest">ProfileControllerRest</a></h1>
   <div class="method"><a name="createUser"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/profile/</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/profiles/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">createUser</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you register/create a new user</div>
 
 
     <h3 class="field-label">Consumes</h3>
@@ -1994,7 +2151,7 @@
     <div class="field-items">
       <div class="param">body <a href="#User_userBasico">User_userBasico</a> (required)</div>
       
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; This is the info of the new user </div>
                 </div>  <!-- field-items -->
 
 
@@ -2030,20 +2187,23 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#User_userBasico">User_userBasico</a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="downloadImage"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profile/{id}/image</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profiles/{id}/image</code></pre></div>
     <div class="method-summary"> (<span class="nickname">downloadImage</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let you get the image of a certain user</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the user you want to get the image of format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -2073,20 +2233,23 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Object">Object</a>
+    <h4 class="field-label">404</h4>
+    The user doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="editUser"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/profile/{id}</code></pre></div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /api/profiles/{id}</code></pre></div>
     <div class="method-summary"> (<span class="nickname">editUser</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method let the user change his data</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of your user, the user you want to change format: int64</div>    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -2134,14 +2297,20 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#User_userBasico">User_userBasico</a>
+    <h4 class="field-label">404</h4>
+    The user doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getAllUsers"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profile/all</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profiles/</code></pre></div>
     <div class="method-summary"> (<span class="nickname">getAllUsers</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This method gives you all the users</div>
 
 
 
@@ -2188,18 +2357,67 @@
         
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getUser"></a>
+  <div class="method"><a name="getSubscriptions"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profile/{id}</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">getUser</span>)</div>
-    <div class="method-notes"></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profiles/{id}/subscriptions</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getSubscriptions</span>)</div>
+    <div class="method-notes">This method gives you the list of game you are subscribe at</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the user you want to get the list of subscriptions of format: int64</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      array[Long]
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ 0, 0 ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">404</h4>
+    The user doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /api/profiles/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getUser</span>)</div>
+    <div class="method-notes">This method gives you the info of a certain user, more specifictlly the one with the same id determinate in the URL</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; this is the id of the user you want to get the info of format: int64</div>    </div>  <!-- field-items -->
 
 
 
@@ -2234,22 +2452,25 @@
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    OK
+    OK &amp;quot;The user has been found successfully&amp;quot;
         <a href="#User_userBasico">User_userBasico</a>
+    <h4 class="field-label">404</h4>
+    The user doesnt exist
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="uploadImage"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/profile/{id}/image</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /api/profiles/{id}/image</code></pre></div>
     <div class="method-summary"> (<span class="nickname">uploadImage</span>)</div>
-    <div class="method-notes"></div>
+    <div class="method-notes">This is the method that let you upload a image to a certain user</div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">id (required)</div>
       
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int64</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; This is the id of the user you want to change the image of format: int64</div>    </div>  <!-- field-items -->
 
     <h3 class="field-label">Consumes</h3>
     This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
@@ -2290,6 +2511,12 @@
     <h4 class="field-label">200</h4>
     OK
         <a href="#Object">Object</a>
+    <h4 class="field-label">404</h4>
+    The user doesnt exist
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    You aren&#x27;t authorized to make this request, you must be login for make it
+        <a href="#"></a>
   </div> <!-- method -->
   <hr/>
 
@@ -2301,10 +2528,8 @@
     <li><a href="#AuthResponse"><code>AuthResponse</code></a></li>
     <li><a href="#Chat"><code>Chat</code></a></li>
     <li><a href="#Chat_ChatDetail"><code>Chat_ChatDetail</code></a></li>
-    <li><a href="#Chat_PostDetail"><code>Chat_PostDetail</code></a></li>
     <li><a href="#Chat_gameBasico"><code>Chat_gameBasico</code></a></li>
     <li><a href="#Game"><code>Game</code></a></li>
-    <li><a href="#Game_PostDetail"><code>Game_PostDetail</code></a></li>
     <li><a href="#Game_gameBasico"><code>Game_gameBasico</code></a></li>
     <li><a href="#LoginRequest"><code>LoginRequest</code></a></li>
     <li><a href="#Message"><code>Message</code></a></li>
@@ -2312,6 +2537,7 @@
     <li><a href="#Post"><code>Post</code></a></li>
     <li><a href="#Post_PostDetail"><code>Post_PostDetail</code></a></li>
     <li><a href="#Post_gameBasico"><code>Post_gameBasico</code></a></li>
+    <li><a href="#User_gameBasico"><code>User_gameBasico</code></a></li>
     <li><a href="#User_userBasico"><code>User_userBasico</code></a></li>
     <li><a href="#body"><code>body</code></a></li>
     <li><a href="#body_1"><code>body_1</code></a></li>
@@ -2348,13 +2574,6 @@
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3><a name="Chat_PostDetail"><code>Chat_PostDetail</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
     <h3><a name="Chat_gameBasico"><code>Chat_gameBasico</code></a> <a class="up" href="#__Models">Up</a></h3>
     
     <div class="field-items">
@@ -2375,23 +2594,6 @@
 <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">chat (optional)</div><div class="param-desc"><span class="param-type"><a href="#Chat">Chat</a></span>  </div>
 <div class="param">thePosts (optional)</div><div class="param-desc"><span class="param-type"><a href="#Post">array[Post]</a></span>  </div>
-<div class="param">imagePath (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="Game_PostDetail"><code>Game_PostDetail</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
-<div class="param">gameTitle (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">genre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-        <div class="param-enum-header">Enum:</div>
-        <div class="param-enum">Horror</div><div class="param-enum">Shooter</div><div class="param-enum">Action</div><div class="param-enum">Platformer</div><div class="param-enum">Sports</div><div class="param-enum">Puzzles</div><div class="param-enum">Narrative</div><div class="param-enum">RPG</div>
-<div class="param">mapScores (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">map[String, Integer]</a></span>  format: int32</div>
-<div class="param">averageScore (optional)</div><div class="param-desc"><span class="param-type"><a href="#float">Float</a></span>  format: float</div>
-<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">chat (optional)</div><div class="param-desc"><span class="param-type"><a href="#Chat_PostDetail">Chat_PostDetail</a></span>  </div>
-<div class="param">thePosts (optional)</div><div class="param-desc"><span class="param-type"><a href="#Post_PostDetail">array[Post_PostDetail]</a></span>  </div>
 <div class="param">imagePath (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
@@ -2448,7 +2650,7 @@
 <div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">creationDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">updateDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">fromGame (optional)</div><div class="param-desc"><span class="param-type"><a href="#Game">Game</a></span>  </div>
+<div class="param">fromGameID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
 <div class="param">postText (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">author (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">theType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
@@ -2465,7 +2667,7 @@
 <div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">creationDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">updateDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">fromGame (optional)</div><div class="param-desc"><span class="param-type"><a href="#Game_PostDetail">Game_PostDetail</a></span>  </div>
+<div class="param">fromGameID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
 <div class="param">postText (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">author (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
 <div class="param">theType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
@@ -2478,7 +2680,13 @@
     <h3><a name="Post_gameBasico"><code>Post_gameBasico</code></a> <a class="up" href="#__Models">Up</a></h3>
     
     <div class="field-items">
-      <div class="param">fromGame (optional)</div><div class="param-desc"><span class="param-type"><a href="#Game_gameBasico">Game_gameBasico</a></span>  </div>
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User_gameBasico"><code>User_gameBasico</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">

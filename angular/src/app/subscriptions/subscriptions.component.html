@@ -1,0 +1,45 @@
+{{>header}}
+  <!-- Page Content -->
+  <div class="container container-white" style="padding-bottom: 400px">
+    <div class="row">
+      <div class="col-lg-12">
+        <p></p>
+        <h2>Suscripciones</h2>  
+        <p></p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Portada</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Categoria</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#listaSubs}}
+            <form action="/profile/deleteSubscription/{{id}}">
+            <tr>
+              <td><a href="/gamePage/{{id}}"><image src="/gamePage/{{id}}/image" width="170" height="230" style="margin-left: 20px;"></image></a></td>
+              <td>{{gameTitle}}</td>
+              <td>{{description}}</td>
+              <td>{{genre}}</td>
+              <td>
+                  <div class="btn-group-vertical">
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                    <input type="submit" class="btn btn-danger" value="Eliminar">
+                  </div>
+              </td>
+            </tr>
+            </form>
+            {{/listaSubs}}
+          </tbody>
+        </table>
+        <h1 style="color: black;text-align: center;text-size-adjust: 20px; padding-top: 20px;">{{noSubs}}</h1>
+      </div>
+      <!-- /.col-lg-12 -->
+      <!-- /.row -->
+    </div>
+  </div>
+  <!-- /.container -->
+  {{>footer}}

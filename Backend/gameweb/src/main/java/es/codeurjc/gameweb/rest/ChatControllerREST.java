@@ -56,34 +56,6 @@ public class ChatControllerREST {
         }
     }
     @JsonView(ChatDetail.class)
-    @PostMapping("/")
-    private ResponseEntity<Chat> createChat(@RequestParam int gameID){
-        Game game=gamePostService.findById(gameID).get();
-        if(game!=null){
-            Chat theChat=new Chat();
-            URI location=fromCurrentRequest().path("/{id}").buildAndExpand(theChat.getID()).toUri();
-            game.setChat(theChat);
-            chatService.save(theChat);
-            gamePostService.save(game);
-            return ResponseEntity.created(location).body(theChat);
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
-    }
-    @JsonView(ChatDetail.class)
-    @DeleteMapping("/{id}")
-    private ResponseEntity<Chat> deleteChat(@PathVariable int id){
-        Chat chat= chatService.findById(id).get();
-        if(chat!=null){
-            chatService.delete(id);
-            return ResponseEntity.ok(chat);
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
-    }
-    @JsonView(ChatDetail.class)
     @PutMapping("/{id}")
     private ResponseEntity<Chat> addMessage(@PathVariable int id,@RequestParam String message,HttpServletRequest request){
         Game game=gamePostService.findById(id).get();
@@ -99,6 +71,21 @@ public class ChatControllerREST {
         }
         else{
             return ResponseEntity.notFound().build();
+        }
+    }
+    @JsonView(ChatDetail.class)
+    @GetMapping("/{id}/messages")
+    private Collection<String> getAllMessages(@PathVariable long id){
+        Chat chat=chatService.findById(id).get();
+        if(chat!=null){
+            ArrayList<String> aux=new ArrayList<String>();
+            for(Message m : chat.getListMessages()){
+                aux.add(m.getMsgString());
+            }
+            return aux;
+        }
+        else{
+            return null;
         }
     }
 }

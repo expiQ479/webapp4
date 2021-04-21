@@ -87,8 +87,8 @@ public class PostsControllerREST {
         }
     }
     @PostMapping("/")
-    public ResponseEntity<Post> createPost(@RequestBody Post post,@RequestParam long fromGame){
-        Game game=gamePostService.findById(fromGame).get();
+    public ResponseEntity<Post> createPost(@RequestBody Post post){
+        Game game=gamePostService.findById(post.getFromGameID()).get();
         if(game!=null){
             post.setFromGame(game);
             pService.save(post);
@@ -99,6 +99,20 @@ public class PostsControllerREST {
             return ResponseEntity.notFound().build();
         }
  
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> editPost(@PathVariable long id, @RequestBody Post newPost) {      
+        Post p = pService.findById(id).get();      
+        if (p != null) {
+            Game game=gamePostService.findById(p.getFromGameID()).get();
+            newPost.setFromGame(game);
+            newPost.setId(id);
+            pService.save(newPost);
+ 
+            return ResponseEntity.ok(p);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Post> deletePost(@PathVariable long id){
@@ -128,20 +142,7 @@ public class PostsControllerREST {
         }
  
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Post> editPost(@PathVariable long id, @RequestBody Post newPost) {
-        Post p = pService.findById(id).get();
- 
-        if (p != null) {
- 
-            newPost.setId(id);
-            pService.save(newPost);
- 
-            return ResponseEntity.ok(p);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+    
 	@GetMapping("/{id}/image")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException {
  

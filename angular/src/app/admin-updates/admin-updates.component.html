@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="google-signin-client_id" content="774083852848-4dopf21hopfbs79gre07buuju1c89jul.apps.googleusercontent.com">
+
+  <title>4DGames</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    
+    function increaseNumber(){
+      if( typeof increaseNumber.counter == 'undefined' ) {
+        increaseNumber.counter = 0;
+      }
+      increaseNumber.counter++;
+      return parseInt("{{numPage}}")+increaseNumber.counter
+    }
+    $(document).ready(function(){
+      $('#loadMore').click(function(){
+        var nextPage=increaseNumber();
+        var max=parseInt("{{maximo}}");
+        $.ajax({
+        url:"/adminUpdates/"+nextPage
+        }).done(function(data){  
+          var result=$(data).find("#gamesZone");
+          $("#loadZone").append(result);        
+          if(nextPage==max-1){
+            $("#loadMore").remove();
+          }
+          
+        });
+      });
+    });
+  </script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  }
+  <!-- Bootstrap core CSS -->
+  <link href="/bootstrap/startbootstrap-shop-homepage-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/shop-homepage.css" rel="stylesheet">
+  <link href="/css/csslogin.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a href="/"><image src="/images/logo_4DGames.png" width="100" height="50"></image></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="/gameList/0" class="btn" role="button">Juegos</a>
+          </li>
+          {{#logged}}
+          {{#admin}}
+          <li class="nav-item">
+            <a href="/adminUpdates/" class="btn" role="button">Editar Juegos </a>
+          </li>
+          {{/admin}}
+          <li class="nav-item">
+              <a href="/profile/"><image src="/profile/image" width="50" height="50" style="margin-left: 20px; border-radius: 150px;"></image></a>
+          </li>
+          {{/logged}}
+          {{^logged}}
+          <li class="nav-item">
+            <a class="nav-link" href="/login" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
+          </li>
+          {{/logged}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Content -->
+  <div class="container container-white">
+    <div class="row">
+      <div class="col-lg-12">
+        <p></p>
+        <h2>Juegos subidos</h2>  
+        <a href="/adminUpdates/addGame">
+          <image src="/images/plusicon.png" width="40" height="40"></image>
+        </a>
+        <p></p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="responsiveC">Portada</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Categoria</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="gamesZone">
+            {{#games}}
+            <tr>
+              <td><a href="/gamePage/{{id}}"><img src="/gamePage/{{id}}/image" width="170" height="230"></img></a></td>
+              <td>{{gameTitle}}</td>
+              <td>{{description}}</td>
+              <td> {{genre}}</td>
+              <td>
+                <div class="btn-group-vertical">
+                  <a class="btn btn-info" href="/adminUpdates/editGame/{{id}}" role="button">Editar</a> 
+                  <a class="btn btn-info" href="/createPostPage/{{id}}" role="button">Crear post</a>   
+                  <a class="btn btn-danger" href="/adminUpdates/delete/{{id}}" role="button">Eliminar</a>                              
+                </div>
+              </td>
+            </tr>
+            {{/games}}
+            {{^games}}
+            <tr>
+              <td>No se ha encontrado el juego</td>
+              <td>No se ha encontrado el juego</td>
+              <td>No se ha encontrado el juego</td>
+              <td>No se ha encontrado el juego</td>
+            </tr>
+	          {{/games}}
+                   
+          </tbody>          
+        </table>
+        <div id="loadZone" class="table table-striped"></div>
+      </div>
+      <!-- /.col-lg-12 -->
+      <div class="col-lg-12 col-md-12 mb-12" style="align-items: center;">
+        <div class="card-body">
+          <div class="card h-100">
+              <button class="btn btn-info" id="loadMore">Mostrar Más</button>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+  </div>
+  {{>footer}}

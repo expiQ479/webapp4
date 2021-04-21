@@ -42,7 +42,6 @@ public class User {
 	private boolean image;
     @JsonView(userBasico.class)
     private String info;
-    @JsonIgnore
     private String password;
     
     @ElementCollection(fetch = FetchType.EAGER)

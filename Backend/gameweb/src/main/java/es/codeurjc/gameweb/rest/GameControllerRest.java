@@ -30,7 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
  
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
- 
+
+import es.codeurjc.gameweb.models.Chat;
 import es.codeurjc.gameweb.models.Game;
 import es.codeurjc.gameweb.models.Genres;
 import es.codeurjc.gameweb.models.User;
@@ -151,7 +152,7 @@ public class GameControllerRest {
     @JsonView(gameBasico.class)
     @PostMapping("/")
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
- 
+        game.setChat(new Chat());
         gameService.save(game);
  
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(game.getId()).toUri();
@@ -236,7 +237,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PutMapping("/{gameId}")
+    @PutMapping("/{gameId}/unsubmits")
     public ResponseEntity<User> removeSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
