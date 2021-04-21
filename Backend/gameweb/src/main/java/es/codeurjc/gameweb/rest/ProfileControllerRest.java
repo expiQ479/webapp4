@@ -108,7 +108,7 @@ public class ProfileControllerRest {
             URI location = fromCurrentRequest().build().toUri();
  
             user.setImagePath(location.toString());
-            user.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), user.getImageFile().length()));
+            user.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
             userService.save(user);
  
             //imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);

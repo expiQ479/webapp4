@@ -210,7 +210,7 @@ public class GameControllerRest {
             URI location = fromCurrentRequest().build().toUri();
  
             game.setImagePath(location.toString());
-            game.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), game.getImageFile().length()));
+            game.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
             gameService.save(game);
  
             //imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);

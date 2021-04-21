@@ -137,7 +137,7 @@ public class PostsControllerREST {
             URI location = fromCurrentRequest().build().toUri();
  
             post.setImagePath(location.toString());
-            post.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), post.getImageFile().length()));
+            post.setImageFile(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
             pService.save(post);
  
             //imageService.saveImage(POSTS_FOLDER, game.getId(), imageFile);
