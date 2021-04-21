@@ -1,0 +1,40 @@
+{{>header}}
+<div class="container container-white" style="padding-bottom: 150px">
+    <div class="row">
+      <div class="col-lg-3">
+
+      </div>
+      <div class="col-lg-6">
+        <div class="main-section">
+          <div class="content-section">
+            <div class="head-section">
+              <h3>Nuevo post</h3>
+            </div>
+            <div class="body-section">
+              <form action="/api/listPosts/{{gameID}}" method="POST" enctype="multipart/form-data">
+                <p>Portada:</p>
+                    <input type='file' name='imageField' accept=".jpg, .jpeg"/>
+                <div class="form-input">
+                  <input type="text" name="title" placeholder="Titulo Post">
+                </div>
+                <div class="form-input">
+                  <textarea name='postText' rows=20 cols=40></textarea>
+                </div>
+
+                <div class="form-input">
+                  <input type="hidden" name="_csrf" value="{{token}}"/>
+                  <input type="submit" value="Create Post">
+
+                </div>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+{{>footer}}

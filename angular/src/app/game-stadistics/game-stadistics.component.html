@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>4DGames</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/bootstrap/startbootstrap-shop-homepage-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/shop-homepage.css" rel="stylesheet">
+  <link href="/css/csslogin.css" rel="stylesheet">
+  <link href="/css/stadisticsCSS.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a href="/"><image src="/images/logo_4DGames.png" width="100" height="50"></image></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="/gameList/0" class="btn" role="button">Juegos</a>
+          </li>
+          {{#logged}}
+          {{#admin}}
+          <li class="nav-item">
+            <a href="/adminUpdates/0" class="btn" role="button">Editar Juegos </a>
+          </li>
+          {{/admin}}
+          <li class="nav-item">
+              <a href="/profile/"><image src="/profile/image" width="50" height="50" style="margin-left: 20px; border-radius: 150px;"></image></a>
+          </li>
+          {{/logged}}
+          {{^logged}}
+          <li class="nav-item">
+            <a class="nav-link" href="/login" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
+          </li>
+          {{/logged}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- header -->
+
+<div class="container container-white">
+    <h1>Estadísticas de {{game.gameTitle}}</h1>
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="/gamePage/{{id}}/image" width="375" height="525">
+            <h4 style="text-align: center;">Valoracion media de {{game.gameTitle}} es {{game.averageScore}}</h4>  
+        </div>
+        <div class="col-lg-8">
+            <h4 style="text-align: center;">Valoraciones</h4>  
+            <div class="chart-wrap vertical"style="padding-top: 150px;">
+                
+                <div class="grid">
+                   
+                    <div class="bar" style="--bar-value:{{gamestars1}}%; background-color: #d60f0f;" data-name="★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars2}}%; background-color: #fca504;" data-name="★★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars3}}%; background-color: #eeff00;" data-name="★★★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars4}}%; background-color: #3bec18;" data-name="★★★★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars5}}%; background-color: #18af3b;" data-name="★★★★★" ></div>  
+                    
+                </div>
+              
+            </div>
+          
+        </div>
+        
+    </div>
+    
+</div>
+{{>footer}}
