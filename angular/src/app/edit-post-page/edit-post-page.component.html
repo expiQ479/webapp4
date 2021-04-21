@@ -1,0 +1,65 @@
+{{>header}}
+<div class="container container-white" style="padding-bottom: 420px;">
+    <div class="row">
+        <div class="col-lg-12">
+            <p></p>
+            <h2>Editar {{post.title}}</h2>
+            <p></p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>                       
+                        <th>Título</th>
+                        <th>Texto</th>
+                        <th>Tipo</th>
+                        <th>Autor</th>
+                        <th class="responsiveC">Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form action="/adminUpdates/editPost/{{post.id}}" method="post" enctype="multipart/form-data">
+                    <tr>
+                        
+                        <td>
+                            <input type='text' value='{{post.title}}' name='newTitle' />
+                            <input type="hidden" name="id" value="{{post.id}}" />
+                        </td>
+                        <td>
+                            <textarea name='newPostText' value="{{post.postText}}" rows=20 cols=40>{{post.postText}}</textarea>
+                        </td>
+                        <td>
+                            <div class="form-input">
+                                <div class="wrap">
+                                  <input list="postTypes" name="newType" type="text"
+                                      placeholder="Escoge la categoría">
+                                  <datalist id="postTypes">
+                                      <option value="Guías"></option>
+                                      <option value="Noticias"></option>
+                                      <option value="Actualizaciones"></option>
+                                  </datalist>
+                              </div>
+                                </div> 
+                        </td>
+                        <td>
+                            <input type='text' value='{{post.author}}' name='author' />
+                        </td>
+                        <td>
+                            <img src="/posts/{{post.id}}/image" class="responsive2" width="240" height="135"></img>
+                            <input type='file' name='imageField' accept=".jpg, .jpeg"/>	
+                            <input type='checkbox' name='removeImage'> <label>Eliminar imagen</label><br>
+                        </td>
+                    </tr>
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                    <input type='submit' value='Guardar' />
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                </form>
+                </tbody>
+            </table>
+            
+            
+        </div>
+        <!-- /.col-lg-12 -->
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</div>
+{{>footer}}

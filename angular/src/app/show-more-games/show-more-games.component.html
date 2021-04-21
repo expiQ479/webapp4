@@ -1,0 +1,17 @@
+{{#games}}
+          <div class="col-lg-3 col-md-4 mb-4">
+            <div class="card h-100">
+              <a href="/gamePage/{{id}}"><img class="card-img-top" src="/gamePage/{{id}}/image" alt=""></a>
+              <div class="card-body">
+                <h6 class="card-title">
+                  <a href="/gamePage/{{id}}" class="links" >{{gameTitle}}</a>
+                </h6>
+                <!--<p class="card-text">descripcion del juego</p>-->
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">{{averageScore}} ★</small>
+              </div>
+            </div>
+            
+          </div>
+          {{/games}}

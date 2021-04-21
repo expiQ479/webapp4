@@ -7,19 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <meta name="google-signin-client_id" content="774083852848-4dopf21hopfbs79gre07buuju1c89jul.apps.googleusercontent.com">
 
   <title>4DGames</title>
-  
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-  }
   <!-- Bootstrap core CSS -->
   <link href="/bootstrap/startbootstrap-shop-homepage-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="/css/shop-homepage.css" rel="stylesheet">
   <link href="/css/csslogin.css" rel="stylesheet">
+  <link href="/css/stadisticsCSS.css" rel="stylesheet">
 </head>
 <body>
   <!-- Navigation -->
@@ -49,10 +46,42 @@
             <a class="nav-link" href="/login" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Iniciar sesión</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/register/" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
+            <a class="nav-link" href="/register" style="background-color: rgb(209, 6, 6); border-radius: 5px; margin: 2px; color: white">Registrarse</a>
           </li>
           {{/logged}}
         </ul>
       </div>
     </div>
   </nav>
+
+  <!-- header -->
+
+<div class="container container-white">
+    <h1>Estadísticas de {{game.gameTitle}}</h1>
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="/gamePage/{{id}}/image" width="375" height="525">
+            <h4 style="text-align: center;">Valoracion media de {{game.gameTitle}} es {{game.averageScore}}</h4>  
+        </div>
+        <div class="col-lg-8">
+            <h4 style="text-align: center;">Valoraciones</h4>  
+            <div class="chart-wrap vertical"style="padding-top: 150px;">
+                
+                <div class="grid">
+                   
+                    <div class="bar" style="--bar-value:{{gamestars1}}%; background-color: #d60f0f;" data-name="★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars2}}%; background-color: #fca504;" data-name="★★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars3}}%; background-color: #eeff00;" data-name="★★★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars4}}%; background-color: #3bec18;" data-name="★★★★" ></div>
+                    <div class="bar" style="--bar-value:{{gamestars5}}%; background-color: #18af3b;" data-name="★★★★★" ></div>  
+                    
+                </div>
+              
+            </div>
+          
+        </div>
+        
+    </div>
+    
+</div>
+{{>footer}}
