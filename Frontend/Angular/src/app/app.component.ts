@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GameService } from 'src/app/services/game.service';
+import { Game } from './interfaces/game.model';
+
 
 @Component({
   selector: 'app ',
@@ -6,5 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  imgUrl = "assets/logo.png"
+  imgUrl = "assets/logo.png"  
+  game: Game;
+
+  constructor(private gameService: GameService){ }
+
+  ngOnInit() {
+    this.getGames();
+  }
+
+  getGames(){
+    this.gameService.getGameById(1).subscribe(
+      game => {
+        this.game = game as Game;
+      }
+    );
+  }
+
 }
