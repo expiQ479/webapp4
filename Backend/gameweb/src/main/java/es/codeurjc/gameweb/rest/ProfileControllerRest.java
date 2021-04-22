@@ -101,7 +101,7 @@ public class ProfileControllerRest {
         }
     }
  
-    @PostMapping("/{id}/image")
+    @PostMapping("/{id}/images")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException, SQLException {
         User user=userService.findById(id).get();
         if(user!=null){
@@ -119,7 +119,7 @@ public class ProfileControllerRest {
         }
  
 	}
-    @GetMapping("/{id}/image")
+    @GetMapping("/{id}/images")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException, SQLException {
         User user=userService.findById(id).get();
         if(user!=null){

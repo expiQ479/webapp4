@@ -51,14 +51,14 @@ public class PostsControllerREST {
         return pService.findAll();
     }
     @JsonView(PostDetail.class)
-    @GetMapping("/game")
+    @GetMapping("/games")
     public Collection<Post> getPostsOfGame(@RequestParam int gameID){
         Game myGame=gamePostService.findById(gameID).get();
         return pService.findPostOfGame(myGame);
  
     }
     @JsonView(PostDetail.class)
-    @GetMapping("/type")
+    @GetMapping("/types")
     public Collection<Post> getPostsOfType(@RequestParam String theType){
         PostType type=null;
         switch(theType){
@@ -130,7 +130,7 @@ public class PostsControllerREST {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping("/{id}/image")
+    @PostMapping("/{id}/images")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException, SQLException {
         Post post=pService.findById(id).get();
         if(post!=null){
@@ -148,7 +148,7 @@ public class PostsControllerREST {
         }
  
 	}
-    @GetMapping("/{id}/image")
+    @GetMapping("/{id}/images")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException, SQLException {
         Post post=pService.findById(id).get();
         if(post!=null){

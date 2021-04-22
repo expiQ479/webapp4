@@ -108,7 +108,7 @@ public class GameControllerRest {
         return gameService.findGamesOfGenre(gameGenre);
     }
     @JsonView(gameBasico.class)
-    @GetMapping("/page")
+    @GetMapping("/pages")
     private Collection<Game> getGamesPaginated(@RequestParam int numPage){
         return gameService.findAll(PageRequest.of(numPage, 4)).getContent();
     }
@@ -181,7 +181,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PostMapping("/{id}/score")
+    @PostMapping("/{id}/scores")
     public ResponseEntity<Game> setScore(@PathVariable long id,@RequestParam Integer stars,HttpServletRequest request){
         Game game = gameService.findById(id).get();
         if(game!=null){
@@ -203,7 +203,7 @@ public class GameControllerRest {
         }
     }
  
-    @PostMapping("/{id}/image")
+    @PostMapping("/{id}/images")
 	public ResponseEntity<Object> uploadImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException, SQLException {
         Game game=gameService.findById(id).get();
         if(game!=null){
@@ -221,7 +221,7 @@ public class GameControllerRest {
         }
  
 	}
-    @GetMapping("/{id}/image")
+    @GetMapping("/{id}/images")
 	public ResponseEntity<Object> downloadImage(@PathVariable long id) throws MalformedURLException, SQLException {
         Game game=gameService.findById(id).get();
         if(game!=null){
@@ -233,7 +233,7 @@ public class GameControllerRest {
         }
 	}
     @JsonView(gameBasico.class)
-    @PutMapping("/{gameId}/submits")
+    @PostMapping("/{gameId}/subscriptors")
     public ResponseEntity<User> uploadSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
@@ -249,7 +249,7 @@ public class GameControllerRest {
         }
     }
     @JsonView(gameBasico.class)
-    @PutMapping("/{gameId}/unsubmits")
+    @PutMapping("/{gameId}/subscriptors")
     public ResponseEntity<User> removeSubscriptions(@PathVariable long gameId, HttpServletRequest request) throws IOException {
         Principal principal = request.getUserPrincipal();
         Optional<User> user = userService.findByName(principal.getName());
