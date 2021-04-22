@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -74,10 +75,15 @@ public class ProfileControllerRest {
  
     @JsonView(userBasico.class)
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@RequestBody User user) throws IOException{
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Resource image = (Resource) new ClassPathResource("/sample_images/user-image-default.jpg");
+        user.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
         userService.save(user);
- 
+        user.setImagePath("https://localhost:8443/api/games/"+userService.findByName(user.getInfo()).get().getId()+"/image");
+        userService.save(user);
+        userService.save(user);
+        
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
  
         return ResponseEntity.created(location).body(user);
