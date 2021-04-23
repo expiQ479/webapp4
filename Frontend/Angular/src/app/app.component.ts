@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
 import { Game } from './interfaces/game.model';
 
 
 @Component({
-  selector: 'app ',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   imgUrl = "assets/logo.png"  
   game: Game;
-
-  constructor(private gameService: GameService){ }
+  router: Router;
+  constructor(private gameService: GameService/*, private router: Router*/){ }
 
   ngOnInit() {
     this.getGames();
@@ -25,5 +26,5 @@ export class AppComponent {
       }
     );
   }
-
+  gotoGamePage() {this.router.navigate(['games/:id']);}
 }
