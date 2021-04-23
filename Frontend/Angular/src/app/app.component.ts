@@ -6,14 +6,15 @@ import { Game } from './interfaces/game.model';
 
 @Component({
   selector: 'app-root',
+  
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   imgUrl = "assets/logo.png"  
   game: Game;
-  router: Router;
-  constructor(private gameService: GameService/*, private router: Router*/){ }
+  //router: Router;
+  constructor(private gameService: GameService ,private router: Router){ }
 
   ngOnInit() {
     this.getGames();

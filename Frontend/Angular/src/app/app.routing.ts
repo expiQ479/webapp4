@@ -1,9 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
 import { GamePageComponent } from './game-page/game-page.component';
+import { IndexPageComponent } from './index-page/index-page.component';
 
 
 const appRoutes = [
-    { path: 'games/:id', component: GamePageComponent }, 
+    
+    { path: 'games', component: GamePageComponent },
+    { path: 'index', component: IndexPageComponent },
     { path: '', redirectTo: 'index', pathMatch: 'full' }
 ];
 

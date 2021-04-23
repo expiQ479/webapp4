@@ -4,24 +4,18 @@ import { Game } from '../interfaces/game.model';
 import { GameService } from '../services/game.service';
 
 @Component({
-  selector: 'app-game-page',
-  templateUrl: './game-page.component.html',
+  selector: 'app-index-page',
+  templateUrl: './index-page.component.html',
   
 })
-export class GamePageComponent {
-  
-game:Game;
+export class IndexPageComponent  {
+
+  game:Game;
 
   constructor(private router: Router, activatedRoute:ActivatedRoute, private gameService: GameService) {
     let id = activatedRoute.snapshot.params['id'];
-    /*this.gameService.getGameById(id).subscribe(
-      game => {
-        this.game = game as Game;
-      }
-    );*/
-   }
-   returnIndex() {this.router.navigate(['index']);}
+
+  
+  }
+  gotoGamePage() {this.router.navigate(['games']);}
 }
-/*<a [routerLink] ="['games/:id',game.gameTitle]">
-  {{game.gameTitle}}
-  </a>*/
