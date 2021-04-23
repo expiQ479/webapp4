@@ -37,7 +37,7 @@ public class UserService{
     }
     public void setAllImagePaths(){
         for(User u : users.findAll()){
-            u.setImagePath("https://localhost:8443/api/users/"+u.getId()+"/image");
+            u.setImagePath("https://localhost:8443/api/users/"+u.getId()+"/images");
             users.save(u);
         }
     }

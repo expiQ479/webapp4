@@ -74,7 +74,7 @@ public class PostService {
 	}
 	public void setAllImagePaths(){
         for(Post p : posts.findAll()){
-            p.setImagePath("https://localhost:8443/api/posts/"+p.getId()+"/image");
+            p.setImagePath("https://localhost:8443/api/posts/"+p.getId()+"/images");
 			posts.save(p);
         }
     }

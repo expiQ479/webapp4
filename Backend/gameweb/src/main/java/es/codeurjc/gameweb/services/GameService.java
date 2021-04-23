@@ -103,7 +103,7 @@ public class GameService {
     }
 	public void setAllImagePaths(){
         for(Game g : repository.findAll()){
-            g.setImagePath("https://localhost:8443/api/games/"+g.getId()+"/image");
+            g.setImagePath("https://localhost:8443/api/games/"+g.getId()+"/images");
 			repository.save(g);
         }
     }
